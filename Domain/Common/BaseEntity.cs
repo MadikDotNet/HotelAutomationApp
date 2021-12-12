@@ -1,4 +1,4 @@
-namespace HotelAutomation.Domain.Common
+namespace HotelAutomationApp.Domain.Common
 {
     public class BaseEntity
     {

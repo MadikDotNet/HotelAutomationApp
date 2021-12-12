@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using HotelAutomation.Domain.Common;
 using HotelAutomation.Domain.Models.ValueObjects;
+using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.Rooms;
 
 namespace HotelAutomation.Domain.Models.Rooms
 {
@@ -71,7 +72,7 @@ namespace HotelAutomation.Domain.Models.Rooms
         /// <summary>
         /// Rooms images
         /// </summary>
-        public ICollection<Image> Images { get; set; }
+        public ICollection<RoomImage> Images { get; set; }
 
         public static Room New(
             string creatorId,

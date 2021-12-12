@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
-using HotelAutomation.Application.Auth.Queries;
-using HotelAutomation.Application.Auth.UseCases;
+using HotelAutomationApp.Application.Auth.UseCases;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomation.WebApi.Controllers
+namespace HotelAutomationApp.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]

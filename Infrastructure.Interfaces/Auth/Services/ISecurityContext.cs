@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-
 namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Services
 {
     public interface ISecurityContext
@@ -8,7 +5,5 @@ namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Services
         bool UserExists { get;}
         
         string UserId { get; }
-        
-        Task<User?> GetUserAsync(CancellationToken cancellationToken);
     }
 }

@@ -2,12 +2,12 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using HotelAutomation.Domain.Models.Identity;
-using HotelAutomation.Shared;
+using HotelAutomationApp.Domain.Models.Identity;
+using HotelAutomationApp.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace HotelAutomation.Application.Auth.Commands
+namespace HotelAutomationApp.Application.Auth.Commands
 {
     public class CreateUserCommand : IRequest
     {
@@ -36,7 +36,7 @@ namespace HotelAutomation.Application.Auth.Commands
                 var user = User.New(request.Login);
 
                 var result = await _userManager.CreateAsync(user, request.Password);
-                await _userManager.AddToRoleAsync(user, request.Role);
+                // await _userManager.AddToRoleAsync(user, request.Role);
 
                 if (!result.Succeeded)
                 {

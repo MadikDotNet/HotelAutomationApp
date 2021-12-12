@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using Microsoft.Extensions.Options;
@@ -31,7 +32,7 @@ namespace HotelAutomationApp.Infrastructure.Auth.Services
         {
             var signingCredentials = new SigningCredentials(
                 _options.CreateKey(),
-                SecurityAlgorithms.Sha256);
+                SecurityAlgorithms.HmacSha256);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -40,7 +41,8 @@ namespace HotelAutomationApp.Infrastructure.Auth.Services
                 Audience = _options.Audience,
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.Add(_options.TokenLifeTime),
-                SigningCredentials = signingCredentials
+                SigningCredentials = signingCredentials,
+                
             };
 
             return _tokenHandler.CreateToken(tokenDescriptor);

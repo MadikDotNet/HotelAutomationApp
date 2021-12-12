@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using HotelAutomation.Domain.Common;
+using HotelAutomation.Domain.Models.Rooms;
+using HotelAutomationApp.Domain.Common;
 
-namespace HotelAutomation.Domain.Models.Rooms
+namespace HotelAutomationApp.Domain.Models.Rooms
 {
     public class RoomImage : Image
     {

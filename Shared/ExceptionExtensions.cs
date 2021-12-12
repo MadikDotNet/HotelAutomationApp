@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HotelAutomation.Shared
+namespace HotelAutomationApp.Shared
 {
     public static class ExceptionExtensions
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace HotelAutomation.Domain.Common
+namespace HotelAutomationApp.Domain.Common
 {
     /// <summary>
     /// Main class for auditable entities

@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Infrastructure.Interfaces\Infrastructure.Interfaces.csproj" />
+      <ProjectReference Include="..\Persistence.Interfaces\Persistence.Interfaces.csproj" />
     </ItemGroup>
 
     <ItemGroup>

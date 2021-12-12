@@ -3,7 +3,7 @@ using HotelAutomation.Domain.Models.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Config
+namespace HotelAutomationApp.Persistence.Config
 {
     public class RoomConfiguration : IEntityTypeConfiguration<Room>
     {

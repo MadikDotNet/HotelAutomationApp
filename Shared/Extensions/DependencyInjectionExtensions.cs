@@ -3,7 +3,7 @@ using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Shared.Extensions
+namespace HotelAutomationApp.Shared.Extensions
 {
     public static class DependencyInjectionExtensions
     {

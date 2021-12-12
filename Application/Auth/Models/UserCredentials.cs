@@ -1,6 +1,6 @@
-using HotelAutomation.Shared;
+using HotelAutomationApp.Shared;
 
-namespace HotelAutomation.Application.Auth.Models
+namespace HotelAutomationApp.Application.Auth.Models
 {
     public class UserCredentials
     {

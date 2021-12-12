@@ -1,6 +1,6 @@
 using System;
-using HotelAutomation.Domain.Common;
 using HotelAutomation.Domain.Models.ValueObjects;
+using HotelAutomationApp.Domain.Common;
 
 namespace HotelAutomation.Domain.Models.Rooms
 {

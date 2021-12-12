@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
-using HotelAutomation.Application.Auth.Commands;
 using HotelAutomation.Application.Common;
+using HotelAutomationApp.Application.Auth.Commands;
 using MediatR;
 
-namespace HotelAutomation.Application.Auth.UseCases
+namespace HotelAutomationApp.Application.Auth.UseCases
 {
     public class SignUpUseCase : UseCase<SignUpRequest>
     {

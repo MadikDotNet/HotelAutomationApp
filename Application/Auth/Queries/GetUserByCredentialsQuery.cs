@@ -1,12 +1,12 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using HotelAutomation.Application.Auth.Models;
-using HotelAutomation.Domain.Models.Identity;
+using HotelAutomationApp.Application.Auth.Models;
+using HotelAutomationApp.Domain.Models.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace HotelAutomation.Application.Auth.Queries
+namespace HotelAutomationApp.Application.Auth.Queries
 {
     public class GetUserByCredentialsQuery : IRequest<User>
     {

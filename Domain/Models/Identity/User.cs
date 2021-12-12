@@ -1,8 +1,8 @@
 ﻿using System;
-using HotelAutomation.Shared;
+using HotelAutomationApp.Shared;
 using Microsoft.AspNetCore.Identity;
 
-namespace HotelAutomation.Domain.Models.Identity
+namespace HotelAutomationApp.Domain.Models.Identity
 {
     public sealed class User : IdentityUser
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace HotelAutomation.Shared.Common
+namespace HotelAutomationApp.Shared.Common
 {
     public static class EnumerableExtensions
     {

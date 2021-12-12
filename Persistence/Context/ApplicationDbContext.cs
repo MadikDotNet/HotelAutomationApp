@@ -1,15 +1,16 @@
 using System;
 using System.Threading.Tasks;
-using HotelAutomation.Domain.Common;
-using HotelAutomation.Domain.Models.Identity;
 using HotelAutomation.Domain.Models.Rooms;
-using HotelAutomation.Infrastructure.Auth.Services;
+using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.Identity;
+using HotelAutomationApp.Domain.Models.Rooms;
+using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
+using HotelAutomationApp.Persistence.Config;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Config;
 using Persistence.Interfaces.Context;
 
-namespace Persistence.Context
+namespace HotelAutomationApp.Persistence.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User>, IDbContext
     {

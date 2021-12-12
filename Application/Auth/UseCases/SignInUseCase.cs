@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using HotelAutomation.Application.Auth.Commands;
-using HotelAutomation.Application.Auth.Models;
-using HotelAutomation.Application.Auth.Queries;
 using HotelAutomation.Application.Common;
-using HotelAutomation.Domain.Models.Identity;
+using HotelAutomationApp.Application.Auth.Commands;
+using HotelAutomationApp.Application.Auth.Models;
+using HotelAutomationApp.Application.Auth.Queries;
+using HotelAutomationApp.Domain.Models.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace HotelAutomation.Application.Auth.UseCases
+namespace HotelAutomationApp.Application.Auth.UseCases
 {
     public class SignInUseCase : UseCase<SignInRequest, SignInResponse>
     {

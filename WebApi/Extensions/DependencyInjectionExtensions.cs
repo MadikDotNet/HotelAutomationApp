@@ -1,17 +1,17 @@
-﻿using HotelAutomation.Domain.Models.Identity;
-using HotelAutomation.Infrastructure.Auth.Constants;
-using HotelAutomation.Infrastructure.Auth.Services;
-using Infrastructure.Auth.Services;
+﻿using HotelAutomationApp.Domain.Models.Identity;
+using HotelAutomationApp.Infrastructure.Auth.Services;
+using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
+using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
+using HotelAutomationApp.Persistence.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Context;
 using Persistence.Interfaces.Context;
 
-namespace HotelAutomation.WebApi.Extensions
+namespace HotelAutomationApp.WebApi.Extensions
 {
     public static class DependencyInjectionExtensions
     {
@@ -25,7 +25,14 @@ namespace HotelAutomation.WebApi.Extensions
 
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.Password.RequiredLength = 1;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             return services;

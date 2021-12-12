@@ -1,14 +1,14 @@
 using System.Threading;
 using System.Threading.Tasks;
-using HotelAutomation.Application.Auth.Models;
-using HotelAutomation.Domain.Models.Identity;
-using HotelAutomation.Infrastructure.Auth.Exceptions;
-using HotelAutomation.Infrastructure.Auth.Services;
+using HotelAutomationApp.Application.Auth.Models;
+using HotelAutomationApp.Domain.Models.Identity;
+using HotelAutomationApp.Infrastructure.Interfaces.Auth.Exceptions;
+using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelAutomation.Application.Auth.Commands
+namespace HotelAutomationApp.Application.Auth.Commands
 {
     public class CreateTokenCommand : IRequest<string>
     {
