@@ -45,6 +45,8 @@ namespace HotelAutomationApp.WebApi
                 appBuilder.UseSwaggerUI(q => q.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
 
+            appBuilder.UseHttpsRedirection();
+            
             appBuilder.UseAuthenticationSystem();
 
             appBuilder.UseRouting();
