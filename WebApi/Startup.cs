@@ -46,6 +46,8 @@ namespace HotelAutomationApp.WebApi
             }
 
             appBuilder.UseHttpsRedirection();
+
+            appBuilder.UseStaticFiles();
             
             appBuilder.UseAuthenticationSystem();
 
