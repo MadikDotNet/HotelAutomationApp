@@ -19,15 +19,15 @@ namespace HotelAutomationApp.WebApi
 
         public Startup(
             IConfiguration configuration,
-            IWebHostEnvironment webHostEnvironment) => 
+            IWebHostEnvironment webHostEnvironment) =>
             (Configuration, WebHostEnvironment) = (configuration, webHostEnvironment);
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
 
             services.AddSwaggerGen(q => q.SwaggerDoc("v1", new OpenApiInfo {Title = "WebApi", Version = "v1"}));
-            
+
             services.AddMediatR(typeof(Startup));
             services.AddMediatrHandlers(typeof(CreateTokenCommand).Assembly);
             services.AddDatabases(Configuration);
@@ -41,14 +41,15 @@ namespace HotelAutomationApp.WebApi
             if (env.IsDevelopment())
             {
                 appBuilder.UseDeveloperExceptionPage();
-                appBuilder.UseSwagger();
-                appBuilder.UseSwaggerUI(q => q.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
             }
+
+            appBuilder.UseSwagger();
+            appBuilder.UseSwaggerUI(q => q.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 
             appBuilder.UseHttpsRedirection();
 
             appBuilder.UseStaticFiles();
-            
+
             appBuilder.UseAuthenticationSystem();
 
             appBuilder.UseRouting();
