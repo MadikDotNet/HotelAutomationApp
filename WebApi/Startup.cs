@@ -42,11 +42,9 @@ namespace HotelAutomationApp.WebApi
             {
                 appBuilder.UseDeveloperExceptionPage();
             }
-
+            
             appBuilder.UseSwagger();
             appBuilder.UseSwaggerUI(q => q.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
-
-            appBuilder.UseHttpsRedirection();
 
             appBuilder.UseStaticFiles();
 
@@ -54,6 +52,14 @@ namespace HotelAutomationApp.WebApi
 
             appBuilder.UseRouting();
 
+            appBuilder.UseCors(options =>
+            {
+                options.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins("http://localhost:5000")
+                    .AllowCredentials();
+            });
+            
             appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }

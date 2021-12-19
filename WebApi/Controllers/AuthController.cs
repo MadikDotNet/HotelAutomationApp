@@ -17,7 +17,7 @@ namespace HotelAutomationApp.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(SignInRequest request)
+        public async Task<IActionResult> SignIn([FromBody]SignInRequest request)
         {
             var result = await _mediator.Send(request);
             
@@ -25,7 +25,7 @@ namespace HotelAutomationApp.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(SignUpRequest request)
+        public async Task<IActionResult> SignUp([FromBody]SignUpRequest request)
         {
             var result = await _mediator.Send(request); 
             
