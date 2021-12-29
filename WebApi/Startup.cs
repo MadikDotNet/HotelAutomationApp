@@ -56,7 +56,6 @@ namespace HotelAutomationApp.WebApi
             {
                 options.AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithOrigins("http://localhost:5000")
                     .AllowCredentials();
             });
             
