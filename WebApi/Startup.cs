@@ -26,6 +26,8 @@ namespace HotelAutomationApp.WebApi
         {
             services.AddControllers().AddNewtonsoftJson();
 
+            services.AddCors();
+            
             services.AddSwaggerGen(q => q.SwaggerDoc("v1", new OpenApiInfo {Title = "WebApi", Version = "v1"}));
 
             services.AddMediatR(typeof(Startup));
@@ -56,6 +58,7 @@ namespace HotelAutomationApp.WebApi
             {
                 options.AllowAnyMethod()
                     .AllowAnyHeader()
+                    .SetIsOriginAllowed(_ => true)
                     .AllowCredentials();
             });
             
