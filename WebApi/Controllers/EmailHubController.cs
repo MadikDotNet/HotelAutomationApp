@@ -2,6 +2,7 @@ using System.Threading;
 using MimeKit;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
+using HotelAutomationApp.Application.EmailHub;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelAutomationApp.WebApi.Controllers
@@ -12,19 +13,17 @@ namespace HotelAutomationApp.WebApi.Controllers
     {
         [HttpPost]
         public async Task<IActionResult> SendEmail(
-            string toEmailAddress,
-            string emailSubject,
-            string emailMessage,
+            [FromBody]SendMailRequest request,
             CancellationToken cancellationToken)
         {
             using var message = new MimeMessage();
             
             message.From.Add(new MailboxAddress("Bank account", "bank-account@gmail.com"));
-            message.To.Add(new MailboxAddress("", toEmailAddress));
-            message.Subject = emailSubject;
+            message.To.Add(new MailboxAddress("", request.ToEmailAddress));
+            message.Subject = request.EmailSubject;
             message.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
-                Text = emailMessage
+                Text = request.EmailMessage
             };
             
             using var smtpClient = new SmtpClient();
