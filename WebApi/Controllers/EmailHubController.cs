@@ -29,7 +29,7 @@ namespace HotelAutomationApp.WebApi.Controllers
             using var smtpClient = new SmtpClient();
 
             await smtpClient.ConnectAsync("smtp.gmail.com", 465, true, cancellationToken);
-            await smtpClient.AuthenticateAsync("moldageldinmadik@gmail.com", "fsokeskerjckwptx", cancellationToken);
+            await smtpClient.AuthenticateAsync("uranus77715@gmail.com", "testpswd", cancellationToken);
             await smtpClient.SendAsync(message, cancellationToken);
 
             return Ok();
