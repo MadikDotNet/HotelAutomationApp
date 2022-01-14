@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomationApp.Domain.Common;
@@ -14,13 +15,6 @@ namespace HotelAutomationApp.Persistence.Context
 {
     public class ApplicationDbContext : IdentityDbContext<User>, IDbContext
     {
-        private readonly ISecurityContext _securityContext;
-        
-        public ApplicationDbContext(DbContextOptions options, ISecurityContext securityContext) : base(options)
-        {
-            _securityContext = securityContext;
-        }
-        
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -33,7 +27,7 @@ namespace HotelAutomationApp.Persistence.Context
 
         #endregion
         
-        public async Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             AuditChanges();
             return await base.SaveChangesAsync();
@@ -55,15 +49,12 @@ namespace HotelAutomationApp.Persistence.Context
             {
                 if (entity.State is EntityState.Added)
                 {
-                    entity.Entity.CreatedBy = _securityContext.UserId;
                     entity.Entity.CreationDate = DateTime.UtcNow;
-                    entity.Entity.LastModifiedBy = _securityContext.UserId;
                     entity.Entity.LastModifiedDate = DateTime.UtcNow;
                 }
                 
                 if (entity.State is EntityState.Modified)
                 {
-                    entity.Entity.LastModifiedBy = _securityContext.UserId;
                     entity.Entity.LastModifiedDate = DateTime.UtcNow;
                 }
             }

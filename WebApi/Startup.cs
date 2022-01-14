@@ -1,3 +1,6 @@
+using AutoMapper;
+using FluentValidation.AspNetCore;
+using HotelAutomation.Application.Common;
 using HotelAutomation.WebApi.Extensions;
 using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Shared.Extensions;
@@ -24,11 +27,25 @@ namespace HotelAutomationApp.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddFluentValidation(q => 
+                    q.RegisterValidatorsFromAssemblies(new []
+                    {
+                        typeof(CreateTokenCommand).Assembly
+                    }));
 
             services.AddCors();
             
             services.AddSwaggerGen(q => q.SwaggerDoc("v1", new OpenApiInfo {Title = "WebApi", Version = "v1"}));
+
+            var mapperConfiguration = new MapperConfiguration(config =>
+            {
+                config.AddMaps(typeof(UseCase<>).Assembly);
+            });
+
+            var mapper = mapperConfiguration.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddMediatR(typeof(Startup));
             services.AddMediatrHandlers(typeof(CreateTokenCommand).Assembly);
@@ -50,9 +67,9 @@ namespace HotelAutomationApp.WebApi
 
             appBuilder.UseStaticFiles();
 
-            appBuilder.UseAuthenticationSystem();
-
             appBuilder.UseRouting();
+            
+            appBuilder.UseAuthenticationSystem();
 
             appBuilder.UseCors(options =>
             {

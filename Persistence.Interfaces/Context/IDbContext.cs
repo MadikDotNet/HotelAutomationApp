@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomationApp.Domain.Models.Identity;
@@ -17,6 +18,6 @@ namespace Persistence.Interfaces.Context
 
         #endregion
 
-        Task<int> SaveChangesAsync();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

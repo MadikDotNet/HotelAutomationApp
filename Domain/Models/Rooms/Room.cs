@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomation.Domain.Models.ValueObjects;
 using HotelAutomationApp.Domain.Common;
-using HotelAutomationApp.Domain.Models.Rooms;
 
-namespace HotelAutomation.Domain.Models.Rooms
+namespace HotelAutomationApp.Domain.Models.Rooms
 {
     public class Room : AuditableEntity
     {

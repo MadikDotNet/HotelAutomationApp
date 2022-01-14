@@ -26,9 +26,9 @@ namespace HotelAutomationApp.Application.Auth.UseCases
             SignInRequest request,
             CancellationToken cancellationToken)
         {
-            var token = await _mediator.Send(new CreateTokenCommand(request.UserCredentials), cancellationToken);
-
             var user = await _mediator.Send(new GetUserByCredentialsQuery(request.UserCredentials), cancellationToken);
+            
+            var token = await _mediator.Send(new CreateTokenCommand(user), cancellationToken);
 
             var roles = await _userManager.GetRolesAsync(user);
             

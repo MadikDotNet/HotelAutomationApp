@@ -1,9 +1,6 @@
-namespace HotelAutomationApp.Domain.Common
+namespace HotelAutomationApp.Application.File.Models
 {
-    /// <summary>
-    /// Image representation
-    /// </summary>
-    public class Image : BaseEntity
+    public class ImageDto
     {
         public string FileName { get; set; }
         public string FileType { get; set; }

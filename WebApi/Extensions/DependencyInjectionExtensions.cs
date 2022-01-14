@@ -1,4 +1,5 @@
-﻿using HotelAutomationApp.Domain.Models.Identity;
+﻿using HotelAutomationApp.Application.Auth.Constants;
+using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Infrastructure.Auth.Services;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
@@ -90,6 +91,16 @@ namespace HotelAutomationApp.WebApi.Extensions
                 opts.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser()
                     .Build();
+                
+                opts.AddPolicy(AuthorizationPolicies.RequireAdminRole, policy =>
+                {
+                    policy.RequireRole(Roles.Admin, Roles.Root);
+                });
+                
+                opts.AddPolicy(AuthorizationPolicies.RequireRootRole, policy =>
+                {
+                    policy.RequireRole(Roles.Root);
+                });
             });
 
             return services;

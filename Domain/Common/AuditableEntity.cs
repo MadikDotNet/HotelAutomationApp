@@ -43,5 +43,20 @@ namespace HotelAutomationApp.Domain.Common
         /// Date of last modify
         /// </summary>
         public DateTime LastModifiedDate { get; set; }
+
+        /// <summary>
+        /// State of entity
+        /// </summary>
+        public bool IsDeleted { get; set; }
+        
+        /// <summary>
+        /// Who was remove
+        /// </summary>
+        public string? DeletedBy { get; set; }
+
+        /// <summary>
+        /// When was removed
+        /// </summary>
+        public DateTime? DeletedDate { get; set; }
     }
 }

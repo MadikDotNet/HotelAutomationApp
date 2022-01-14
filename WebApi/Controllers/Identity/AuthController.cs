@@ -3,7 +3,7 @@ using HotelAutomationApp.Application.Auth.UseCases;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers
+namespace HotelAutomationApp.WebApi.Controllers.Identity
 {
     [ApiController]
     [Route("[controller]/[action]")]

@@ -20,7 +20,7 @@ namespace HotelAutomationApp.Application.Auth.Queries
         private class Handler : IRequestHandler<GetUserByCredentialsQuery, User>
         {
             private readonly UserManager<User> _userManager;
-
+            
             public Handler(UserManager<User> userManager)
             {
                 _userManager = userManager;

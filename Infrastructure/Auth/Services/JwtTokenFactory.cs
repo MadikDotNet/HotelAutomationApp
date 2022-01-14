@@ -42,7 +42,6 @@ namespace HotelAutomationApp.Infrastructure.Auth.Services
                 NotBefore = DateTime.UtcNow,
                 Expires = DateTime.UtcNow.Add(_options.TokenLifeTime),
                 SigningCredentials = signingCredentials,
-                
             };
 
             return _tokenHandler.CreateToken(tokenDescriptor);
