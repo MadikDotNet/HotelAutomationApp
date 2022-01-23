@@ -14,10 +14,17 @@ namespace HotelAutomationApp.Application.Auth.Validators
             UserManager<User> userManager)
         {
             RuleFor(q => q.UserCredentials)
-                .MustAsync(async (credentials, token) => !token.IsCancellationRequested &&
-                    await userManager.FindByNameAsync(credentials.Login) is not null)
+                .MustAsync(async (credentials, token) =>
+                {
+                    if (!token.IsCancellationRequested)
+                    {
+                        _user = await userManager.FindByNameAsync(credentials.Login);
+                    }
+
+                    return _user is not null;
+                })
                 .WithMessage("User not found");
-            
+
             When(q => _user is not null, () =>
             {
                 RuleFor(q => q.UserCredentials)
@@ -25,13 +32,13 @@ namespace HotelAutomationApp.Application.Auth.Validators
                         {
                             _passwordVerified =
                                 await userManager.CheckPasswordAsync(_user!, credentials.Password);
-            
+
                             return _passwordVerified;
                         }
                     )
                     .WithMessage("Invalid login or password");
             });
-            
+
             When(q => _passwordVerified, () =>
             {
                 RuleFor(q => q.UserCredentials)
