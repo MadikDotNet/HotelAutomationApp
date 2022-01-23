@@ -1,8 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
 using HotelAutomationApp.Application.Rooms.Models;
-using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using MediatR;
 using Persistence.Interfaces.Context;
@@ -21,19 +19,17 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         private class Handler : AsyncRequestHandler<CreateRoomCommand>
         {
             private readonly IDbContext _db;
-            private readonly IMapper _mapper;
             private readonly ISecurityContext _securityContext;
 
-            public Handler(IDbContext db, IMapper mapper, ISecurityContext securityContext)
+            public Handler(IDbContext db, ISecurityContext securityContext)
             {
                 _db = db;
-                _mapper = mapper;
                 _securityContext = securityContext;
             }
 
             protected override async Task Handle(CreateRoomCommand request, CancellationToken cancellationToken)
             {
-                var room = Room.New(
+                var room = Domain.Models.Rooms.Room.New(
                     _securityContext.UserId,
                     request.RoomDto.RoomGroupId,
                     request.RoomDto.MaxGuestsCount,

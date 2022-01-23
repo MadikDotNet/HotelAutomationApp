@@ -78,7 +78,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                         .Where(q => request.CapacityDistance.To == default ||
                                     q.Capacity <= request.CapacityDistance.To);
                 }
-                
+
                 return await rooms.ProjectTo<RoomDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
             }

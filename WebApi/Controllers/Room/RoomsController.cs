@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers.Rooms
+namespace HotelAutomationApp.WebApi.Controllers.Room
 {
     [ApiController]
     [Route("[controller]/[action]")]
@@ -31,7 +31,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Rooms
 
             return Ok(response);
         }
-
+        
         [HttpDelete]
         [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
         [ProducesResponseType((int)HttpStatusCode.OK)]

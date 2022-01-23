@@ -29,10 +29,10 @@ namespace HotelAutomationApp.Application.Rooms.Commands
 
             protected override async Task Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
             {
-                var room = await _db.Rooms.FindAsync(request.RoomId, cancellationToken);
+                var room = await _db.Rooms.FindAsync(new object[]{request.RoomId}, cancellationToken);
 
                 room!.DeletedBy = _securityContext.UserId;
-                (room.IsDeleted, room.DeletedDate) = (true, DateTime.Now);
+                (room.IsDeleted, room.IsAvailable, room.DeletedDate) = (true, false, DateTime.UtcNow);
                 
                 await _db.SaveChangesAsync(cancellationToken);
             }

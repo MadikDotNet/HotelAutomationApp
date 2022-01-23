@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using HotelAutomationApp.Domain.Models.Identity;
-using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -21,13 +19,6 @@ namespace HotelAutomationApp.Infrastructure.Auth.Services
             _tokenHandler = new();
         }
 
-        public string CreateToken(User user)
-        {
-            var claims = GetClaims(user);
-
-            return CreateToken(claims);
-        }
-        
         public string CreateToken(Dictionary<string, object> claims)
         {
             var signingCredentials = new SigningCredentials(
@@ -45,14 +36,6 @@ namespace HotelAutomationApp.Infrastructure.Auth.Services
             };
 
             return _tokenHandler.CreateToken(tokenDescriptor);
-        }
-
-        private Dictionary<string, object> GetClaims(User user)
-        {
-            return new Dictionary<string, object>
-            {
-                [Claims.Subject] = user.Id
-            };
         }
     }
 

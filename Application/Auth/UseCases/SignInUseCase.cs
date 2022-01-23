@@ -6,6 +6,7 @@ using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Application.Auth.Queries;
 using HotelAutomationApp.Domain.Models.Identity;
+using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,11 +16,16 @@ namespace HotelAutomationApp.Application.Auth.UseCases
     {
         private readonly IMediator _mediator;
         private readonly UserManager<User> _userManager;
+        private readonly ITokenFactory _tokenFactory;
 
-        public SignInUseCase(IMediator mediator, UserManager<User> userManager)
+        public SignInUseCase(
+            IMediator mediator,
+            UserManager<User> userManager,
+            ITokenFactory tokenFactory)
         {
             _mediator = mediator;
             _userManager = userManager;
+            _tokenFactory = tokenFactory;
         }
 
         protected override async Task<SignInResponse> HandleAsync(
@@ -27,11 +33,11 @@ namespace HotelAutomationApp.Application.Auth.UseCases
             CancellationToken cancellationToken)
         {
             var user = await _mediator.Send(new GetUserByCredentialsQuery(request.UserCredentials), cancellationToken);
-            
-            var token = await _mediator.Send(new CreateTokenCommand(user), cancellationToken);
 
-            var roles = await _userManager.GetRolesAsync(user);
+            var token = await _mediator.Send(new CreateTokenCommand(user), cancellationToken);
             
+            var roles = await _userManager.GetRolesAsync(user);
+
             return new SignInResponse
             {
                 UserId = user.Id, 

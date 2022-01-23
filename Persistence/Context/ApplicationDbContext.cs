@@ -1,11 +1,11 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.Rooms;
-using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Persistence.Config;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +32,9 @@ namespace HotelAutomationApp.Persistence.Context
             AuditChanges();
             return await base.SaveChangesAsync();
         }
+
+        public IQueryable<T> AsQueryable<T>() where T : class =>
+            Set<T>().AsQueryable();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

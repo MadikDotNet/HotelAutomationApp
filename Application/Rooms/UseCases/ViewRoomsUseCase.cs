@@ -13,7 +13,8 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
     {
         private readonly IMediator _mediator;
 
-        public ViewRoomsUseCase(IMediator mediator)
+        public ViewRoomsUseCase(
+            IMediator mediator)
         {
             _mediator = mediator;
         }

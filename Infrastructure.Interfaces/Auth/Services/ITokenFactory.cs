@@ -1,9 +1,9 @@
-using HotelAutomationApp.Domain.Models.Identity;
+using System.Collections.Generic;
 
 namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Services
 {
     public interface ITokenFactory
     {
-        string CreateToken(User user);
+        string CreateToken(Dictionary<string, object> claims);
     }
 }

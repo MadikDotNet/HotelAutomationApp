@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;

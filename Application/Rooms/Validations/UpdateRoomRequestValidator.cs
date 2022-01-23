@@ -1,5 +1,4 @@
 using FluentValidation;
-using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomationApp.Application.Rooms.UseCases;
 using HotelAutomationApp.Domain.Models.Rooms;
 using Persistence.Interfaces.Context;
@@ -15,7 +14,7 @@ namespace HotelAutomationApp.Application.Rooms.Validations
             RuleFor(q => q.RoomDto.Id)
                 .MustAsync(async (field, token) =>
                 {
-                    Object = await db.Rooms.FindAsync(field, token);
+                    Object = await db.Rooms.FindAsync(new object[]{field}, token);
                     return true;
                 });
 

@@ -10,8 +10,8 @@ namespace HotelAutomationApp.Application.Rooms.Validations
         {
             RuleFor(q => q.RoomDto)
                 .MustAsync(async (field, token) =>
-                    field.RoomGroupId is not null ||
-                    await db.RoomGroups.FindAsync(field.RoomGroupId, token) is not null)
+                    !string.IsNullOrEmpty(field.RoomGroupId) &&
+                    await db.RoomGroups.FindAsync(new object[]{field.RoomGroupId}, token) is not null)
                 .WithMessage("Room group not found");
         }
     }

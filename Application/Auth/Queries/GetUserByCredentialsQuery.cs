@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Domain.Models.Identity;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.Auth.Queries
 {
@@ -19,16 +20,17 @@ namespace HotelAutomationApp.Application.Auth.Queries
         
         private class Handler : IRequestHandler<GetUserByCredentialsQuery, User>
         {
-            private readonly UserManager<User> _userManager;
+            private readonly IDbContext _db;
             
-            public Handler(UserManager<User> userManager)
+            public Handler(IDbContext db)
             {
-                _userManager = userManager;
+                _db = db;
             }
 
             public async Task<User> Handle(GetUserByCredentialsQuery request, CancellationToken cancellationToken)
             {
-                var user = await _userManager.FindByNameAsync(request.UserCredentials.Login);
+                var user = await _db.Users.FirstOrDefaultAsync(
+                    q => q.UserName == request.UserCredentials.Login, cancellationToken);
 
                 return user ?? throw new InvalidOperationException("User not found");
             }
