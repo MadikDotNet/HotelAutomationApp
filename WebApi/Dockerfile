@@ -4,7 +4,6 @@ WORKDIR /app
 COPY *.csproj ./
 RUN dotnet restore
 
-COPY ../engine/examples ./
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
