@@ -18,8 +18,4 @@
       <ProjectReference Include="..\Persistence.Interfaces\Persistence.Interfaces.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="RoomGroups" />
-    </ItemGroup>
-
 </Project>

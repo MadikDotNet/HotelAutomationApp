@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.File;
 

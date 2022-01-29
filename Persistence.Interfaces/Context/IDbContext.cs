@@ -1,7 +1,3 @@
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.Rooms;
@@ -20,7 +16,8 @@ namespace Persistence.Interfaces.Context
 
         #endregion
 
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-        IQueryable<T> AsQueryable<T>() where T : class;
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        IQueryable<TEntity> AsQueryable<TEntity>() where TEntity : BaseEntity;
+        DbSet<TEntity> AsDbSet<TEntity>() where TEntity : BaseEntity;
     }
 }

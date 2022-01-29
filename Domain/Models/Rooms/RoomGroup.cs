@@ -1,54 +1,29 @@
-using System;
-using HotelAutomation.Domain.Models.ValueObjects;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.ValueObjects;
 
-namespace HotelAutomation.Domain.Models.Rooms
+namespace HotelAutomationApp.Domain.Models.Rooms
 {
-    public class RoomGroup : AuditableEntity
+    public class RoomGroup : BaseDictionary<RoomGroup>
     {
-        private RoomGroup()
-        {
-        }
-
         public RoomGroup(
-            string id,
-            string createdBy,
-            DateTime creationDate,
-            string lastModifiedBy,
-            DateTime lastModifiedDate,
-            Name name,
+            string name,
+            string code,
             string description,
-            Price minPrice) : base(id, createdBy, creationDate, lastModifiedBy, lastModifiedDate)
+            string parentId,
+            ICollection<RoomGroup> children,
+            Price minPrice) : base(name, code, description, parentId, children)
         {
-            Name = name;
-            Description = description;
             MinPrice = minPrice;
         }
-        
-        /// <summary>
-        /// Room group name
-        /// </summary>
-        public Name Name { get; set; }
-        
-        /// <summary>
-        /// Room group description
-        /// </summary>
-        public string Description { get; set; }
+
+        public RoomGroup()
+        {
+            
+        }
         
         /// <summary>
         /// Lower price range for the group
         /// </summary>
         public Price MinPrice { get; set; }
-
-        public static RoomGroup New(string creatorId, Name name, string description, Price minPrice) =>
-            new RoomGroup(
-                Guid.NewGuid().ToString(),
-                creatorId,
-                DateTime.UtcNow,
-                creatorId,
-                DateTime.UtcNow,
-                name,
-                description,
-                minPrice);
     }
 }

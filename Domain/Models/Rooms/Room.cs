@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using HotelAutomation.Domain.Models.Rooms;
 using HotelAutomation.Domain.Models.ValueObjects;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.ValueObjects;
 
 namespace HotelAutomationApp.Domain.Models.Rooms
 {

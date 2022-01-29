@@ -1,7 +1,9 @@
+using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using HotelAutomation.Application.Common;
 using HotelAutomation.WebApi.Extensions;
+using HotelAutomationApp.Application.ApplicationServices.Dictionary;
 using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Shared.Extensions;
 using HotelAutomationApp.WebApi.Extensions;
@@ -53,6 +55,7 @@ namespace HotelAutomationApp.WebApi
             services.AddIdentity();
             services.AddAuthenticationSystem(Configuration);
             services.AddSecurityServices(Configuration);
+            services.AddScoped(typeof(DictionaryCrudService<,>));
         }
 
         public void Configure(IApplicationBuilder appBuilder, IWebHostEnvironment env)

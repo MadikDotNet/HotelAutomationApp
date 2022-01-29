@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +10,15 @@ namespace HotelAutomationApp.Shared.Extensions
         {
             var handlerClasses = assembly.DefinedTypes
                 .Select(q => q.GetTypeInfo())
-                .Where(q => q.IsClass && !q.IsAbstract);
+                .Where(q => q.IsClass && !q.IsAbstract && !q.IsGenericTypeDefinition);
 
             foreach (var handlerClass in handlerClasses)
             {
                 var handlerInterfaces = handlerClass.ImplementedInterfaces
                     .Select(q => q.GetTypeInfo())
-                    .Where(q => q.IsGenericType && q.GetGenericTypeDefinition() == typeof(IRequestHandler<,>));
+                    .Where(q => q.IsGenericType &&
+                                q.GetGenericTypeDefinition() == typeof(IRequestHandler<,>) &&
+                                !q.IsGenericTypeDefinition).ToList();
 
                 foreach (var handlerInterface in handlerInterfaces)
                 {

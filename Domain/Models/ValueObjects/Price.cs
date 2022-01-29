@@ -1,6 +1,5 @@
-using System;
 
-namespace HotelAutomation.Domain.Models.ValueObjects
+namespace HotelAutomationApp.Domain.Models.ValueObjects
 {
     public class Price
     {
