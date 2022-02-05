@@ -1,9 +1,10 @@
 ﻿using HotelAutomationApp.Application.Auth.Constants;
 using HotelAutomationApp.Domain.Models.Identity;
-using HotelAutomationApp.Infrastructure.Auth.Services;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Persistence.Context;
+using HotelAutomationApp.WebApi.Seeds;
+using HotelAutomationApp.WebApi.Services.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -102,6 +103,14 @@ namespace HotelAutomationApp.WebApi.Extensions
                     policy.RequireRole(Roles.Root);
                 });
             });
+
+            return services;
+        }
+
+        public static IServiceCollection AddSeed(this IServiceCollection services)
+        {
+            services.AddScoped<Seed>();
+            services.AddScoped<IdentitySeed>();
 
             return services;
         }

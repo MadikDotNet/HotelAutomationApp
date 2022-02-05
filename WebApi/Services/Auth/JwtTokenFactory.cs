@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
-namespace HotelAutomationApp.Infrastructure.Auth.Services
+namespace HotelAutomationApp.WebApi.Services.Auth
 {
     public class JwtTokenFactory : ITokenFactory
     {

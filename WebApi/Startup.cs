@@ -8,6 +8,7 @@ using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Shared.Extensions;
 using HotelAutomationApp.WebApi.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -39,7 +40,32 @@ namespace HotelAutomationApp.WebApi
 
             services.AddCors();
             
-            services.AddSwaggerGen(q => q.SwaggerDoc("v1", new OpenApiInfo {Title = "WebApi", Version = "v1"}));
+            services.AddSwaggerGen(setup =>
+            {
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+                setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme, Array.Empty<string>() }
+                });
+
+            });
 
             var mapperConfiguration = new MapperConfiguration(config =>
             {
@@ -53,6 +79,7 @@ namespace HotelAutomationApp.WebApi
             services.AddMediatrHandlers(typeof(CreateTokenCommand).Assembly);
             services.AddDatabases(Configuration);
             services.AddIdentity();
+            services.AddSeed();
             services.AddAuthenticationSystem(Configuration);
             services.AddSecurityServices(Configuration);
             services.AddScoped(typeof(DictionaryCrudService<,>));

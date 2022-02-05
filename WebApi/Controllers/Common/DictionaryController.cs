@@ -2,10 +2,12 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using HotelAutomationApp.Application.ApplicationServices.Dictionary;
+using HotelAutomationApp.Application.Auth.Constants;
 using HotelAutomationApp.Application.Common.Dictionary.Models;
 using HotelAutomationApp.Application.Common.Dictionary.Models.Requests;
 using HotelAutomationApp.Application.Common.Dictionary.Models.Responses;
 using HotelAutomationApp.Domain.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelAutomationApp.WebApi.Controllers.Common;
@@ -36,7 +38,7 @@ public class DictionaryController
     }
 
     [HttpPost]
-    // [Authorize]
+    [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     public async Task<IActionResult> Create(
         [FromBody] CreateDictionaryItemRequest<TDictionary, TDictionaryDto> request)
     {
@@ -46,7 +48,7 @@ public class DictionaryController
     }
 
     [HttpPut]
-    // [Authorize]
+    [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     public async Task<IActionResult> Update([FromBody] UpdateDictionaryItemRequest<TDictionaryDto> request)
     {
         await _dictionaryService.Update(request.DictionaryDto);
@@ -55,7 +57,7 @@ public class DictionaryController
     }
 
     [HttpDelete]
-    // [Authorize]
+    [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     public async Task<IActionResult> Delete([FromBody] DeleteDictionaryItemRequest request)
     {
         await _dictionaryService.Delete(request.Id);

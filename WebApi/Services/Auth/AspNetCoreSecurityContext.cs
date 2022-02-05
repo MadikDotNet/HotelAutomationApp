@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Interfaces.Context;
 
-namespace HotelAutomationApp.Infrastructure.Auth.Services
+namespace HotelAutomationApp.WebApi.Services.Auth
 {
     public class AspNetCoreSecurityContext : ISecurityContext
     {

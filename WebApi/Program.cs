@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+using HotelAutomationApp.WebApi.Seeds;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace HotelAutomationApp.WebApi
@@ -11,6 +13,10 @@ namespace HotelAutomationApp.WebApi
             var host = CreateHostBuilder(args)
                 .Build();
 
+            using var scope = host.Services.CreateScope();
+            var seed = scope.ServiceProvider.GetRequiredService<Seed>();
+            await seed.InitializeDb();
+            
             await host.RunAsync();
         }
 

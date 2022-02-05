@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using HotelAutomationApp.Application.Auth.Constants;
 using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Application.Rooms.UseCases;
 using MediatR;
@@ -32,9 +33,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
         }
 
         [HttpDelete]
-        [Authorize
-            // (Policy = AuthorizationPolicies.RequireAdminRole)
-        ]
+        [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteRoom([FromBody] DeleteRoomRequest request)
         {
@@ -44,9 +43,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
         }
 
         [HttpPost]
-        [Authorize
-            // (Policy = AuthorizationPolicies.RequireAdminRole)
-        ]
+        [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> CreateRoom([FromBody] CreateRoomRequest request)
         {
@@ -56,9 +53,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
         }
 
         [HttpPut]
-        [Authorize
-            // (Policy = AuthorizationPolicies.RequireAdminRole)
-        ]
+        [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateRoom([FromBody] UpdateRoomRequest request)
         {
