@@ -6,7 +6,6 @@ using HotelAutomationApp.Application.Common.Dictionary.Models;
 using HotelAutomationApp.Application.Common.Dictionary.Models.Requests;
 using HotelAutomationApp.Application.Common.Dictionary.Models.Responses;
 using HotelAutomationApp.Domain.Common;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelAutomationApp.WebApi.Controllers.Common;
@@ -32,7 +31,7 @@ public class DictionaryController
         [FromQuery] ViewDictionaryListRequest request,
         CancellationToken cancellationToken)
     {
-        var result = await _dictionaryService.ViewAsList(request.PageRequest, request.ShowDeleted, cancellationToken);
+        var result = await _dictionaryService.ViewAsList(request.PageRequest, cancellationToken);
         return Ok(result);
     }
 

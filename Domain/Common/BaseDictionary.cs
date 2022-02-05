@@ -4,7 +4,7 @@ using HotelAutomationApp.Domain.Common.Abstractions;
 
 namespace HotelAutomationApp.Domain.Common
 {
-    public class BaseDictionary<TDictionary> : AuditableEntity, IRecursiveTree<TDictionary>
+    public class BaseDictionary<TDictionary> : BaseEntity, IRecursiveTree<TDictionary>
     {
         public BaseDictionary(
             string name,

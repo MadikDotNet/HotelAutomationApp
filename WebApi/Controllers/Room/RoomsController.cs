@@ -23,43 +23,43 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
 
         [HttpGet]
         [AllowAnonymous]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ICollection<RoomDto>))]
-        public async Task<IActionResult> View([FromQuery]ViewRoomsRequest request, CancellationToken cancellationToken)
+        [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ICollection<RoomDto>))]
+        public async Task<IActionResult> View([FromQuery] ViewRoomsRequest request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 
             return Ok(response);
         }
-        
+
         [HttpDelete]
         [Authorize
             // (Policy = AuthorizationPolicies.RequireAdminRole)
         ]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteRoom([FromBody] DeleteRoomRequest request)
         {
             await _mediator.Send(request);
 
             return Ok();
         }
-        
+
         [HttpPost]
         [Authorize
             // (Policy = AuthorizationPolicies.RequireAdminRole)
         ]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> CreateRoom([FromBody] CreateRoomRequest request)
         {
             await _mediator.Send(request);
 
             return Ok();
         }
-        
+
         [HttpPut]
         [Authorize
             // (Policy = AuthorizationPolicies.RequireAdminRole)
         ]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateRoom([FromBody] UpdateRoomRequest request)
         {
             await _mediator.Send(request);

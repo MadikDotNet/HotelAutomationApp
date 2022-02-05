@@ -1,6 +1,5 @@
-using System.Threading;
-using System.Threading.Tasks;
-using HotelAutomationApp.Application.Rooms.Models;
+using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using MediatR;
 using Persistence.Interfaces.Context;
@@ -9,13 +8,26 @@ namespace HotelAutomationApp.Application.Rooms.Commands
 {
     public class CreateRoomCommand : IRequest
     {
-        public CreateRoomCommand(RoomDto roomDto)
+        public CreateRoomCommand(
+            int maxGuestsCount,
+            double capacity,
+            decimal pricePerNight,
+            string roomGroupId,
+            ICollection<ImageDto> images)
         {
-            RoomDto = roomDto;
+            MaxGuestsCount = maxGuestsCount;
+            Capacity = capacity;
+            PricePerNight = pricePerNight;
+            RoomGroupId = roomGroupId;
+            Images = images;
         }
 
-        public RoomDto RoomDto { get; set; }
-        
+        public int MaxGuestsCount { get; }
+        public double Capacity { get; }
+        public decimal PricePerNight { get; }
+        public string RoomGroupId { get; }
+        public ICollection<ImageDto> Images { get; }
+
         private class Handler : AsyncRequestHandler<CreateRoomCommand>
         {
             private readonly IDbContext _db;
@@ -29,15 +41,15 @@ namespace HotelAutomationApp.Application.Rooms.Commands
 
             protected override async Task Handle(CreateRoomCommand request, CancellationToken cancellationToken)
             {
-                var room = Domain.Models.Rooms.Room.New(
+                var room = Room.New(
                     _securityContext.UserId,
-                    request.RoomDto.RoomGroupId,
-                    request.RoomDto.MaxGuestsCount,
-                    request.RoomDto.Capacity,
-                    request.RoomDto.PricePerNight);
-                
+                    request.RoomGroupId,
+                    request.MaxGuestsCount,
+                    request.Capacity,
+                    request.PricePerNight);
+
                 (room.LastModifiedBy, room.CreatedBy) = (_securityContext.UserId, _securityContext.UserId);
-                
+
                 _db.Rooms.Add(room);
                 await _db.SaveChangesAsync(cancellationToken);
             }

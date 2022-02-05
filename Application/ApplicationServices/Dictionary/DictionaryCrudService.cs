@@ -28,11 +28,9 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
 
     public virtual async Task<PageResponse<TDictionaryDto>> ViewAsList(
         PageRequest request,
-        bool showDeleted,
         CancellationToken cancellationToken)
     {
         var result = await _db.AsQueryable<TDictionary>()
-            .Where(dictionary => showDeleted || !dictionary.IsDeleted)
             .ProjectTo<TDictionaryDto>(_mapper.ConfigurationProvider)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
@@ -53,8 +51,6 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
         }
 
         var record = dictionaryDto with {Id = Guid.NewGuid().ToString()};
-        (record.DeletedBy, record.DeletedDate, record.LastModifiedBy, record.LastModifiedDate, record.IsDeleted) =
-            (null, null, "", DateTime.Now, false);
 
         var newEntity = _mapper.Map<TDictionary>(record);
 
@@ -68,10 +64,7 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
         dictionaryDto.Name.EnsureIsNotEmpty(nameof(dictionaryDto.Name));
         dictionaryDto.Id.EnsureIsNotEmpty(nameof(dictionaryDto.Id));
 
-        var dictionaryEntity =
-            await _db.AsQueryable<TDictionary>().FirstOrDefaultAsync(entity => entity.Id == dictionaryDto.Id);
-
-        if (dictionaryEntity is null)
+        if (!await _db.AsQueryable<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.Id))
         {
             throw new ArgumentException($"Dictionary item with id {dictionaryDto.Id} not found");
         }
@@ -82,9 +75,9 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
             throw new ArgumentException($"Parent with id {dictionaryDto.ParentId} not found");
         }
 
-        var mappedItem = _mapper.Map<TDictionary>(dictionaryDto);
-
-        _db.AsDbSet<TDictionary>().Update(mappedItem);
+        var dictionaryEntity = _mapper.Map<TDictionary>(dictionaryDto);
+        
+        _db.AsDbSet<TDictionary>().Update(dictionaryEntity);
         await _db.SaveChangesAsync(CancellationToken.None);
     }
 
@@ -101,8 +94,7 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
             throw new ArgumentException("Dictionary item not found");
         }
 
-        dictionaryItem.DeletedBy = "_securityContext.UserId";
-        dictionaryItem.DeletedDate = DateTime.UtcNow;
+        _db.AsDbSet<TDictionary>().Remove(dictionaryItem);
 
         await _db.SaveChangesAsync(CancellationToken.None);
     }

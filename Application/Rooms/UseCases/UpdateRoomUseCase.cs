@@ -1,8 +1,6 @@
-using System.Threading;
-using System.Threading.Tasks;
 using HotelAutomation.Application.Common;
+using HotelAutomationApp.Application.File.Models;
 using HotelAutomationApp.Application.Rooms.Commands;
-using HotelAutomationApp.Application.Rooms.Models;
 using MediatR;
 
 namespace HotelAutomationApp.Application.Rooms.UseCases
@@ -18,12 +16,27 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
 
         protected override async Task HandleRequestAsync(UpdateRoomRequest request, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new UpdateRoomCommand(request.RoomDto), cancellationToken);
+            var command = new UpdateRoomCommand(
+                request.Id,
+                request.MaxGuestsCount,
+                request.Capacity,
+                request.PricePerNight,
+                request.IsAvailable,
+                request.RoomGroupId,
+                request.Images);
+            
+            await _mediator.Send(command, cancellationToken);
         }
     }
 
     public class UpdateRoomRequest : IRequest
     {
-        public RoomDto RoomDto { get; set; }
+        public string Id { get; set; }
+        public int MaxGuestsCount { get; set; }
+        public double Capacity { get; set; }
+        public decimal PricePerNight { get; set; }
+        public bool IsAvailable { get; set; }
+        public string RoomGroupId { get; set; }
+        public ICollection<ImageDto> Images { get; set; }
     }
 }

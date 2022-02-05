@@ -6,6 +6,22 @@ namespace HotelAutomationApp.Domain.Models.Rooms
 {
     public class RoomImage : Image
     {
+        public RoomImage()
+        {
+            
+        }
+
+        public RoomImage(
+            string fileName,
+            string fileType,
+            string data,
+            string roomId,
+            Room room) : base(fileName, fileType, data)
+        {
+            RoomId = roomId;
+            Room = room;
+        }
+
         /// <summary>
         /// Owner room id 
         /// </summary>
