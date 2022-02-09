@@ -9,7 +9,7 @@ using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.Auth.Queries
 {
-    public class GetUserByCredentialsQuery : IRequest<User>
+    public class GetUserByCredentialsQuery : IRequest<ApplicationUser>
     {
         public GetUserByCredentialsQuery(UserCredentials userCredentials)
         {
@@ -18,18 +18,18 @@ namespace HotelAutomationApp.Application.Auth.Queries
 
         public UserCredentials UserCredentials { get; }
         
-        private class Handler : IRequestHandler<GetUserByCredentialsQuery, User>
+        private class Handler : IRequestHandler<GetUserByCredentialsQuery, ApplicationUser>
         {
-            private readonly IDbContext _db;
+            private readonly IApplicationDbContext _applicationDb;
             
-            public Handler(IDbContext db)
+            public Handler(IApplicationDbContext applicationDb)
             {
-                _db = db;
+                _applicationDb = applicationDb;
             }
 
-            public async Task<User> Handle(GetUserByCredentialsQuery request, CancellationToken cancellationToken)
+            public async Task<ApplicationUser> Handle(GetUserByCredentialsQuery request, CancellationToken cancellationToken)
             {
-                var user = await _db.Users.FirstOrDefaultAsync(
+                var user = await _applicationDb.User.FirstOrDefaultAsync(
                     q => q.UserName == request.UserCredentials.Login, cancellationToken);
 
                 return user ?? throw new InvalidOperationException("User not found");

@@ -1,16 +1,15 @@
-﻿using System;
-using HotelAutomationApp.Shared;
+﻿using HotelAutomationApp.Shared.Extensions;
 using Microsoft.AspNetCore.Identity;
 
 namespace HotelAutomationApp.Domain.Models.Identity
 {
-    public sealed class User : IdentityUser
+    public sealed class ApplicationUser : IdentityUser
     {
-        public User()
+        public ApplicationUser()
         {
         }
 
-        public User(
+        public ApplicationUser(
             string username,
             string phoneNumber,
             string email,
@@ -30,11 +29,11 @@ namespace HotelAutomationApp.Domain.Models.Identity
         public DateTime? BlockedDate { get; set; }
         public bool CanLogin => DeletedDate is null && BlockedDate is null;
 
-        public static User New(string userName)
+        public static ApplicationUser New(string userName)
         {
-            userName.ThrowIfArgNullOrWhiteSpace(nameof(userName));
+            userName.EnsureIsNotEmpty(nameof(userName));
 
-            return new User
+            return new ApplicationUser
             {
                 UserName = userName,
                 CreatedDate = DateTime.UtcNow

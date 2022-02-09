@@ -6,18 +6,18 @@ namespace HotelAutomationApp.WebApi.Seeds;
 
 public class Seed
 {
-    private readonly ApplicationDbContext _db;
+    private readonly ApplicationDbContext _applicationDb;
     private readonly IdentitySeed _identitySeed;
 
-    public Seed(ApplicationDbContext db, IdentitySeed identitySeed)
+    public Seed(ApplicationDbContext applicationDb, IdentitySeed identitySeed)
     {
-        _db = db;
+        _applicationDb = applicationDb;
         _identitySeed = identitySeed;
     }
 
     public async Task InitializeDb()
     {
-        await _db.Database.MigrateAsync();
+        await _applicationDb.Database.MigrateAsync();
         await _identitySeed.ApplySeed();
     }
 }

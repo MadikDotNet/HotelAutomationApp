@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Shared;
+using HotelAutomationApp.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -13,9 +14,9 @@ namespace HotelAutomationApp.Application.Auth.Commands
     {
         public CreateUserCommand(string login, string password, string role)
         {
-            Login = login.ThrowIfArgNullOrWhiteSpace(nameof(Login));
-            Password = password.ThrowIfArgNullOrWhiteSpace(nameof(Password));
-            Role = role.ThrowIfArgNullOrWhiteSpace(nameof(Role));
+            Login = login.EnsureIsNotEmpty(nameof(Login));
+            Password = password.EnsureIsNotEmpty(nameof(Password));
+            Role = role.EnsureIsNotEmpty(nameof(Role));
         }
 
         public string Login { get; }
@@ -24,16 +25,16 @@ namespace HotelAutomationApp.Application.Auth.Commands
 
         private class Handler : AsyncRequestHandler<CreateUserCommand>
         {
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<ApplicationUser> _userManager;
 
-            public Handler(UserManager<User> userManager)
+            public Handler(UserManager<ApplicationUser> userManager)
             {
                 _userManager = userManager;
             }
 
             protected override async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
-                var user = User.New(request.Login);
+                var user = ApplicationUser.New(request.Login);
 
                 var result = await _userManager.CreateAsync(user, request.Password);
                 // await _userManager.AddToRoleAsync(user, request.Role);

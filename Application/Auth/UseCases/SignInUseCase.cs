@@ -15,12 +15,12 @@ namespace HotelAutomationApp.Application.Auth.UseCases
     public class SignInUseCase : UseCase<SignInRequest, SignInResponse>
     {
         private readonly IMediator _mediator;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITokenFactory _tokenFactory;
 
         public SignInUseCase(
             IMediator mediator,
-            UserManager<User> userManager,
+            UserManager<ApplicationUser> userManager,
             ITokenFactory tokenFactory)
         {
             _mediator = mediator;

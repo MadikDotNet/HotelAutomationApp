@@ -14,14 +14,14 @@ namespace HotelAutomationApp.WebApi.Services.Auth
     public class AspNetCoreSecurityContext : ISecurityContext
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IDbContext _db;
+        private readonly IApplicationDbContext _applicationDb;
 
         public AspNetCoreSecurityContext(
             IHttpContextAccessor httpContextAccessor,
-            IDbContext db)
+            IApplicationDbContext applicationDb)
         {
             _httpContextAccessor = httpContextAccessor;
-            _db = db;
+            _applicationDb = applicationDb;
         }
 
         public bool UserExists {
@@ -49,9 +49,9 @@ namespace HotelAutomationApp.WebApi.Services.Auth
             }
         }
 
-        public async Task<User?> GetCurrentUserAsync(CancellationToken cancellationToken = default)
+        public async Task<ApplicationUser?> GetCurrentUserAsync(CancellationToken cancellationToken = default)
         {
-            return await _db.Users.FirstOrDefaultAsync(q => q.Id == UserId, cancellationToken);
+            return await _applicationDb.User.FirstOrDefaultAsync(q => q.Id == UserId, cancellationToken);
         }
     }
 }

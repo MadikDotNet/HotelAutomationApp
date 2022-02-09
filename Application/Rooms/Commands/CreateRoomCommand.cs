@@ -13,7 +13,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerNight,
             string roomGroupId,
-            ICollection<ImageDto> images)
+            ICollection<MediaDto> images)
         {
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
@@ -26,16 +26,16 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         public double Capacity { get; }
         public decimal PricePerNight { get; }
         public string RoomGroupId { get; }
-        public ICollection<ImageDto> Images { get; }
+        public ICollection<MediaDto> Images { get; }
 
         private class Handler : AsyncRequestHandler<CreateRoomCommand>
         {
-            private readonly IDbContext _db;
+            private readonly IApplicationDbContext _applicationDb;
             private readonly ISecurityContext _securityContext;
 
-            public Handler(IDbContext db, ISecurityContext securityContext)
+            public Handler(IApplicationDbContext applicationDb, ISecurityContext securityContext)
             {
-                _db = db;
+                _applicationDb = applicationDb;
                 _securityContext = securityContext;
             }
 
@@ -50,8 +50,8 @@ namespace HotelAutomationApp.Application.Rooms.Commands
 
                 (room.LastModifiedBy, room.CreatedBy) = (_securityContext.UserId, _securityContext.UserId);
 
-                _db.Rooms.Add(room);
-                await _db.SaveChangesAsync(cancellationToken);
+                _applicationDb.Room.Add(room);
+                await _applicationDb.SaveChangesAsync(cancellationToken);
             }
         }
     }

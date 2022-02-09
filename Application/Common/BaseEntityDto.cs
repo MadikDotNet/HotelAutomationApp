@@ -10,4 +10,6 @@ public record BaseEntityDto
         Id = id;
 
     public string Id { get; set; }
+
+    public bool HasId => !string.IsNullOrEmpty(Id);
 }

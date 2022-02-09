@@ -9,9 +9,9 @@ namespace HotelAutomationApp.WebApi.Seeds;
 public class IdentitySeed
 {
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly UserManager<User> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public IdentitySeed(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+    public IdentitySeed(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
     {
         _roleManager = roleManager;
         _userManager = userManager;
@@ -35,7 +35,7 @@ public class IdentitySeed
         var (rootUsername, rootPassword, rootEmail) = ("root", "r00t2O22", "moldageldinmadik@gmail.com");
         if (await _userManager.FindByNameAsync(rootUsername) is null)
         {
-            var root = new User
+            var root = new ApplicationUser
             {
                 Email = rootEmail,
                 UserName = rootUsername,
@@ -50,7 +50,7 @@ public class IdentitySeed
         var (userUsername, userPassword, userEmail) = ("Happy_Saram", "bota3112", "Zhanbota_bota@mail.ru");
         if (await _userManager.FindByNameAsync(userUsername) is null)
         {
-            var admin = new User
+            var admin = new ApplicationUser
             {
                 Email = userEmail,
                 UserName = userUsername,

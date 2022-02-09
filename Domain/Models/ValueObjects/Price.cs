@@ -5,9 +5,9 @@ namespace HotelAutomationApp.Domain.Models.ValueObjects
     {
         public Price(decimal value)
         {
-            if (value <= 0)
+            if (value < 0)
             {
-                throw new AggregateException("Price cannot be 0 or less than 0");
+                throw new AggregateException("Price cannot be less than 0");
             }
             
             Value = value;

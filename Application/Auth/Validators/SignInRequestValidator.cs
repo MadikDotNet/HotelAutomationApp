@@ -7,31 +7,31 @@ namespace HotelAutomationApp.Application.Auth.Validators
 {
     public class SignInRequestValidator : AbstractValidator<SignInRequest>
     {
-        private User _user;
+        private ApplicationUser _applicationUser;
         private bool _passwordVerified;
 
         public SignInRequestValidator(
-            UserManager<User> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             RuleFor(q => q.UserCredentials)
                 .MustAsync(async (credentials, token) =>
                 {
                     if (!token.IsCancellationRequested)
                     {
-                        _user = await userManager.FindByNameAsync(credentials.Login);
+                        _applicationUser = await userManager.FindByNameAsync(credentials.Login);
                     }
 
-                    return _user is not null;
+                    return _applicationUser is not null;
                 })
                 .WithMessage("User not found");
 
-            When(q => _user is not null, () =>
+            When(q => _applicationUser is not null, () =>
             {
                 RuleFor(q => q.UserCredentials)
                     .MustAsync(async (credentials, token) =>
                         {
                             _passwordVerified =
-                                await userManager.CheckPasswordAsync(_user!, credentials.Password);
+                                await userManager.CheckPasswordAsync(_applicationUser!, credentials.Password);
 
                             return _passwordVerified;
                         }
@@ -42,7 +42,7 @@ namespace HotelAutomationApp.Application.Auth.Validators
             When(q => _passwordVerified, () =>
             {
                 RuleFor(q => q.UserCredentials)
-                    .Must(credentials => _user!.CanLogin)
+                    .Must(credentials => _applicationUser!.CanLogin)
                     .WithMessage("Can't login, user is blocked");
             });
         }

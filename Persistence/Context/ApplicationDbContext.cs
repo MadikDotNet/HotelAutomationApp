@@ -1,4 +1,5 @@
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.MediaFiles;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Persistence.Config;
@@ -8,7 +9,7 @@ using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Persistence.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<User>,  IDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>,  IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -16,9 +17,11 @@ namespace HotelAutomationApp.Persistence.Context
 
         #region Room
 
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<RoomGroup> RoomGroups { get; set; }
-        public DbSet<RoomImage> RoomImages { get; set; }
+        public DbSet<ApplicationUser> User { get; set; }
+        public DbSet<Room> Room { get; set; }
+        public DbSet<RoomGroup> RoomGroup { get; set; }
+        public DbSet<RoomMedia> RoomMedia { get; set; }
+        public DbSet<Media> Media { get; set; }
 
         #endregion
 

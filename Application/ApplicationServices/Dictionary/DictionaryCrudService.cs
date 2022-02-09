@@ -4,7 +4,6 @@ using HotelAutomationApp.Application.Common.Dictionary.Models;
 using HotelAutomationApp.Application.Common.Extensions;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Domain.Common;
-using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Interfaces.Context;
@@ -15,22 +14,20 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
     where TDictionary : BaseDictionary<TDictionary>
     where TDictionaryDto : BaseDictionaryDto
 {
-    private readonly IDbContext _db;
+    private readonly IApplicationDbContext _applicationDb;
     private readonly IMapper _mapper;
-    private readonly ISecurityContext _securityContext;
 
-    public DictionaryCrudService(IDbContext db, IMapper mapper, ISecurityContext securityContext)
+    public DictionaryCrudService(IApplicationDbContext applicationDb, IMapper mapper)
     {
-        _db = db;
+        _applicationDb = applicationDb;
         _mapper = mapper;
-        _securityContext = securityContext;
     }
 
     public virtual async Task<PageResponse<TDictionaryDto>> ViewAsList(
         PageRequest request,
         CancellationToken cancellationToken)
     {
-        var result = await _db.AsQueryable<TDictionary>()
+        var result = await _applicationDb.AsQueryable<TDictionary>()
             .ProjectTo<TDictionaryDto>(_mapper.ConfigurationProvider)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
@@ -45,7 +42,7 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
         dictionaryDto.Name.EnsureIsNotEmpty(nameof(dictionaryDto.Name));
 
         if (!string.IsNullOrEmpty(dictionaryDto.ParentId) &&
-            !await _db.AsQueryable<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.ParentId))
+            !await _applicationDb.AsQueryable<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.ParentId))
         {
             throw new ArgumentException($"Parent with id {dictionaryDto.ParentId} not found");
         }
@@ -54,8 +51,8 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
 
         var newEntity = _mapper.Map<TDictionary>(record);
 
-        _db.AsDbSet<TDictionary>().Add(newEntity);
-        await _db.SaveChangesAsync(CancellationToken.None);
+        _applicationDb.AsDbSet<TDictionary>().Add(newEntity);
+        await _applicationDb.SaveChangesAsync(CancellationToken.None);
     }
 
     public virtual async Task Update(TDictionaryDto dictionaryDto)
@@ -64,28 +61,28 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
         dictionaryDto.Name.EnsureIsNotEmpty(nameof(dictionaryDto.Name));
         dictionaryDto.Id.EnsureIsNotEmpty(nameof(dictionaryDto.Id));
 
-        if (!await _db.AsQueryable<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.Id))
+        if (!await _applicationDb.AsQueryable<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.Id))
         {
             throw new ArgumentException($"Dictionary item with id {dictionaryDto.Id} not found");
         }
 
         if (!string.IsNullOrEmpty(dictionaryDto.ParentId) &&
-            !await _db.AsQueryable<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.ParentId))
+            !await _applicationDb.AsQueryable<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.ParentId))
         {
             throw new ArgumentException($"Parent with id {dictionaryDto.ParentId} not found");
         }
 
         var dictionaryEntity = _mapper.Map<TDictionary>(dictionaryDto);
         
-        _db.AsDbSet<TDictionary>().Update(dictionaryEntity);
-        await _db.SaveChangesAsync(CancellationToken.None);
+        _applicationDb.AsDbSet<TDictionary>().Update(dictionaryEntity);
+        await _applicationDb.SaveChangesAsync(CancellationToken.None);
     }
 
     public virtual async Task Delete(string id)
     {
         id.EnsureIsNotEmpty(nameof(id));
 
-        var dictionaryItem = await _db
+        var dictionaryItem = await _applicationDb
             .AsQueryable<TDictionary>()
             .FirstOrDefaultAsync(q => q.Id == id, CancellationToken.None);
 
@@ -94,8 +91,8 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
             throw new ArgumentException("Dictionary item not found");
         }
 
-        _db.AsDbSet<TDictionary>().Remove(dictionaryItem);
+        _applicationDb.AsDbSet<TDictionary>().Remove(dictionaryItem);
 
-        await _db.SaveChangesAsync(CancellationToken.None);
+        await _applicationDb.SaveChangesAsync(CancellationToken.None);
     }
 }

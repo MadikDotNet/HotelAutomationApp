@@ -10,6 +10,6 @@ namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Services
         
         string UserId { get; }
 
-        Task<User?> GetCurrentUserAsync(CancellationToken cancellationToken);
+        Task<ApplicationUser?> GetCurrentUserAsync(CancellationToken cancellationToken);
     }
 }

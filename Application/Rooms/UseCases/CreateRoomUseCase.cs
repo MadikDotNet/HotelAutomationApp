@@ -33,6 +33,6 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         public double Capacity { get; set; }
         public decimal PricePerNight { get; set; }
         public string RoomGroupId { get; set; }
-        public ICollection<ImageDto> Images { get; set; }
+        public ICollection<MediaDto> Images { get; set; }
     }
 }

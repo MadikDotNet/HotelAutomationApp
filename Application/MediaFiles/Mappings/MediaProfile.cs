@@ -1,14 +1,14 @@
 using AutoMapper;
 using HotelAutomationApp.Application.File.Models;
-using HotelAutomationApp.Domain.File;
+using HotelAutomationApp.Domain.MediaFiles;
 
-namespace HotelAutomationApp.Application.File.Mappings
+namespace HotelAutomationApp.Application.MediaFiles.Mappings
 {
     public class FileProfile : Profile
     {
         public FileProfile()
         {
-            CreateMap<Image, ImageDto>().ReverseMap();
+            CreateMap<Media, MediaDto>().ReverseMap();
         }
     }
 }

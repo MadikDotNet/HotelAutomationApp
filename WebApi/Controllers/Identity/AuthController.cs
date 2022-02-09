@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HotelAutomationApp.WebApi.Controllers.Identity
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;

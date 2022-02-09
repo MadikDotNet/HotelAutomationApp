@@ -18,23 +18,23 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         
         private class Handler : AsyncRequestHandler<DeleteRoomCommand>
         {
-            private readonly IDbContext _db;
+            private readonly IApplicationDbContext _applicationDb;
             private readonly ISecurityContext _securityContext; 
 
-            public Handler(IDbContext db, ISecurityContext securityContext)
+            public Handler(IApplicationDbContext applicationDb, ISecurityContext securityContext)
             {
-                _db = db;
+                _applicationDb = applicationDb;
                 _securityContext = securityContext;
             }
 
             protected override async Task Handle(DeleteRoomCommand request, CancellationToken cancellationToken)
             {
-                var room = await _db.Rooms.FindAsync(new object[]{request.RoomId}, cancellationToken);
+                var room = await _applicationDb.Room.FindAsync(new object[]{request.RoomId}, cancellationToken);
 
                 room!.DeletedBy = _securityContext.UserId;
                 (room.IsDeleted, room.IsAvailable, room.DeletedDate) = (true, false, DateTime.UtcNow);
                 
-                await _db.SaveChangesAsync(cancellationToken);
+                await _applicationDb.SaveChangesAsync(cancellationToken);
             }
         }
     }

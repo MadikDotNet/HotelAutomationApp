@@ -39,18 +39,18 @@ namespace HotelAutomationApp.Application.Rooms.Queries
 
         private class Handler : IRequestHandler<GetRoomsQuery, ICollection<RoomDto>>
         {
-            private readonly IDbContext _db;
+            private readonly IApplicationDbContext _applicationDb;
             private readonly IMapper _mapper;
 
-            public Handler(IDbContext db, IMapper mapper)
+            public Handler(IApplicationDbContext applicationDb, IMapper mapper)
             {
-                _db = db;
+                _applicationDb = applicationDb;
                 _mapper = mapper;
             }
 
             public async Task<ICollection<RoomDto>> Handle(GetRoomsQuery request, CancellationToken cancellationToken)
             {
-                IQueryable<Room> rooms = _db.Rooms
+                IQueryable<Room> rooms = _applicationDb.Room
                     .AsNoTracking()
                     .Where(q => q.IsAvailable == request.IsAvailable && q.IsDeleted == request.IsDeleted)
                     .Where(q => string.IsNullOrEmpty(request.RoomGroupId) || q.RoomGroupId == request.RoomGroupId);

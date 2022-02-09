@@ -1,18 +1,20 @@
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.MediaFiles;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.Rooms;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Interfaces.Context
 {
-    public interface IDbContext
+    public interface IApplicationDbContext
     {
         #region Room
 
-        DbSet<User> Users { get; set; }
-        DbSet<Room> Rooms { get; set; }
-        DbSet<RoomGroup> RoomGroups { get; set; }
-        DbSet<RoomImage> RoomImages { get; set; }
+        DbSet<ApplicationUser> User { get; set; }
+        DbSet<Room> Room { get; set; }
+        DbSet<RoomGroup> RoomGroup { get; set; }
+        DbSet<RoomMedia> RoomMedia { get; set; }
+        DbSet<Media> Media { get; set; }
 
         #endregion
 

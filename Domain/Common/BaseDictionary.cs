@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using HotelAutomation.Domain.Models.ValueObjects;
 using HotelAutomationApp.Domain.Common.Abstractions;
+using HotelAutomationApp.Domain.Models.ValueObjects;
 
 namespace HotelAutomationApp.Domain.Common
 {

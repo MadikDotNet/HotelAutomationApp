@@ -1,6 +1,6 @@
 using AutoMapper;
 using HotelAutomationApp.Application.File.Models;
-using HotelAutomationApp.Domain.Models.Rooms;
+using HotelAutomationApp.Domain.MediaFiles;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             decimal pricePerNight,
             bool isAvailable,
             string roomGroupId,
-            ICollection<ImageDto> images)
+            ICollection<MediaDto> media)
         {
             Id = id;
             MaxGuestsCount = maxGuestsCount;
@@ -25,7 +25,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             PricePerNight = pricePerNight;
             IsAvailable = isAvailable;
             RoomGroupId = roomGroupId;
-            Images = images;
+            Media = media;
         }
 
         public string Id { get; set; }
@@ -34,24 +34,24 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         public decimal PricePerNight { get; set; }
         public bool IsAvailable { get; set; }
         public string RoomGroupId { get; set; }
-        public ICollection<ImageDto> Images { get; set; }
+        public ICollection<MediaDto> Media { get; set; }
 
         private class Handler : AsyncRequestHandler<UpdateRoomCommand>
         {
-            private readonly IDbContext _db;
-            private readonly IMapper _mapper;
+            private readonly IApplicationDbContext _applicationDb;
             private readonly ISecurityContext _securityContext;
+            private readonly IMapper _mapper;
 
-            public Handler(IDbContext db, IMapper mapper, ISecurityContext securityContext)
+            public Handler(IApplicationDbContext applicationDb, ISecurityContext securityContext, IMapper mapper)
             {
-                _db = db;
-                _mapper = mapper;
+                _applicationDb = applicationDb;
                 _securityContext = securityContext;
+                _mapper = mapper;
             }
 
             protected override async Task Handle(UpdateRoomCommand request, CancellationToken cancellationToken)
             {
-                var room = await _db.Rooms.FindAsync(request.Id);
+                var room = await _applicationDb.Room.FindAsync(request.Id);
 
                 room!.MaxGuestsCount = request.MaxGuestsCount;
                 room.Capacity = request.Capacity;
@@ -60,15 +60,21 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                 room.RoomGroupId = request.RoomGroupId;
                 room.LastModifiedBy = _securityContext.UserId;
 
-                var images = await _db.RoomImages.Where(q => q.RoomId == request.Id).ToListAsync(cancellationToken);
-                _db.RoomImages.RemoveRange(images);
+                var roomMedia = await _applicationDb.RoomMedia
+                    .Where(q => q.RoomId == request.Id)
+                    .ToListAsync(cancellationToken);
 
-                room.Images = request.Images
-                    .Select(image => new RoomImage(image.FileName, image.FileType, image.Data, room.Id, room)).ToList();
+                _applicationDb.RoomMedia.RemoveRange(roomMedia);
 
-                _db.Rooms.Update(room);
+                await _applicationDb.SaveChangesAsync(CancellationToken.None);
 
-                await _db.SaveChangesAsync(CancellationToken.None);
+                var newMedia = request.Media.Where(q => !q.HasId);
+                
+                
+
+                _applicationDb.Room.Update(room);
+
+                await _applicationDb.SaveChangesAsync(CancellationToken.None);
             }
         }
     }

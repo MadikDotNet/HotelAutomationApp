@@ -6,12 +6,12 @@ namespace HotelAutomationApp.Application.Rooms.Validations
 {
     public class CreateRoomRequestValidator : AbstractValidator<CreateRoomRequest>
     {
-        public CreateRoomRequestValidator(IDbContext db)
+        public CreateRoomRequestValidator(IApplicationDbContext applicationDb)
         {
             RuleFor(q => q.RoomGroupId)
                 .MustAsync(async (field, token) =>
                     !string.IsNullOrEmpty(field) &&
-                    await db.RoomGroups.FindAsync(new object[]{field}, token) is not null)
+                    await applicationDb.RoomGroup.FindAsync(new object[]{field}, token) is not null)
                 .WithMessage("Room group not found");
         }
     }

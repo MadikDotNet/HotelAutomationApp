@@ -1,4 +1,5 @@
 using HotelAutomationApp.Shared;
+using HotelAutomationApp.Shared.Extensions;
 
 namespace HotelAutomationApp.Application.Auth.Models
 {
@@ -6,8 +7,8 @@ namespace HotelAutomationApp.Application.Auth.Models
     {
         public UserCredentials(string login, string password)
         {
-            Login = login.ThrowIfArgNullOrWhiteSpace(nameof(Login));
-            Password = password.ThrowIfArgNullOrWhiteSpace(nameof(Password));
+            Login = login.EnsureIsNotEmpty(nameof(Login));
+            Password = password.EnsureIsNotEmpty(nameof(Password));
         }
 
         public string Login { get; }

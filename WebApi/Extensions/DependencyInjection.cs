@@ -15,19 +15,11 @@ using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.WebApi.Extensions
 {
-    public static class DependencyInjectionExtensions
+    public static class DependencyInjection
     {
-        public static IServiceCollection AddDatabases(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDbContext<IDbContext, ApplicationDbContext>(options => 
-                options.UseNpgsql(configuration.GetConnectionString("Default")));
-
-            return services;
-        }
-
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
                     options.Password.RequiredLength = 1;
                     options.Password.RequireLowercase = false;

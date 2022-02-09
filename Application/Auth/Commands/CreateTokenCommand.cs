@@ -12,19 +12,19 @@ namespace HotelAutomationApp.Application.Auth.Commands
 {
     public class CreateTokenCommand : IRequest<string>
     {
-        public User User { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
-        public CreateTokenCommand(User user)
+        public CreateTokenCommand(ApplicationUser applicationUser)
         {
-            User = user;
+            ApplicationUser = applicationUser;
         }
 
         private class Handler : IRequestHandler<CreateTokenCommand, string>
         {
             private readonly ITokenFactory _tokenFactory;
-            private readonly UserManager<User> _userManager;
+            private readonly UserManager<ApplicationUser> _userManager;
 
-            public Handler(ITokenFactory tokenFactory, UserManager<User> userManager)
+            public Handler(ITokenFactory tokenFactory, UserManager<ApplicationUser> userManager)
             {
                 _tokenFactory = tokenFactory;
                 _userManager = userManager;
@@ -34,10 +34,10 @@ namespace HotelAutomationApp.Application.Auth.Commands
             {
                 var claims = new Dictionary<string, object>
                 {
-                    [Claims.Subject] = command.User.Id
+                    [Claims.Subject] = command.ApplicationUser.Id
                 };
                 
-                var userRoles = (await _userManager.GetRolesAsync(command.User)).ToList();
+                var userRoles = (await _userManager.GetRolesAsync(command.ApplicationUser)).ToList();
 
                 userRoles.ForEach(role => claims[Claims.Role] = role);
 

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HotelAutomationApp.WebApi.Controllers.Room
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class RoomsController : ControllerBase
     {
         private readonly IMediator _mediator;

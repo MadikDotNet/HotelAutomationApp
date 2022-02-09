@@ -15,10 +15,12 @@ public static class ValidationExtensions
         value ?? throw new ArgumentException(message, paramName);
 
     public static string EnsureIsNotEmpty(this string value) =>
-        string.IsNullOrEmpty(value) ? throw new ArgumentException($"{nameof(value)} cannot be null or empty") : value;
+        string.IsNullOrWhiteSpace(value) || !value.Any() 
+            ? throw new ArgumentException($"{nameof(value)} cannot be null or empty") 
+            : value;
 
     public static string EnsureIsNotEmpty(this string value, string paramName) =>
-        string.IsNullOrEmpty(value)
+        string.IsNullOrWhiteSpace(value) || !value.Any()
             ? throw new ArgumentException($"{nameof(value)} cannot be null or empty", paramName)
             : value;
 }

@@ -7,14 +7,14 @@ namespace HotelAutomationApp.Application.Rooms.Validations
 {
     public class UpdateRoomRequestValidator : AbstractValidator<UpdateRoomRequest>
     {
-        private static Room? _object = null;
+        private static Room? _object;
         
-        public UpdateRoomRequestValidator(IDbContext db)
+        public UpdateRoomRequestValidator(IApplicationDbContext applicationDb)
         {
             RuleFor(q => q.Id)
                 .MustAsync(async (field, token) =>
                 {
-                    _object = await db.Rooms.FindAsync(new object[]{field}, token);
+                    _object = await applicationDb.Room.FindAsync(new object[]{field}, token);
                     return true;
                 });
 

@@ -5,6 +5,7 @@ using HotelAutomation.Application.Common;
 using HotelAutomation.WebApi.Extensions;
 using HotelAutomationApp.Application.ApplicationServices.Dictionary;
 using HotelAutomationApp.Application.Auth.Commands;
+using HotelAutomationApp.Persistence.Extensions;
 using HotelAutomationApp.Shared.Extensions;
 using HotelAutomationApp.WebApi.Extensions;
 using MediatR;
@@ -77,7 +78,7 @@ namespace HotelAutomationApp.WebApi
 
             services.AddMediatR(typeof(Startup));
             services.AddMediatrHandlers(typeof(CreateTokenCommand).Assembly);
-            services.AddDatabases(Configuration);
+            services.AddPersistence(Configuration);
             services.AddIdentity();
             services.AddSeed();
             services.AddAuthenticationSystem(Configuration);

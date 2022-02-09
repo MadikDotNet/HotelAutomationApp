@@ -1,5 +1,5 @@
-using HotelAutomation.Domain.Models.ValueObjects;
 using HotelAutomationApp.Domain.Models.Rooms;
+using HotelAutomationApp.Domain.Models.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
