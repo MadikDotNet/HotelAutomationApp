@@ -100,6 +100,7 @@ namespace HotelAutomationApp.WebApi
 
             appBuilder.UseRouting();
             
+            appBuilder.InitializeApplicationDb();
             appBuilder.UseAuthenticationSystem();
 
             appBuilder.UseCors(options =>

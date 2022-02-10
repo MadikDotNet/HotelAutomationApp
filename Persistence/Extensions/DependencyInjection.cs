@@ -10,8 +10,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options => 
+        services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("Default")));
+
+        services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
         return services;
     }
