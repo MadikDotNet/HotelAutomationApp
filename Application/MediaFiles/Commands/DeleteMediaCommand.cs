@@ -1,6 +1,6 @@
 using HotelAutomationApp.Domain.MediaFiles;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.MediaFiles.Commands;
 

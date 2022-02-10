@@ -1,11 +1,8 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Domain.Models.Identity;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.Auth.Queries
 {

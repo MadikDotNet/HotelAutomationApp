@@ -1,6 +1,6 @@
 using FluentValidation;
 using HotelAutomationApp.Application.Rooms.UseCases;
-using Persistence.Interfaces.Context;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.Rooms.Validations
 {

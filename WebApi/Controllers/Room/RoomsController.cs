@@ -13,6 +13,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
     public class RoomsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -33,7 +34,6 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
         }
 
         [HttpDelete]
-        [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteRoom([FromBody] DeleteRoomRequest request)
         {
@@ -43,7 +43,6 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
         }
 
         [HttpPost]
-        [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> CreateRoom([FromBody] CreateRoomRequest request)
         {
@@ -53,7 +52,6 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
         }
 
         [HttpPut]
-        [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateRoom([FromBody] UpdateRoomRequest request)
         {

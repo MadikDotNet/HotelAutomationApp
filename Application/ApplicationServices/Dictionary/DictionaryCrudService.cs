@@ -4,9 +4,9 @@ using HotelAutomationApp.Application.Common.Dictionary.Models;
 using HotelAutomationApp.Application.Common.Extensions;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.ApplicationServices.Dictionary;
 

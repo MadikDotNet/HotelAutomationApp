@@ -1,4 +1,3 @@
-using System;
 
 namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Exceptions
 {
@@ -6,7 +5,6 @@ namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Exceptions
     {
         public InvalidCredentialsException() : base("Invalid login or password")
         {
-            
         }
     }
 }

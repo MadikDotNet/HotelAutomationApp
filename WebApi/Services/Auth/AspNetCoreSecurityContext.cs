@@ -5,9 +5,9 @@ using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Exceptions;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.WebApi.Services.Auth
 {

@@ -1,10 +1,12 @@
+using System.Data;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.MediaFiles;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.Rooms;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Persistence.Interfaces.Context
+namespace HotelAutomationApp.Persistence.Interfaces.Context
 {
     public interface IApplicationDbContext
     {
@@ -21,5 +23,7 @@ namespace Persistence.Interfaces.Context
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         IQueryable<TEntity> AsQueryable<TEntity>() where TEntity : BaseEntity;
         DbSet<TEntity> AsDbSet<TEntity>() where TEntity : BaseEntity;
+        Task<IDbContextTransaction> BeginTransactionAsync(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+        Task CommitTransactionAsync();
     }
 }

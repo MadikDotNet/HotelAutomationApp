@@ -3,9 +3,9 @@ using AutoMapper.QueryableExtensions;
 using HotelAutomationApp.Application.Common.Extensions;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.MediaFiles.Queries;
 

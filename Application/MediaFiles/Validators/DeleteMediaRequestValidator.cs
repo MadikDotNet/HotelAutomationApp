@@ -1,6 +1,6 @@
 using FluentValidation;
 using HotelAutomationApp.Application.MediaFiles.UseCases;
-using Persistence.Interfaces.Context;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.MediaFiles.Validators;
 

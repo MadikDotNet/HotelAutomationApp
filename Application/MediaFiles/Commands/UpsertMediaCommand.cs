@@ -1,10 +1,10 @@
 using AutoMapper;
 using HotelAutomationApp.Application.File.Models;
 using HotelAutomationApp.Domain.MediaFiles;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.MediaFiles.Commands;
 

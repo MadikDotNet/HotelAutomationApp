@@ -1,8 +1,8 @@
 using HotelAutomationApp.Persistence.Context;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Persistence.Extensions;
 

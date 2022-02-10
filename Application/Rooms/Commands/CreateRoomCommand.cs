@@ -1,8 +1,8 @@
 using HotelAutomationApp.Application.File.Models;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.Rooms.Commands
 {

@@ -1,15 +1,17 @@
+using System.Data;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.MediaFiles;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Persistence.Config;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace HotelAutomationApp.Persistence.Context
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>,  IApplicationDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -38,6 +40,13 @@ namespace HotelAutomationApp.Persistence.Context
         public DbSet<TEntity> AsDbSet<TEntity>()
             where TEntity : BaseEntity =>
             Set<TEntity>();
+
+        public async Task<IDbContextTransaction> BeginTransactionAsync(
+            IsolationLevel isolationLevel = IsolationLevel.ReadCommitted) =>
+            await Database.BeginTransactionAsync(isolationLevel);
+
+        public async Task CommitTransactionAsync() =>
+            await Database.CommitTransactionAsync();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

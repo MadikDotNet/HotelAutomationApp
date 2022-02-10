@@ -7,9 +7,9 @@ using AutoMapper.QueryableExtensions;
 using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Domain.Models.Rooms;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.Rooms.Queries
 {

@@ -1,10 +1,8 @@
 using AutoMapper;
 using HotelAutomationApp.Application.File.Models;
-using HotelAutomationApp.Domain.MediaFiles;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.Rooms.Commands
 {
@@ -16,8 +14,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerNight,
             bool isAvailable,
-            string roomGroupId,
-            ICollection<MediaDto> media)
+            string roomGroupId)
         {
             Id = id;
             MaxGuestsCount = maxGuestsCount;
@@ -25,16 +22,14 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             PricePerNight = pricePerNight;
             IsAvailable = isAvailable;
             RoomGroupId = roomGroupId;
-            Media = media;
         }
 
-        public string Id { get; set; }
-        public int MaxGuestsCount { get; set; }
-        public double Capacity { get; set; }
-        public decimal PricePerNight { get; set; }
-        public bool IsAvailable { get; set; }
-        public string RoomGroupId { get; set; }
-        public ICollection<MediaDto> Media { get; set; }
+        public string Id { get; }
+        public int MaxGuestsCount { get;  }
+        public double Capacity { get;  }
+        public decimal PricePerNight { get;  }
+        public bool IsAvailable { get;  }
+        public string RoomGroupId { get;  }
 
         private class Handler : AsyncRequestHandler<UpdateRoomCommand>
         {
@@ -59,18 +54,6 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                 room.IsAvailable = request.IsAvailable;
                 room.RoomGroupId = request.RoomGroupId;
                 room.LastModifiedBy = _securityContext.UserId;
-
-                var roomMedia = await _applicationDb.RoomMedia
-                    .Where(q => q.RoomId == request.Id)
-                    .ToListAsync(cancellationToken);
-
-                _applicationDb.RoomMedia.RemoveRange(roomMedia);
-
-                await _applicationDb.SaveChangesAsync(CancellationToken.None);
-
-                var newMedia = request.Media.Where(q => !q.HasId);
-                
-                
 
                 _applicationDb.Room.Update(room);
 
