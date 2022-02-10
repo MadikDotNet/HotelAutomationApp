@@ -1,7 +1,7 @@
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Shared.Extensions;
 
-namespace HotelAutomationApp.Domain.MediaFiles
+namespace HotelAutomationApp.Domain.Models.MediaFiles
 {
     /// <summary>
     /// Media representation

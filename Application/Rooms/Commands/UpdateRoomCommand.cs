@@ -1,5 +1,4 @@
 using AutoMapper;
-using HotelAutomationApp.Application.File.Models;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;

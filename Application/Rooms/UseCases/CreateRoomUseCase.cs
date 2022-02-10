@@ -1,5 +1,7 @@
 using HotelAutomation.Application.Common;
-using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Application.MediaFiles.Commands;
+using HotelAutomationApp.Application.MediaFiles.Models;
+using HotelAutomationApp.Application.RoomMedia.Commands;
 using HotelAutomationApp.Application.Rooms.Commands;
 using MediatR;
 
@@ -16,14 +18,14 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
 
         protected override async Task HandleRequestAsync(CreateRoomRequest request, CancellationToken cancellationToken)
         {
-            var command = new CreateRoomCommand(
+            var createRoomCommand = new CreateRoomCommand(
                 request.MaxGuestsCount,
                 request.Capacity,
                 request.PricePerNight,
                 request.RoomGroupId,
                 request.Images);
             
-            await _mediator.Send(command, cancellationToken);
+            await _mediator.Send(createRoomCommand, cancellationToken);
         }
     }
 

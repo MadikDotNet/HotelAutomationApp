@@ -1,5 +1,5 @@
 using HotelAutomationApp.Application.Common;
-using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Application.MediaFiles.Models;
 using HotelAutomationApp.Application.RoomMedia.Commands;
 using HotelAutomationApp.Application.Rooms.Commands;
 using HotelAutomationApp.Persistence.Interfaces.Context;

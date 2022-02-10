@@ -1,6 +1,6 @@
 using HotelAutomation.Application.Common;
-using HotelAutomationApp.Application.File.Models;
 using HotelAutomationApp.Application.MediaFiles.Commands;
+using HotelAutomationApp.Application.MediaFiles.Models;
 using MediatR;
 
 namespace HotelAutomationApp.Application.MediaFiles.UseCases;

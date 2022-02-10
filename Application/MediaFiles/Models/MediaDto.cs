@@ -1,6 +1,6 @@
 using HotelAutomationApp.Application.Common;
 
-namespace HotelAutomationApp.Application.File.Models
+namespace HotelAutomationApp.Application.MediaFiles.Models
 {
     public record MediaDto : BaseEntityDto
     {

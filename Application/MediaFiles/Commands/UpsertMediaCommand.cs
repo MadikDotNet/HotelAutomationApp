@@ -1,6 +1,6 @@
 using AutoMapper;
-using HotelAutomationApp.Application.File.Models;
-using HotelAutomationApp.Domain.MediaFiles;
+using HotelAutomationApp.Application.MediaFiles.Models;
+using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
 using MediatR;

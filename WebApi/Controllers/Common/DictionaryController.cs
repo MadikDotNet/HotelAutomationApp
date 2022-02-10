@@ -14,17 +14,17 @@ namespace HotelAutomationApp.WebApi.Controllers.Common;
 
 [ApiController]
 [Route("api/dictionary/[controller]/[action]")]
-public class DictionaryController
+public abstract class DictionaryController
     <TDictionary, TDictionaryDto, TDictionaryService> : ControllerBase
-    where TDictionary : BaseDictionary<TDictionary>, new()
+    where TDictionary : BaseDictionary, new()
     where TDictionaryDto : BaseDictionaryDto
     where TDictionaryService : DictionaryCrudService<TDictionary, TDictionaryDto>
 {
-    private readonly TDictionaryService _dictionaryService;
+    protected readonly TDictionaryService DictionaryService;
 
-    public DictionaryController(TDictionaryService dictionaryService)
+    protected DictionaryController(TDictionaryService dictionaryService)
     {
-        _dictionaryService = dictionaryService;
+        DictionaryService = dictionaryService;
     }
 
     [HttpGet]
@@ -33,34 +33,39 @@ public class DictionaryController
         [FromQuery] ViewDictionaryListRequest request,
         CancellationToken cancellationToken)
     {
-        var result = await _dictionaryService.ViewAsList(request.PageRequest, cancellationToken);
+        var result = await DictionaryService.ViewAsList(request.PageRequest, cancellationToken);
         return Ok(result);
     }
 
     [HttpPost]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
+    [ProducesResponseType((int) HttpStatusCode.OK)]
+
     public async Task<IActionResult> Create(
         [FromBody] CreateDictionaryItemRequest<TDictionary, TDictionaryDto> request)
     {
-        await _dictionaryService.Create(request.DictionaryDto);
+        await DictionaryService.Create(request.DictionaryDto);
 
         return Ok();
     }
 
     [HttpPut]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
+    [ProducesResponseType((int) HttpStatusCode.OK)]
+
     public async Task<IActionResult> Update([FromBody] UpdateDictionaryItemRequest<TDictionaryDto> request)
     {
-        await _dictionaryService.Update(request.DictionaryDto);
+        await DictionaryService.Update(request.DictionaryDto);
 
         return Ok();
     }
 
     [HttpDelete]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
+    [ProducesResponseType((int) HttpStatusCode.OK)]
     public async Task<IActionResult> Delete([FromBody] DeleteDictionaryItemRequest request)
     {
-        await _dictionaryService.Delete(request.Id);
+        await DictionaryService.Delete(request.Id);
 
         return Ok();
     }

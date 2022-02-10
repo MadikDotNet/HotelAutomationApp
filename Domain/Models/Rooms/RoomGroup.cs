@@ -1,17 +1,17 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Domain.Models.ValueObjects;
 
 namespace HotelAutomationApp.Domain.Models.Rooms
 {
-    public class RoomGroup : BaseDictionary<RoomGroup>
+    public class RoomGroup : BaseDictionary
     {
         public RoomGroup(
             string name,
             string code,
             string description,
-            string parentId,
-            ICollection<RoomGroup> children,
-            Price minPrice) : base(name, code, description, parentId, children)
+            Price minPrice) : base(name, code, description)
         {
             MinPrice = minPrice;
         }
@@ -25,5 +25,10 @@ namespace HotelAutomationApp.Domain.Models.Rooms
         /// Lower price range for the group
         /// </summary>
         public Price MinPrice { get; set; }
+
+        [ForeignKey(nameof(Media))]
+        public string MediaId { get; set; }
+
+        public Media Media { get; set; }
     }
 }

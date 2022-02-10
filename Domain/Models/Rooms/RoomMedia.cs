@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using HotelAutomationApp.Domain.Common;
-using HotelAutomationApp.Domain.MediaFiles;
+using HotelAutomationApp.Domain.Models.MediaFiles;
 
 namespace HotelAutomationApp.Domain.Models.Rooms
 {

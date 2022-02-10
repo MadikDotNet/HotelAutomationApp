@@ -1,5 +1,5 @@
 using HotelAutomationApp.Application.Common.Models;
-using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Application.MediaFiles.Models;
 
 namespace HotelAutomationApp.Application.Rooms.Models
 {

@@ -10,10 +10,7 @@ public static class SequenceExtensions
     /// <param name="remain"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static IEnumerable<T> ExcludeAfterFilter<T>(
-        this IEnumerable<T> source,
-        Func<T, bool> predicate,
-        out IEnumerable<T> remain)
+    public static List<T> ExcludeAfterFilter<T>(this IEnumerable<T> source, Func<T, bool> predicate, out List<T> remain)
     {
         var filtered = source.Select(q => new {Element = q, Passed = predicate.Invoke(q)})
             .GroupBy(q => q.Passed)
@@ -70,7 +67,7 @@ public static class SequenceExtensions
             IEnumerable<TSecond> comparable,
             Func<TFirst, TComparable> sourceComparableField,
             Func<TSecond, TComparable> targetComparableField)
-            where TComparable : IEquatable<TComparable> =>
-            source.Where(q => !comparable.Any(w => targetComparableField.Invoke(w)
+            where TComparable : IEquatable<TComparable>? =>
+            source.Where(q => !comparable.Any(w => targetComparableField(w)!
                 .Equals(sourceComparableField.Invoke(q)))).ToList();
 }

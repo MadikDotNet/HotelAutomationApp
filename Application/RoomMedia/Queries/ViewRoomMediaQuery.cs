@@ -1,7 +1,7 @@
 using AutoMapper;
 using HotelAutomationApp.Application.Common.Extensions;
 using HotelAutomationApp.Application.Common.Pagination;
-using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Application.MediaFiles.Models;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

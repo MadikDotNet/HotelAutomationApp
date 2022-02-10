@@ -1,6 +1,6 @@
 using HotelAutomation.Application.Common;
 using HotelAutomationApp.Application.Common.Pagination;
-using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Application.MediaFiles.Models;
 using HotelAutomationApp.Application.RoomMedia.Queries;
 using MediatR;
 

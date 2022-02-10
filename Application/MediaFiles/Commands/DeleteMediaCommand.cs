@@ -1,4 +1,4 @@
-using HotelAutomationApp.Domain.MediaFiles;
+using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 

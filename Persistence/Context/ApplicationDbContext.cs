@@ -1,8 +1,9 @@
 using System.Data;
 using HotelAutomationApp.Domain.Common;
-using HotelAutomationApp.Domain.MediaFiles;
 using HotelAutomationApp.Domain.Models.Identity;
+using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Domain.Models.Rooms;
+using HotelAutomationApp.Domain.Models.Services;
 using HotelAutomationApp.Persistence.Config;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -17,13 +18,29 @@ namespace HotelAutomationApp.Persistence.Context
         {
         }
 
-        #region Room
+        #region Identity
 
         public DbSet<ApplicationUser> User { get; set; }
+
+        #endregion
+
+        #region Room
+
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomGroup> RoomGroup { get; set; }
         public DbSet<RoomMedia> RoomMedia { get; set; }
+
+        #endregion
+
+        #region MediaFiles
+
         public DbSet<Media> Media { get; set; }
+
+        #endregion
+
+        #region Services
+
+        public DbSet<Service> Service { get; set; }
 
         #endregion
 
@@ -54,6 +71,7 @@ namespace HotelAutomationApp.Persistence.Context
 
             builder.ApplyConfiguration(new RoomConfiguration());
             builder.ApplyConfiguration(new RoomGroupConfiguration());
+            builder.ApplyConfiguration(new ServiceConfiguration());
         }
 
         private void AuditChanges()

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HotelAutomationApp.Application.ApplicationServices.Dictionary;
 
 public class DictionaryCrudService<TDictionary, TDictionaryDto>
-    where TDictionary : BaseDictionary<TDictionary>
+    where TDictionary : BaseDictionary
     where TDictionaryDto : BaseDictionaryDto
 {
     private readonly IApplicationDbContext _applicationDb;
@@ -35,6 +35,15 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
         return result.AsPageResponse(request);
     }
 
+    public virtual async Task<ICollection<TTreeDictionaryDto>> ViewAsTree
+        <TTreeDictionary, TTreeDictionaryDto>(CancellationToken cancellationToken)
+        where TTreeDictionary : BaseEntity
+        where TTreeDictionaryDto : TreeDictionaryDto<TTreeDictionaryDto> =>
+        (await _applicationDb.AsQueryable<TTreeDictionary>()
+            .ProjectTo<TTreeDictionaryDto>(_mapper.ConfigurationProvider)
+            .AsNoTracking()
+            .ToListAsync(cancellationToken))
+        .AsRecursiveTree(parent => parent.Id, child => child.ParentId).ToList();
 
     public virtual async Task Create(TDictionaryDto dictionaryDto)
     {
@@ -73,7 +82,7 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
         }
 
         var dictionaryEntity = _mapper.Map<TDictionary>(dictionaryDto);
-        
+
         _applicationDb.AsDbSet<TDictionary>().Update(dictionaryEntity);
         await _applicationDb.SaveChangesAsync(CancellationToken.None);
     }

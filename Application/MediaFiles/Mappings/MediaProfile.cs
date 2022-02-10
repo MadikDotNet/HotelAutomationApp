@@ -1,6 +1,6 @@
 using AutoMapper;
-using HotelAutomationApp.Application.File.Models;
-using HotelAutomationApp.Domain.MediaFiles;
+using HotelAutomationApp.Application.MediaFiles.Models;
+using HotelAutomationApp.Domain.Models.MediaFiles;
 
 namespace HotelAutomationApp.Application.MediaFiles.Mappings
 {

@@ -1,4 +1,5 @@
-using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Application.MediaFiles.Models;
+using HotelAutomationApp.Application.RoomMedia.Commands;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Persistence.Interfaces.Context;
@@ -13,30 +14,35 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerNight,
             string roomGroupId,
-            ICollection<MediaDto> images)
+            ICollection<MediaDto> media)
         {
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
             PricePerNight = pricePerNight;
             RoomGroupId = roomGroupId;
-            Images = images;
+            Media = media;
         }
 
         public int MaxGuestsCount { get; }
         public double Capacity { get; }
         public decimal PricePerNight { get; }
         public string RoomGroupId { get; }
-        public ICollection<MediaDto> Images { get; }
+        public ICollection<MediaDto> Media { get; }
 
         private class Handler : AsyncRequestHandler<CreateRoomCommand>
         {
             private readonly IApplicationDbContext _applicationDb;
             private readonly ISecurityContext _securityContext;
+            private readonly IMediator _mediator;
 
-            public Handler(IApplicationDbContext applicationDb, ISecurityContext securityContext)
+            public Handler(
+                IApplicationDbContext applicationDb,
+                ISecurityContext securityContext,
+                IMediator mediator)
             {
                 _applicationDb = applicationDb;
                 _securityContext = securityContext;
+                _mediator = mediator;
             }
 
             protected override async Task Handle(CreateRoomCommand request, CancellationToken cancellationToken)
@@ -51,7 +57,9 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                 (room.LastModifiedBy, room.CreatedBy) = (_securityContext.UserId, _securityContext.UserId);
 
                 _applicationDb.Room.Add(room);
-                await _applicationDb.SaveChangesAsync(cancellationToken);
+                await _applicationDb.SaveChangesAsync(CancellationToken.None);
+
+                await _mediator.Send(new UpsertRoomMediaCommand(room.Id, request.Media), CancellationToken.None);
             }
         }
     }

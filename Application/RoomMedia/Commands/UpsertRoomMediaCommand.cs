@@ -1,5 +1,6 @@
 using AutoMapper;
-using HotelAutomationApp.Application.File.Models;
+using HotelAutomationApp.Application.MediaFiles.Models;
+using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
 using MediatR;
@@ -43,13 +44,13 @@ public class UpsertRoomMediaCommand : IRequest
 
             newMedia = remain
                 .ExcludeSameElements(alreadyExistMedia, first => first.Id, second => second.Id)
-                .Concat(newMedia);
+                .Concat(newMedia).ToList();
 
             var mustBeAdded = alreadyExistMedia.Select(q => new Domain.Models.Rooms.RoomMedia(room.Id, q.Id))
                 .Concat(newMedia.Select(q =>
                 {
                     var @new = q with {Id = Guid.NewGuid().ToString()};
-                    return new Domain.Models.Rooms.RoomMedia(room.Id, room, @new.Id, _mapper.Map<Domain.MediaFiles.Media>(@new));
+                    return new Domain.Models.Rooms.RoomMedia(room.Id, room, @new.Id, _mapper.Map<Media>(@new));
                 })).ToList();
 
             _applicationDb.RoomMedia.AddRange(mustBeAdded);

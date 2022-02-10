@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using HotelAutomationApp.Application.File.Models;
 using HotelAutomationApp.Application.MediaFiles.Commands;
 using HotelAutomationApp.Application.RoomMedia.Commands;
 using HotelAutomationApp.WebApi.Seeds;
