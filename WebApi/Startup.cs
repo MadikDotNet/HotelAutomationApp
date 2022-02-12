@@ -12,6 +12,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,14 +34,14 @@ namespace HotelAutomationApp.WebApi
         {
             services.AddControllers()
                 .AddNewtonsoftJson()
-                .AddFluentValidation(q => 
-                    q.RegisterValidatorsFromAssemblies(new []
+                .AddFluentValidation(q =>
+                    q.RegisterValidatorsFromAssemblies(new[]
                     {
                         typeof(CreateTokenCommand).Assembly
                     }));
 
             services.AddCors();
-            
+
             services.AddSwaggerGen(setup =>
             {
                 var jwtSecurityScheme = new OpenApiSecurityScheme
@@ -63,9 +64,8 @@ namespace HotelAutomationApp.WebApi
 
                 setup.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    { jwtSecurityScheme, Array.Empty<string>() }
+                    {jwtSecurityScheme, Array.Empty<string>()}
                 });
-
             });
 
             var mapperConfiguration = new MapperConfiguration(config =>
@@ -92,14 +92,15 @@ namespace HotelAutomationApp.WebApi
             {
                 appBuilder.UseDeveloperExceptionPage();
             }
-            
+
             appBuilder.UseSwagger();
             appBuilder.UseSwaggerUI(q => q.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApi v1"));
 
             appBuilder.UseStaticFiles();
 
             appBuilder.UseRouting();
-            
+
+
             appBuilder.InitializeApplicationDb();
             appBuilder.UseAuthenticationSystem();
 
@@ -107,10 +108,9 @@ namespace HotelAutomationApp.WebApi
             {
                 options.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod();
             });
-            
+
             appBuilder.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
