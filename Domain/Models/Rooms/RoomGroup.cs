@@ -28,7 +28,6 @@ namespace HotelAutomationApp.Domain.Models.Rooms
 
         [ForeignKey(nameof(Media))]
         public string MediaId { get; set; }
-
         public Media Media { get; set; }
     }
 }

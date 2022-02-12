@@ -105,9 +105,8 @@ namespace HotelAutomationApp.WebApi
 
             appBuilder.UseCors(options =>
             {
-                options.AllowAnyMethod()
+                options.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .SetIsOriginAllowed(_ => true)
                     .AllowCredentials();
             });
             
