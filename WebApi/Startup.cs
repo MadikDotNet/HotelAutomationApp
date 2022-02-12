@@ -100,6 +100,11 @@ namespace HotelAutomationApp.WebApi
 
             appBuilder.UseRouting();
 
+            appBuilder.Use((context, deelegate) =>
+            {
+                Console.WriteLine("------------------"+ context.Request.GetDisplayUrl());
+                return deelegate.Invoke();
+            });
 
             appBuilder.InitializeApplicationDb();
             appBuilder.UseAuthenticationSystem();
