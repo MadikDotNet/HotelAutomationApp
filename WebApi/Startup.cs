@@ -107,6 +107,7 @@ namespace HotelAutomationApp.WebApi
             {
                 options.AllowAnyOrigin()
                     .AllowAnyHeader()
+                    .AllowAnyMethod()
                     .AllowCredentials();
             });
             
