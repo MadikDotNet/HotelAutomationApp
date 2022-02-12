@@ -30,20 +30,21 @@ namespace HotelAutomationApp.Application.Auth.UseCases
             SignInRequest request,
             CancellationToken cancellationToken)
         {
-            var user = await _mediator.Send(new GetUserByCredentialsQuery(request.UserCredentials), cancellationToken);
+            var user = await _mediator.Send(new GetUserByCredentialsQuery(request.Login, request.Password),
+                cancellationToken);
 
             if (!user.CanLogin)
             {
                 throw new UserBlockedException();
             }
-            
+
             var token = await _mediator.Send(new CreateTokenCommand(user), cancellationToken);
-            
+
             var roles = await _userManager.GetRolesAsync(user);
 
             return new SignInResponse
             {
-                UserId = user.Id, 
+                UserId = user.Id,
                 AccessToken = token,
                 Roles = roles,
                 Username = user.UserName,
@@ -53,7 +54,8 @@ namespace HotelAutomationApp.Application.Auth.UseCases
 
     public class SignInRequest : IRequest<SignInResponse>
     {
-        public UserCredentials UserCredentials { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
     }
 
     public class SignInResponse

@@ -13,12 +13,12 @@ namespace HotelAutomationApp.Application.Auth.Validators
         public SignInRequestValidator(
             UserManager<ApplicationUser> userManager)
         {
-            RuleFor(q => q.UserCredentials)
-                .MustAsync(async (credentials, token) =>
+            RuleFor(q => q.Login)
+                .MustAsync(async (login, token) =>
                 {
                     if (!token.IsCancellationRequested)
                     {
-                        _applicationUser = await userManager.FindByNameAsync(credentials.Login);
+                        _applicationUser = await userManager.FindByNameAsync(login);
                     }
 
                     return _applicationUser is not null;
@@ -27,11 +27,11 @@ namespace HotelAutomationApp.Application.Auth.Validators
 
             When(q => _applicationUser is not null, () =>
             {
-                RuleFor(q => q.UserCredentials)
-                    .MustAsync(async (credentials, token) =>
+                RuleFor(q => q.Password)
+                    .MustAsync(async (password, token) =>
                         {
                             _passwordVerified =
-                                await userManager.CheckPasswordAsync(_applicationUser!, credentials.Password);
+                                await userManager.CheckPasswordAsync(_applicationUser!, password);
 
                             return _passwordVerified;
                         }
@@ -41,7 +41,7 @@ namespace HotelAutomationApp.Application.Auth.Validators
 
             When(q => _passwordVerified, () =>
             {
-                RuleFor(q => q.UserCredentials)
+                RuleFor(q => q.Login)
                     .Must(credentials => _applicationUser!.CanLogin)
                     .WithMessage("Can't login, user is blocked");
             });

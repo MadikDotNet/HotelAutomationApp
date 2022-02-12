@@ -1,4 +1,3 @@
-using HotelAutomationApp.Shared;
 using HotelAutomationApp.Shared.Extensions;
 
 namespace HotelAutomationApp.Application.Auth.Models
