@@ -40,7 +40,6 @@ public abstract class DictionaryController
     [HttpPost]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     [ProducesResponseType((int) HttpStatusCode.OK)]
-
     public async Task<IActionResult> Create(
         [FromBody] CreateDictionaryItemRequest<TDictionary, TDictionaryDto> request)
     {

@@ -6,11 +6,17 @@ namespace HotelAutomationApp.Application.Common.Dictionary.Models;
 public record TreeDictionaryDto<TTreeDictionaryDto> : BaseDictionaryDto, IRecursiveTree<TTreeDictionaryDto> 
     where TTreeDictionaryDto : class
 {
-    public string? ParentId { get; set; }
+    private string? _parentId;
+    
+    public string? ParentId
+    {
+        get => _parentId;
+        set => _parentId = string.IsNullOrEmpty(value) || !Guid.TryParse(value, out _) ? null : value;
+    }
     
     [JsonIgnore]
     public TTreeDictionaryDto? Parent { get; set; }
-    public ICollection<TTreeDictionaryDto> Children { get; set; }
+    public ICollection<TTreeDictionaryDto>? Children { get; set; }
     
     [JsonIgnore]
     public bool HasParent => !string.IsNullOrEmpty(ParentId);

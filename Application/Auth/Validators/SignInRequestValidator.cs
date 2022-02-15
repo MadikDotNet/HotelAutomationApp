@@ -7,7 +7,7 @@ namespace HotelAutomationApp.Application.Auth.Validators
 {
     public class SignInRequestValidator : AbstractValidator<SignInRequest>
     {
-        private ApplicationUser _applicationUser;
+        private ApplicationUser? _applicationUser;
         private bool _passwordVerified;
 
         public SignInRequestValidator(

@@ -5,6 +5,7 @@ using HotelAutomation.Application.Common;
 using HotelAutomation.WebApi.Extensions;
 using HotelAutomationApp.Application.ApplicationServices.Dictionary;
 using HotelAutomationApp.Application.Auth.Commands;
+using HotelAutomationApp.Application.Extensions;
 using HotelAutomationApp.Persistence.Extensions;
 using HotelAutomationApp.Shared.Extensions;
 using HotelAutomationApp.WebApi.Extensions;
@@ -83,7 +84,7 @@ namespace HotelAutomationApp.WebApi
             services.AddSeed();
             services.AddAuthenticationSystem(Configuration);
             services.AddSecurityServices(Configuration);
-            services.AddScoped(typeof(DictionaryCrudService<,>));
+            services.RegisterApplicationServices();
         }
 
         public void Configure(IApplicationBuilder appBuilder, IWebHostEnvironment env)
@@ -99,12 +100,6 @@ namespace HotelAutomationApp.WebApi
             appBuilder.UseStaticFiles();
 
             appBuilder.UseRouting();
-
-            appBuilder.Use((context, deelegate) =>
-            {
-                Console.WriteLine("------------------"+ context.Request.GetDisplayUrl());
-                return deelegate.Invoke();
-            });
 
             appBuilder.InitializeApplicationDb();
             appBuilder.UseAuthenticationSystem();

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Services
 {
     public interface ITokenFactory

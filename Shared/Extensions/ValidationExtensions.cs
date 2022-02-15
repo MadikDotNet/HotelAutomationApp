@@ -19,7 +19,7 @@ public static class ValidationExtensions
             ? throw new ArgumentException($"{nameof(value)} cannot be null or empty") 
             : value;
 
-    public static string EnsureIsNotEmpty(this string value, string paramName) =>
+    public static string? EnsureIsNotEmpty(this string? value, string paramName) =>
         string.IsNullOrWhiteSpace(value) || !value.Any()
             ? throw new ArgumentException($"{nameof(value)} cannot be null or empty", paramName)
             : value;

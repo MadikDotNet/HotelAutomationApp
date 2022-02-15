@@ -38,7 +38,6 @@ namespace HotelAutomationApp.Persistence.Interfaces.Context
         #endregion
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
-        IQueryable<TEntity> AsQueryable<TEntity>() where TEntity : BaseEntity;
         DbSet<TEntity> AsDbSet<TEntity>() where TEntity : BaseEntity;
         Task<IDbContextTransaction> BeginTransactionAsync(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
         Task CommitTransactionAsync();

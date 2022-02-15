@@ -19,9 +19,9 @@ namespace HotelAutomationApp.Application.Auth.Commands
             Role = role.EnsureIsNotEmpty(nameof(Role));
         }
 
-        public string Login { get; }
-        public string Password { get; }
-        public string Role { get; }
+        public string? Login { get; }
+        public string? Password { get; }
+        public string? Role { get; }
 
         private class Handler : AsyncRequestHandler<CreateUserCommand>
         {

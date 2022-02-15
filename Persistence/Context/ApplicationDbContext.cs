@@ -44,15 +44,11 @@ namespace HotelAutomationApp.Persistence.Context
 
         #endregion
 
-        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             AuditChanges();
             return await base.SaveChangesAsync(cancellationToken);
         }
-
-        public IQueryable<TEntity> AsQueryable<TEntity>()
-            where TEntity : BaseEntity =>
-            Set<TEntity>().AsQueryable();
 
         public DbSet<TEntity> AsDbSet<TEntity>()
             where TEntity : BaseEntity =>

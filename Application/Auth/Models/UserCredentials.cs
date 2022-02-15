@@ -10,7 +10,7 @@ namespace HotelAutomationApp.Application.Auth.Models
             Password = password.EnsureIsNotEmpty(nameof(Password));
         }
 
-        public string Login { get; }
-        public string Password { get; }
+        public string? Login { get; }
+        public string? Password { get; }
     }
 }

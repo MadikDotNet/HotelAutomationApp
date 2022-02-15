@@ -5,10 +5,10 @@ using HotelAutomationApp.WebApi.Controllers.Common;
 
 namespace HotelAutomationApp.WebApi.Controllers.Services;
 
-public class ServiceController : DictionaryTreeController
-    <Service, ServiceDto, DictionaryCrudService<Service, ServiceDto>>
+public class ServiceController : TreeDictionaryController
+    <Service, ServiceDto, TreeDictionaryCrudService<Service, ServiceDto>>
 {
-    public ServiceController(DictionaryCrudService<Service, ServiceDto> dictionaryService) : base(dictionaryService)
+    public ServiceController(TreeDictionaryCrudService<Service, ServiceDto> dictionaryService) : base(dictionaryService)
     {
     }
 }

@@ -29,7 +29,7 @@ namespace HotelAutomationApp.Domain.Models.Identity
         public DateTime? BlockedDate { get; set; }
         public bool CanLogin => DeletedDate is null && BlockedDate is null;
 
-        public static ApplicationUser New(string userName)
+        public static ApplicationUser New(string? userName)
         {
             userName.EnsureIsNotEmpty(nameof(userName));
 

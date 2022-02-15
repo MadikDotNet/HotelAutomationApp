@@ -33,15 +33,10 @@ namespace HotelAutomationApp.Application.Auth.UseCases
             var user = await _mediator.Send(new GetUserByCredentialsQuery(request.Login, request.Password),
                 cancellationToken);
 
-            if (!user.CanLogin)
-            {
-                throw new UserBlockedException();
-            }
-
             var token = await _mediator.Send(new CreateTokenCommand(user), cancellationToken);
 
             var roles = await _userManager.GetRolesAsync(user);
-
+            
             return new SignInResponse
             {
                 UserId = user.Id,
