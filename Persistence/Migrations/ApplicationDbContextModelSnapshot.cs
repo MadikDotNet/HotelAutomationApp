@@ -118,6 +118,77 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.ToTable("Media");
                 });
 
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroups.RoomGroup", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("RoomGroup");
+                });
+
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroupServices.RoomGroupService", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoomGroupId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ServiceId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomGroupId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("RoomGroupService");
+                });
+
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomMediaFiles.RoomMedia", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MediaId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoomId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MediaId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("RoomMedia");
+                });
+
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.Room", b =>
                 {
                     b.Property<string>("Id")
@@ -165,48 +236,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.HasIndex("RoomGroupId");
 
                     b.ToTable("Room");
-                });
-
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.RoomGroup", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RoomGroup");
-                });
-
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.RoomMedia", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text");
-
-                    b.Property<string>("MediaId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("RoomId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MediaId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("RoomMedia");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Services.Service", b =>
@@ -363,39 +392,14 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.Room", b =>
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroups.RoomGroup", b =>
                 {
-                    b.HasOne("HotelAutomationApp.Domain.Models.Rooms.RoomGroup", "RoomGroup")
+                    b.HasOne("HotelAutomationApp.Domain.Models.MediaFiles.Media", "Media")
                         .WithMany()
-                        .HasForeignKey("RoomGroupId")
+                        .HasForeignKey("MediaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "PricePerNight", b1 =>
-                        {
-                            b1.Property<string>("RoomId")
-                                .HasColumnType("text");
-
-                            b1.Property<decimal>("Value")
-                                .HasColumnType("numeric")
-                                .HasColumnName("Price");
-
-                            b1.HasKey("RoomId");
-
-                            b1.ToTable("Room");
-
-                            b1.WithOwner()
-                                .HasForeignKey("RoomId");
-                        });
-
-                    b.Navigation("PricePerNight")
-                        .IsRequired();
-
-                    b.Navigation("RoomGroup");
-                });
-
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.RoomGroup", b =>
-                {
                     b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "MinPrice", b1 =>
                         {
                             b1.Property<string>("RoomGroupId")
@@ -431,6 +435,8 @@ namespace HotelAutomationApp.Persistence.Migrations
                                 .HasForeignKey("RoomGroupId");
                         });
 
+                    b.Navigation("Media");
+
                     b.Navigation("MinPrice")
                         .IsRequired();
 
@@ -438,7 +444,26 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.RoomMedia", b =>
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroupServices.RoomGroupService", b =>
+                {
+                    b.HasOne("HotelAutomationApp.Domain.Models.RoomGroups.RoomGroup", "RoomGroup")
+                        .WithMany()
+                        .HasForeignKey("RoomGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HotelAutomationApp.Domain.Models.Services.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RoomGroup");
+
+                    b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomMediaFiles.RoomMedia", b =>
                 {
                     b.HasOne("HotelAutomationApp.Domain.Models.MediaFiles.Media", "Media")
                         .WithMany()
@@ -455,6 +480,37 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.Navigation("Media");
 
                     b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.Room", b =>
+                {
+                    b.HasOne("HotelAutomationApp.Domain.Models.RoomGroups.RoomGroup", "RoomGroup")
+                        .WithMany()
+                        .HasForeignKey("RoomGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "PricePerNight", b1 =>
+                        {
+                            b1.Property<string>("RoomId")
+                                .HasColumnType("text");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
+                                .HasColumnName("Price");
+
+                            b1.HasKey("RoomId");
+
+                            b1.ToTable("Room");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoomId");
+                        });
+
+                    b.Navigation("PricePerNight")
+                        .IsRequired();
+
+                    b.Navigation("RoomGroup");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Services.Service", b =>
