@@ -2,6 +2,9 @@ using System.Data;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.MediaFiles;
+using HotelAutomationApp.Domain.Models.RoomGroups;
+using HotelAutomationApp.Domain.Models.RoomGroupServices;
+using HotelAutomationApp.Domain.Models.RoomMediaFiles;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Domain.Models.Services;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +35,8 @@ namespace HotelAutomationApp.Persistence.Interfaces.Context
         #endregion
 
         #region Services
+
+        DbSet<RoomGroupService> RoomGroupService { get; set; }
 
         DbSet<Service> Service { get; set; }
 

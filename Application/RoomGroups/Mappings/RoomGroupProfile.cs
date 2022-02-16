@@ -1,5 +1,6 @@
 using AutoMapper;
 using HotelAutomationApp.Application.RoomGroups.Models;
+using HotelAutomationApp.Domain.Models.RoomGroups;
 using HotelAutomationApp.Domain.Models.Rooms;
 
 namespace HotelAutomationApp.Application.RoomGroups.Mappings;

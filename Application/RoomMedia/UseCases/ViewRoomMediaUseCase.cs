@@ -29,9 +29,9 @@ public class ViewRoomMediaUseCase : UseCase<ViewRoomMediaRequest, PageResponse<M
 
 public class ViewRoomMediaRequest : IRequest<PageResponse<MediaDto>>
 {
-    public PageRequest PageRequest { get; }
-    public string RoomId { get; }
+    public PageRequest PageRequest { get; set; }
+    public string? RoomId { get; set; }
     public bool FullMatch { get; set; }
-    public string FileName { get; set; }
-    public string FileType { get; set; }
+    public string? FileName { get; set; }
+    public string? FileType { get; set; }
 }

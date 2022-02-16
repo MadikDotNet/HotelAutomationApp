@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.RoomGroups;
+using HotelAutomationApp.Domain.Models.RoomMediaFiles;
 using HotelAutomationApp.Domain.Models.ValueObjects;
 
 namespace HotelAutomationApp.Domain.Models.Rooms

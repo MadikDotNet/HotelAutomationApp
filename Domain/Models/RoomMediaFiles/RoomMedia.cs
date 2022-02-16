@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.MediaFiles;
+using HotelAutomationApp.Domain.Models.Rooms;
 
-namespace HotelAutomationApp.Domain.Models.Rooms
+namespace HotelAutomationApp.Domain.Models.RoomMediaFiles
 {
     /// <summary>
     /// Link table between room and media

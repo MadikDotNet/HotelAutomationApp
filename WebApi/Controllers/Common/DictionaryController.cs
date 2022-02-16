@@ -33,7 +33,13 @@ public abstract class DictionaryController
         [FromQuery] ViewDictionaryListRequest request,
         CancellationToken cancellationToken)
     {
-        var result = await DictionaryService.ViewAsList(request.PageRequest, cancellationToken);
+        var result = await DictionaryService.ViewAsList(
+            request.PageRequest,
+            request.Code,
+            request.Name,
+            request.Description,
+            request.FullMatching,
+            cancellationToken);
         return Ok(result);
     }
 
@@ -51,7 +57,6 @@ public abstract class DictionaryController
     [HttpPut]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     [ProducesResponseType((int) HttpStatusCode.OK)]
-
     public async Task<IActionResult> Update([FromBody] UpdateDictionaryItemRequest<TDictionaryDto> request)
     {
         await DictionaryService.Update(request.DictionaryDto);

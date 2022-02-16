@@ -1,5 +1,6 @@
 using HotelAutomationApp.Application.ApplicationServices.Dictionary;
 using HotelAutomationApp.Application.RoomGroups.Models;
+using HotelAutomationApp.Domain.Models.RoomGroups;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.WebApi.Controllers.Common;
 

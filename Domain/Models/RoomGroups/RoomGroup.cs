@@ -3,7 +3,7 @@ using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Domain.Models.ValueObjects;
 
-namespace HotelAutomationApp.Domain.Models.Rooms
+namespace HotelAutomationApp.Domain.Models.RoomGroups
 {
     public class RoomGroup : BaseDictionary
     {

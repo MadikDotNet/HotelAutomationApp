@@ -1,4 +1,6 @@
-namespace HotelAutomationApp.Application.Common.Extensions
+using HotelAutomationApp.Application.Common;
+
+namespace HotelAutomationApp.Application.Extensions
 {
     public static class DistanceExtensions
     {

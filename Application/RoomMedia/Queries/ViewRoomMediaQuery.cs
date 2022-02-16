@@ -1,6 +1,6 @@
 using AutoMapper;
-using HotelAutomationApp.Application.Common.Extensions;
 using HotelAutomationApp.Application.Common.Pagination;
+using HotelAutomationApp.Application.Extensions;
 using HotelAutomationApp.Application.MediaFiles.Models;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
@@ -12,10 +12,10 @@ public class ViewRoomMediaQuery : IRequest<PageResponse<MediaDto>>
 {
     public ViewRoomMediaQuery(
         PageRequest pageRequest,
-        string roomId,
+        string? roomId,
         bool fullMatch,
-        string fileName,
-        string fileType)
+        string? fileName,
+        string? fileType)
     {
         PageRequest = pageRequest;
         RoomId = roomId;
@@ -25,10 +25,10 @@ public class ViewRoomMediaQuery : IRequest<PageResponse<MediaDto>>
     }
     
     public PageRequest PageRequest { get; }
-    public string RoomId { get; }
+    public string? RoomId { get; }
     public bool FullMatch { get; set; }
-    public string FileName { get; set; }
-    public string FileType { get; set; }
+    public string? FileName { get; set; }
+    public string? FileType { get; set; }
 
     private class Handler : IRequestHandler<ViewRoomMediaQuery, PageResponse<MediaDto>>
     {

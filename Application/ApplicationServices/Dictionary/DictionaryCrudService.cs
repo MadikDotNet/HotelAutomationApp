@@ -1,8 +1,9 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HotelAutomationApp.Application.Common.Dictionary.Models;
-using HotelAutomationApp.Application.Common.Extensions;
 using HotelAutomationApp.Application.Common.Pagination;
+using HotelAutomationApp.Application.Extensions;
+using HotelAutomationApp.Application.Extensions.IQueryable;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
@@ -25,14 +26,19 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
 
     public virtual async Task<PageResponse<TDictionaryDto>> ViewAsList(
         PageRequest request,
+        string? code,
+        string? name,
+        string? description,
+        bool fullMatching,
         CancellationToken cancellationToken)
     {
-        var result = await ApplicationDb.AsDbSet<TDictionary>()
-            .ProjectTo<TDictionaryDto>(Mapper.ConfigurationProvider)
-            .AsNoTracking()
-            .ToListAsync(cancellationToken);
+        var result = ApplicationDb.AsDbSet<TDictionary>().AsQueryable();
 
-        return result.AsPageResponse(request);
+        return (await result.Filter(code, name, description, fullMatching)
+                .ProjectTo<TDictionaryDto>(Mapper.ConfigurationProvider)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken))
+            .AsPageResponse(request);
     }
 
     public virtual async Task Create(TDictionaryDto dictionaryDto)

@@ -46,11 +46,11 @@ public class UpsertRoomMediaCommand : IRequest
                 .ExcludeSameElements(alreadyExistMedia, first => first.Id, second => second.Id)
                 .Concat(newMedia).ToList();
 
-            var mustBeAdded = alreadyExistMedia.Select(q => new Domain.Models.Rooms.RoomMedia(room.Id, q.Id))
+            var mustBeAdded = alreadyExistMedia.Select(q => new Domain.Models.RoomMediaFiles.RoomMedia(room.Id, q.Id))
                 .Concat(newMedia.Select(q =>
                 {
                     var @new = q with {Id = Guid.NewGuid().ToString()};
-                    return new Domain.Models.Rooms.RoomMedia(room.Id, room, @new.Id, _mapper.Map<Media>(@new));
+                    return new Domain.Models.RoomMediaFiles.RoomMedia(room.Id, room, @new.Id, _mapper.Map<Media>(@new));
                 })).ToList();
 
             _applicationDb.RoomMedia.AddRange(mustBeAdded);

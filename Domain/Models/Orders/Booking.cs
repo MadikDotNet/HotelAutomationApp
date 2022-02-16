@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.Identity;
 
-namespace HotelAutomationApp.Domain.Models.Orders.Models;
+namespace HotelAutomationApp.Domain.Models.Orders;
 
 public class Booking : BaseEntity
 {

@@ -2,7 +2,7 @@ using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelAutomationApp.Application.Common.Extensions;
+namespace HotelAutomationApp.Application.Extensions;
 
 public static class PaginationExtensions
 {

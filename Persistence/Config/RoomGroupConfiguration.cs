@@ -1,3 +1,4 @@
+using HotelAutomationApp.Domain.Models.RoomGroups;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Domain.Models.ValueObjects;
 using Microsoft.EntityFrameworkCore;
