@@ -25,11 +25,13 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
                 request.PricePerNight,
                 request.IsAvailable,
                 request.RoomGroupId);
-            
+
             await _mediator.Send(updateRoomCommand, CancellationToken.None);
 
-            throw new Exception();
-            await _mediator.Send(new UpsertRoomMediaCommand(request.Id, request.Media), CancellationToken.None);
+            if (request.Media != null && request.Media.Any())
+            {
+                await _mediator.Send(new UpsertRoomMediaCommand(request.Id, request.Media), CancellationToken.None);
+            }
         }
     }
 
@@ -41,6 +43,6 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         public decimal PricePerNight { get; set; }
         public bool IsAvailable { get; set; }
         public string RoomGroupId { get; set; }
-        public ICollection<MediaDto> Media { get; set; }
+        public ICollection<MediaDto>? Media { get; set; }
     }
 }

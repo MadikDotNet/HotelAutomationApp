@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="RoomGroupServices\Mappings" />
       <Folder Include="RoomGroupServices\Validators" />
     </ItemGroup>
 

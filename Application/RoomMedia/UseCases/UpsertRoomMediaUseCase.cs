@@ -18,11 +18,10 @@ public class UpsertRoomMediaUseCase : UseCase<UpsertRoomMediaRequest>
         UpsertRoomMediaRequest request,
         CancellationToken cancellationToken) => 
         await _mediator.Send(new UpsertRoomMediaCommand(request.RoomId, request.Media), CancellationToken.None);
-    
 }
 
 public class UpsertRoomMediaRequest : IRequest
 {
     public string RoomId { get; set; }
-    public ICollection<MediaDto> Media { get; set; }
+    public ICollection<MediaDto>? Media { get; set; }
 }

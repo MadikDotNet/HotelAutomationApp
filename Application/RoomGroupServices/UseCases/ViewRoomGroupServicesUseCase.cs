@@ -6,7 +6,7 @@ using MediatR;
 
 namespace HotelAutomationApp.Application.RoomGroupServices.UseCases;
 
-public class ViewRoomGroupServicesUseCase : UseCase<ViewRoomGroupServicesRequest, ICollection<ServiceDto>>
+public class ViewRoomGroupServicesUseCase : UseCase<ViewRoomGroupServicesRequest, PageResponse<ServiceDto>>
 {
     private readonly IMediator _mediator;
 
@@ -15,24 +15,16 @@ public class ViewRoomGroupServicesUseCase : UseCase<ViewRoomGroupServicesRequest
         _mediator = mediator;
     }
 
-    protected override async Task<ICollection<ServiceDto>> HandleAsync(
+    protected override async Task<PageResponse<ServiceDto>> HandleAsync(
         ViewRoomGroupServicesRequest request,
         CancellationToken cancellationToken) =>
         await _mediator.Send(new ViewRoomGroupServicesQuery(
             request.PageRequest,
-            request.RoomGroupId,
-            request.Code,
-            request.Name,
-            request.Description,
-            request.FullMatching), cancellationToken);
+            request.RoomGroupId), cancellationToken);
 }
 
-public class ViewRoomGroupServicesRequest : IRequest<ICollection<ServiceDto>>
+public class ViewRoomGroupServicesRequest : IRequest<PageResponse<ServiceDto>>
 {
-    public PageRequest PageRequest { get; }
-    public string RoomGroupId { get; }
-    public string? Code { get; }
-    public string? Name { get; }
-    public string? Description { get; }
-    public bool FullMatching { get; }
+    public PageRequest PageRequest { get; set; }
+    public string RoomGroupId { get; set; }
 }

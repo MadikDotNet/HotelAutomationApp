@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers.Media
+namespace HotelAutomationApp.WebApi.Controllers.MediaFiles
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -24,29 +24,29 @@ namespace HotelAutomationApp.WebApi.Controllers.Media
 
         [HttpGet]
         [AllowAnonymous]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(PageResponse<MediaDto>))]
-        public async Task<IActionResult> View([FromQuery]ViewMediaRequest request)
+        [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(PageResponse<MediaDto>))]
+        public async Task<IActionResult> View([FromQuery] ViewMediaRequest request)
         {
             var result = await _mediator.Send(request);
-            
+
             return Ok(result);
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Upsert([FromBody]UpsertMediaRequest request)
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        public async Task<IActionResult> Upsert([FromBody] UpsertMediaRequest request)
         {
-            var result = await _mediator.Send(request); 
-            
+            var result = await _mediator.Send(request);
+
             return Ok(result);
         }
-        
-        [HttpDelete]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Delete([FromBody]DeleteMediaRequest request)
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        public async Task<IActionResult> Delete(string id)
         {
-            var result = await _mediator.Send(request); 
-            
+            var result = await _mediator.Send(new DeleteMediaRequest {MediaId = id});
+
             return Ok(result);
         }
     }

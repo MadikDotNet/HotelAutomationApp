@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using HotelAutomationApp.Application.Auth.Constants;
+using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Application.Rooms.UseCases;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers.Room
+namespace HotelAutomationApp.WebApi.Controllers.Rooms
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -25,21 +25,12 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
 
         [HttpGet]
         [AllowAnonymous]
-        [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ICollection<RoomDto>))]
+        [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(PageResponse<RoomDto>))]
         public async Task<IActionResult> View([FromQuery] ViewRoomsRequest request, CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 
             return Ok(response);
-        }
-
-        [HttpDelete]
-        [ProducesResponseType((int) HttpStatusCode.OK)]
-        public async Task<IActionResult> DeleteRoom([FromBody] DeleteRoomRequest request)
-        {
-            await _mediator.Send(request);
-
-            return Ok();
         }
 
         [HttpPost]
@@ -56,6 +47,15 @@ namespace HotelAutomationApp.WebApi.Controllers.Room
         public async Task<IActionResult> UpdateRoom([FromBody] UpdateRoomRequest request)
         {
             await _mediator.Send(request);
+
+            return Ok();
+        }
+        
+        [HttpDelete("{id}")]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        public async Task<IActionResult> DeleteRoom(string id)
+        {
+            await _mediator.Send(new DeleteRoomRequest {RoomId = id});
 
             return Ok();
         }

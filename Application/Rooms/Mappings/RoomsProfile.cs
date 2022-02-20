@@ -10,7 +10,8 @@ namespace HotelAutomationApp.Application.Rooms.Mappings
         {
             CreateMap<Room, RoomDto>()
                 .ForMember(q => q.PricePerNight, w => w.MapFrom(q => q.PricePerNight.Value))
-                .ForMember(q => q.RoomGroupName, w => w.MapFrom(q => q.RoomGroup.Name.Value));
+                .ForMember(q => q.RoomGroupName, w => w.MapFrom(q => q.RoomGroup.Name.Value))
+                .ForMember(q => q.Images, w => w.MapFrom(q => q.RoomMedia.Select(q => q.Media)));
         }
     }
 }

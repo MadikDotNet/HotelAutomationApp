@@ -1,6 +1,6 @@
 namespace HotelAutomationApp.Application.Common.Dictionary.Models.Requests;
 
-public class CreateDictionaryItemRequest<TDictionary, TDictionaryDto>
+public class CreateDictionaryItemRequest<TDictionaryDto>
 {
     public TDictionaryDto DictionaryDto { get; set; }
 }

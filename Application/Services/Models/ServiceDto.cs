@@ -4,5 +4,4 @@ namespace HotelAutomationApp.Application.Services.Models;
 
 public record ServiceDto : TreeDictionaryDto<ServiceDto>
 {
-    
 }

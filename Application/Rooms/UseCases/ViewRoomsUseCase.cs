@@ -1,12 +1,13 @@
 using HotelAutomation.Application.Common;
 using HotelAutomationApp.Application.Common;
+using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Application.Rooms.Queries;
 using MediatR;
 
 namespace HotelAutomationApp.Application.Rooms.UseCases
 {
-    public class ViewRoomsUseCase : UseCase<ViewRoomsRequest, ICollection<RoomDto>>
+    public class ViewRoomsUseCase : UseCase<ViewRoomsRequest, PageResponse<RoomDto>>
     {
         private readonly IMediator _mediator;
 
@@ -16,9 +17,11 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
             _mediator = mediator;
         }
 
-        protected override async Task<ICollection<RoomDto>> HandleAsync(ViewRoomsRequest request, CancellationToken cancellationToken)
+        protected override async Task<PageResponse<RoomDto>> HandleAsync(
+            ViewRoomsRequest request, CancellationToken cancellationToken)
         {
             return await _mediator.Send(new GetRoomsQuery(
+                request.PageRequest,
                 request.MaxGuestsCountDistance,
                 request.CapacityDistance,
                 request.PriceDistance,
@@ -28,8 +31,9 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         }
     }
 
-    public class ViewRoomsRequest : IRequest<ICollection<RoomDto>>
+    public class ViewRoomsRequest : IRequest<PageResponse<RoomDto>>
     {
+        public PageRequest PageRequest { get; set; }
         public Distance<int>? MaxGuestsCountDistance { get; set; }
         public Distance<double>? CapacityDistance { get; set; }
         public Distance<decimal>? PriceDistance { get; set; }

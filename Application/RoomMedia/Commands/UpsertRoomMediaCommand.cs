@@ -10,14 +10,14 @@ namespace HotelAutomationApp.Application.RoomMedia.Commands;
 
 public class UpsertRoomMediaCommand : IRequest
 {
-    public UpsertRoomMediaCommand(string roomId, ICollection<MediaDto> media)
+    public UpsertRoomMediaCommand(string roomId, ICollection<MediaDto>? media)
     {
         RoomId = roomId;
         Media = media;
     }
 
     public string RoomId { get; }
-    public ICollection<MediaDto> Media { get; }
+    public ICollection<MediaDto>? Media { get; }
 
     private class Handler : AsyncRequestHandler<UpsertRoomMediaCommand>
     {

@@ -40,36 +40,27 @@ public abstract class DictionaryController
             request.Description,
             request.FullMatching,
             cancellationToken);
+        
         return Ok(result);
     }
 
     [HttpPost]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     [ProducesResponseType((int) HttpStatusCode.OK)]
-    public async Task<IActionResult> Create(
-        [FromBody] CreateDictionaryItemRequest<TDictionary, TDictionaryDto> request)
+    public async Task<IActionResult> Upsert(
+        [FromBody] CreateDictionaryItemRequest<TDictionaryDto> request)
     {
-        await DictionaryService.Create(request.DictionaryDto);
+        await DictionaryService.Upsert(request.DictionaryDto);
 
         return Ok();
     }
 
-    [HttpPut]
+    [HttpDelete("{id}")]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     [ProducesResponseType((int) HttpStatusCode.OK)]
-    public async Task<IActionResult> Update([FromBody] UpdateDictionaryItemRequest<TDictionaryDto> request)
+    public async Task<IActionResult> Delete(string id)
     {
-        await DictionaryService.Update(request.DictionaryDto);
-
-        return Ok();
-    }
-
-    [HttpDelete]
-    [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
-    [ProducesResponseType((int) HttpStatusCode.OK)]
-    public async Task<IActionResult> Delete([FromBody] DeleteDictionaryItemRequest request)
-    {
-        await DictionaryService.Delete(request.Id);
+        await DictionaryService.Delete(id);
 
         return Ok();
     }

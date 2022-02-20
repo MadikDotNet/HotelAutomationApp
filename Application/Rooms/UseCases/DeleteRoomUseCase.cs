@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using HotelAutomation.Application.Common;
 using HotelAutomationApp.Application.Rooms.Commands;
 using MediatR;

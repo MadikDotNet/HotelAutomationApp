@@ -14,7 +14,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerNight,
             string roomGroupId,
-            ICollection<MediaDto> media)
+            ICollection<MediaDto>? media)
         {
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
@@ -27,7 +27,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         public double Capacity { get; }
         public decimal PricePerNight { get; }
         public string RoomGroupId { get; }
-        public ICollection<MediaDto> Media { get; }
+        public ICollection<MediaDto>? Media { get; }
 
         private class Handler : AsyncRequestHandler<CreateRoomCommand>
         {

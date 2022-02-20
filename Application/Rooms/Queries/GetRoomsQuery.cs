@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using HotelAutomationApp.Application.Common;
+using HotelAutomationApp.Application.Common.Pagination;
+using HotelAutomationApp.Application.Extensions;
 using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Persistence.Interfaces.Context;
@@ -13,9 +11,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.Rooms.Queries
 {
-    public class GetRoomsQuery : IRequest<ICollection<RoomDto>>
+    public class GetRoomsQuery : IRequest<PageResponse<RoomDto>>
     {
         public GetRoomsQuery(
+            PageRequest pageRequest,
             Distance<int>? maxGuestsCountDistance,
             Distance<double>? capacityDistance,
             Distance<decimal>? priceDistance,
@@ -23,6 +22,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             bool isDeleted,
             string? roomGroupId)
         {
+            PageRequest = pageRequest;
             MaxGuestsCountDistance = maxGuestsCountDistance;
             CapacityDistance = capacityDistance;
             PriceDistance = priceDistance;
@@ -30,6 +30,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             RoomGroupId = roomGroupId;
         }
 
+        public PageRequest PageRequest;
         public Distance<int>? MaxGuestsCountDistance { get; }
         public Distance<double>? CapacityDistance { get; }
         public Distance<decimal>? PriceDistance { get; }
@@ -37,7 +38,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
         public bool IsDeleted { get; }
         public string? RoomGroupId { get; }
 
-        private class Handler : IRequestHandler<GetRoomsQuery, ICollection<RoomDto>>
+        private class Handler : IRequestHandler<GetRoomsQuery, PageResponse<RoomDto>>
         {
             private readonly IApplicationDbContext _applicationDb;
             private readonly IMapper _mapper;
@@ -48,7 +49,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                 _mapper = mapper;
             }
 
-            public async Task<ICollection<RoomDto>> Handle(GetRoomsQuery request, CancellationToken cancellationToken)
+            public async Task<PageResponse<RoomDto>> Handle(GetRoomsQuery request, CancellationToken cancellationToken)
             {
                 IQueryable<Room> rooms = _applicationDb.Room
                     .AsNoTracking()
@@ -79,8 +80,9 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                                     q.Capacity <= request.CapacityDistance.To);
                 }
 
-                return await rooms.ProjectTo<RoomDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
+                return (await rooms.ProjectTo<RoomDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken))
+                    .AsPageResponse(request.PageRequest);
             }
         }
     }

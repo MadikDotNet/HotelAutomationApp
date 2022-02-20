@@ -34,9 +34,7 @@ public abstract class TransactionUseCase<TRequest> : TransactionUseCase<TRequest
     
     protected override async Task<Unit> HandleAsync(TRequest request, CancellationToken cancellationToken)
     {
-        await ApplicationDb.BeginTransactionAsync();
         await HandleRequestAsync(request, cancellationToken);
-        await ApplicationDb.CommitTransactionAsync();
         
         return Unit.Value;
     }

@@ -16,11 +16,9 @@ public class ViewMediaUseCase : UseCase<ViewMediaRequest, PageResponse<MediaDto>
     }
 
     protected override async Task<PageResponse<MediaDto>> HandleAsync(ViewMediaRequest request,
-        CancellationToken cancellationToken)
-    {
-        return await _mediator.Send(new ViewMediaQuery(
+        CancellationToken cancellationToken) =>
+        await _mediator.Send(new ViewMediaQuery(
             request.PageRequest, request.FullMatch, request.FileName, request.FileType), cancellationToken);
-    }
 }
 
 public class ViewMediaRequest : IRequest<PageResponse<MediaDto>>

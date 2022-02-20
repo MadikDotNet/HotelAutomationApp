@@ -1,12 +1,10 @@
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using HotelAutomationApp.Application.Auth.Constants;
 using HotelAutomationApp.Application.Common.Dictionary.Models;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Common.Abstractions;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.ApplicationServices.Dictionary;
@@ -27,16 +25,10 @@ public class TreeDictionaryCrudService<TTreeDictionary, TTreeDictionaryDto> :
             .ToListAsync(cancellationToken))
         .AsRecursiveTree(parent => parent.Id, child => child.ParentId).ToList();
 
-    public override async Task Create(TTreeDictionaryDto dictionaryDto)
+    public override async Task Upsert(TTreeDictionaryDto dictionaryDto)
     {
         await EnsureIsValid(dictionaryDto);
-        await base.Create(dictionaryDto);
-    }
-    
-    public override async Task Update(TTreeDictionaryDto dictionaryDto)
-    {
-        await EnsureIsValid(dictionaryDto);
-        await base.Update(dictionaryDto);
+        await base.Upsert(dictionaryDto);
     }
 
     private async Task EnsureIsValid(TTreeDictionaryDto dictionaryDto)

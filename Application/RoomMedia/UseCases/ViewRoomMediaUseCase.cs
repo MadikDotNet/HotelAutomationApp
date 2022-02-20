@@ -17,13 +17,10 @@ public class ViewRoomMediaUseCase : UseCase<ViewRoomMediaRequest, PageResponse<M
 
     protected override async Task<PageResponse<MediaDto>> HandleAsync(
         ViewRoomMediaRequest request,
-        CancellationToken cancellationToken) => 
-      await _mediator.Send(new ViewRoomMediaQuery(
+        CancellationToken cancellationToken) =>
+        await _mediator.Send(new ViewRoomMediaQuery(
                 request.PageRequest,
-                request.RoomId,
-                request.FullMatch,
-                request.FileName,
-                request.FileType),
+                request.RoomId),
             cancellationToken);
 }
 
@@ -31,7 +28,4 @@ public class ViewRoomMediaRequest : IRequest<PageResponse<MediaDto>>
 {
     public PageRequest PageRequest { get; set; }
     public string? RoomId { get; set; }
-    public bool FullMatch { get; set; }
-    public string? FileName { get; set; }
-    public string? FileType { get; set; }
 }

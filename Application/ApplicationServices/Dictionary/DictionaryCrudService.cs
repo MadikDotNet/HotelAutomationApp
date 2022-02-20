@@ -41,33 +41,26 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
             .AsPageResponse(request);
     }
 
-    public virtual async Task Create(TDictionaryDto dictionaryDto)
+    public virtual async Task Upsert(TDictionaryDto dictionaryDto)
     {
         dictionaryDto.Code.EnsureIsNotEmpty(nameof(dictionaryDto.Code));
         dictionaryDto.Name.EnsureIsNotEmpty(nameof(dictionaryDto.Name));
 
+        var dbSet = ApplicationDb.AsDbSet<TDictionary>();
+        
+        if (!string.IsNullOrEmpty(dictionaryDto.Id) && await dbSet.AnyAsync(q => q.Id == dictionaryDto.Id))
+        {
+            dbSet.Update(Mapper.Map<TDictionary>(dictionaryDto));
+            await ApplicationDb.SaveChangesAsync(CancellationToken.None);
+            
+            return;
+        }
+        
         var record = dictionaryDto with {Id = Guid.NewGuid().ToString()};
 
         var newEntity = Mapper.Map<TDictionary>(record);
 
         ApplicationDb.AsDbSet<TDictionary>().Add(newEntity);
-        await ApplicationDb.SaveChangesAsync(CancellationToken.None);
-    }
-
-    public virtual async Task Update(TDictionaryDto dictionaryDto)
-    {
-        dictionaryDto.Code.EnsureIsNotEmpty(nameof(dictionaryDto.Code));
-        dictionaryDto.Name.EnsureIsNotEmpty(nameof(dictionaryDto.Name));
-        dictionaryDto.Id.EnsureIsNotEmpty(nameof(dictionaryDto.Id));
-
-        if (!await ApplicationDb.AsDbSet<TDictionary>().AnyAsync(entity => entity.Id == dictionaryDto.Id))
-        {
-            throw new ArgumentException($"Dictionary item with id {dictionaryDto.Id} not found");
-        }
-
-        var dictionaryEntity = Mapper.Map<TDictionary>(dictionaryDto);
-
-        ApplicationDb.AsDbSet<TDictionary>().Update(dictionaryEntity);
         await ApplicationDb.SaveChangesAsync(CancellationToken.None);
     }
 

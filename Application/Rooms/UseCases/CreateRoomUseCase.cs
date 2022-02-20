@@ -1,17 +1,16 @@
-using HotelAutomation.Application.Common;
-using HotelAutomationApp.Application.MediaFiles.Commands;
+using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.MediaFiles.Models;
-using HotelAutomationApp.Application.RoomMedia.Commands;
 using HotelAutomationApp.Application.Rooms.Commands;
+using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 
 namespace HotelAutomationApp.Application.Rooms.UseCases
 {
-    public class CreateRoomUseCase : UseCase<CreateRoomRequest>
+    public class CreateRoomUseCase : TransactionUseCase<CreateRoomRequest>
     {
         private readonly IMediator _mediator;
 
-        public CreateRoomUseCase(IMediator mediator)
+        public CreateRoomUseCase(IApplicationDbContext applicationDb, IMediator mediator) : base(applicationDb)
         {
             _mediator = mediator;
         }
@@ -23,7 +22,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
                 request.Capacity,
                 request.PricePerNight,
                 request.RoomGroupId,
-                request.Images);
+                request.Media);
             
             await _mediator.Send(createRoomCommand, cancellationToken);
         }
@@ -35,6 +34,6 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         public double Capacity { get; set; }
         public decimal PricePerNight { get; set; }
         public string RoomGroupId { get; set; }
-        public ICollection<MediaDto> Images { get; set; }
+        public ICollection<MediaDto>? Media { get; set; }
     }
 }
