@@ -43,7 +43,6 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
 
     public virtual async Task Upsert(TDictionaryDto dictionaryDto)
     {
-        dictionaryDto.Code.EnsureIsNotEmpty(nameof(dictionaryDto.Code));
         dictionaryDto.Name.EnsureIsNotEmpty(nameof(dictionaryDto.Name));
 
         var dbSet = ApplicationDb.AsDbSet<TDictionary>();

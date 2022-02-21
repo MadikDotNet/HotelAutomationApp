@@ -20,7 +20,7 @@ namespace HotelAutomationApp.Domain.Common
         }
         
         public Name Name { get; set; }
-        public string Code { get; set; }
+        public string? Code { get; set; }
         public string Description { get; set; }
     }
 }
