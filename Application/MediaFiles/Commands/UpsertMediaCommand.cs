@@ -28,6 +28,7 @@ public class UpsertMediaCommand : IRequest
             _mapper = mapper;
         }
 
+        // TODO rewrite
         protected override async Task Handle(UpsertMediaCommand request, CancellationToken cancellationToken)
         {
             var newMedia = request.Media.ExcludeAfterFilter(q => !q.HasId, out var remind);
