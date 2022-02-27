@@ -25,6 +25,6 @@ public class ViewMediaRequest : IRequest<PageResponse<MediaDto>>
 {
     public PageRequest PageRequest { get; set; }
     public bool FullMatch { get; set; }
-    public string FileName { get; set; }
-    public string FileType { get; set; }
+    public string? FileName { get; set; }
+    public string? FileType { get; set; }
 }

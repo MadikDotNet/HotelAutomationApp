@@ -1,10 +1,10 @@
 using HotelAutomation.Application.Common;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.MediaFiles.Models;
-using HotelAutomationApp.Application.RoomMedia.Queries;
+using HotelAutomationApp.Application.RoomMediaFiles.Queries;
 using MediatR;
 
-namespace HotelAutomationApp.Application.RoomMedia.UseCases;
+namespace HotelAutomationApp.Application.RoomMediaFiles.UseCases;
 
 public class ViewRoomMediaUseCase : UseCase<ViewRoomMediaRequest, PageResponse<MediaDto>>
 {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using HotelAutomationApp.Application.Auth.Constants;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.MediaFiles.Models;
-using HotelAutomationApp.Application.RoomMedia.UseCases;
+using HotelAutomationApp.Application.RoomMediaFiles.UseCases;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

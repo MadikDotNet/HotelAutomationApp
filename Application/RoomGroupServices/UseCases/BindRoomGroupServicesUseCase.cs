@@ -5,25 +5,25 @@ using MediatR;
 
 namespace HotelAutomationApp.Application.RoomGroupServices.UseCases;
 
-public class UpsertRoomGroupServicesUseCase : UseCase<UpsertRoomGroupServicesRequest>
+public class BindRoomGroupServicesUseCase : UseCase<BindRoomGroupServicesRequest>
 {
     private readonly IMediator _mediator;
 
-    public UpsertRoomGroupServicesUseCase(IMediator mediator)
+    public BindRoomGroupServicesUseCase(IMediator mediator)
     {
         _mediator = mediator;
     }
 
     protected override async Task HandleRequestAsync(
-        UpsertRoomGroupServicesRequest request,
+        BindRoomGroupServicesRequest request,
         CancellationToken cancellationToken) =>
-        await _mediator.Send(new UpsertRoomGroupServiceCommand(
+        await _mediator.Send(new BindRoomGroupServiceCommand(
             request.RoomGroupId,
-            request.Services), cancellationToken);
+            request.ServiceIds), cancellationToken);
 }
 
-public class UpsertRoomGroupServicesRequest : IRequest
+public class BindRoomGroupServicesRequest : IRequest
 {
     public string RoomGroupId { get; set; }
-    public ICollection<ServiceDto> Services { get; set; }
+    public ICollection<string> ServiceIds { get; set; }
 }

@@ -7,7 +7,7 @@ using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelAutomationApp.Application.RoomMedia.Queries;
+namespace HotelAutomationApp.Application.RoomMediaFiles.Queries;
 
 public class ViewRoomMediaQuery : IRequest<PageResponse<MediaDto>>
 {

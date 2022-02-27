@@ -12,32 +12,32 @@ namespace HotelAutomationApp.Domain.Models.RoomMediaFiles
     {
         public RoomMedia()
         {
-            
         }
 
-        public RoomMedia(string roomId, string mediaId)
+        public RoomMedia(string id, string roomId, string mediaId)
         {
+            Id = id;
             RoomId = roomId;
             MediaId = mediaId;
         }
-        
+
         public RoomMedia(
+            string id,
             string roomId,
             Room room,
             string mediaId,
             Media media)
         {
+            Id = id;
             RoomId = roomId;
             Room = room;
             MediaId = mediaId;
             Media = media;
         }
 
-        [ForeignKey(nameof(Room))]
-        public string RoomId { get; set; }
+        [ForeignKey(nameof(Room))] public string RoomId { get; set; }
         public Room Room { get; set; }
-        [ForeignKey(nameof(Media))]
-        public string MediaId { get; set; }
+        [ForeignKey(nameof(Media))] public string MediaId { get; set; }
         public Media Media { get; set; }
     }
 }

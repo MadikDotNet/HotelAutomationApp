@@ -1,8 +1,8 @@
 using HotelAutomation.Application.Common;
-using HotelAutomationApp.Application.RoomMedia.Commands;
+using HotelAutomationApp.Application.RoomMediaFiles.Commands;
 using MediatR;
 
-namespace HotelAutomationApp.Application.RoomMedia.UseCases;
+namespace HotelAutomationApp.Application.RoomMediaFiles.UseCases;
 
 public class UnbindRoomMediaUseCase : UseCase<UnbindRoomMediaRequest>
 {

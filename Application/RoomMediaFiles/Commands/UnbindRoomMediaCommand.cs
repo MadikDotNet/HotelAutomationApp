@@ -2,7 +2,7 @@ using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 using Z.EntityFramework.Plus;
 
-namespace HotelAutomationApp.Application.RoomMedia.Commands;
+namespace HotelAutomationApp.Application.RoomMediaFiles.Commands;
 
 public class UnbindRoomMediaCommand : IRequest
 {

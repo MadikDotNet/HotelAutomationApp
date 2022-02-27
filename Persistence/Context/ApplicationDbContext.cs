@@ -11,6 +11,7 @@ using HotelAutomationApp.Persistence.Config;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace HotelAutomationApp.Persistence.Context
@@ -44,7 +45,7 @@ namespace HotelAutomationApp.Persistence.Context
         #region Services
 
         public DbSet<RoomGroupService> RoomGroupService { get; set; }
-        
+
         public DbSet<Service> Service { get; set; }
 
         #endregion
@@ -58,6 +59,14 @@ namespace HotelAutomationApp.Persistence.Context
         public DbSet<TEntity> AsDbSet<TEntity>()
             where TEntity : BaseEntity =>
             Set<TEntity>();
+
+        public EntityEntry<TEntity> AsEntry<TEntity>(TEntity entity)
+            where TEntity : BaseEntity =>
+            Entry(entity);
+
+        public IEnumerable<EntityEntry<TEntity>> AsEntryRange<TEntity>()
+            where TEntity : BaseEntity =>
+            ChangeTracker.Entries<TEntity>();
 
         public async Task<IDbContextTransaction> BeginTransactionAsync(
             IsolationLevel isolationLevel = IsolationLevel.ReadCommitted) =>

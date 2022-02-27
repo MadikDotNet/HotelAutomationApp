@@ -1,6 +1,6 @@
 using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.MediaFiles.Models;
-using HotelAutomationApp.Application.RoomMedia.Commands;
+using HotelAutomationApp.Application.RoomMediaFiles.Commands;
 using HotelAutomationApp.Application.Rooms.Commands;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;

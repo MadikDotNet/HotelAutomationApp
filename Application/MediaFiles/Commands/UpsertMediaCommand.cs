@@ -4,11 +4,10 @@ using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.MediaFiles.Commands;
 
-public class UpsertMediaCommand : IRequest
+public class UpsertMediaCommand : IRequest<ICollection<string>>
 {
     public UpsertMediaCommand(ICollection<MediaDto> media)
     {
@@ -17,7 +16,7 @@ public class UpsertMediaCommand : IRequest
 
     public ICollection<MediaDto> Media { get; }
 
-    private class Handler : AsyncRequestHandler<UpsertMediaCommand>
+    private class Handler : IRequestHandler<UpsertMediaCommand, ICollection<string>>
     {
         private readonly IApplicationDbContext _applicationDb;
         private readonly IMapper _mapper;
@@ -28,26 +27,21 @@ public class UpsertMediaCommand : IRequest
             _mapper = mapper;
         }
 
-        // TODO rewrite
-        protected override async Task Handle(UpsertMediaCommand request, CancellationToken cancellationToken)
+
+        public async Task<ICollection<string>> Handle(UpsertMediaCommand request, CancellationToken cancellationToken)
         {
-            var newMedia = request.Media.ExcludeAfterFilter(q => !q.HasId, out var remind);
-
-            var alreadyExistMedia = (await _applicationDb.Media
-                    .Where(q => remind.Select(w => w.Id).Contains(q.Id))
-                    .AsNoTracking()
-                    .ToListAsync(CancellationToken.None))
-                .Join(request.Media, q => q.Id, w => w.Id, (left, right) => _mapper.Map<Media>(right))
-                .ToList();
-
-            var mustBeAdded = remind.ExcludeSameElements(alreadyExistMedia, q => q.Id, w => w.Id)
-                .Concat(newMedia)
+            var newMedia = request.Media.ExcludeAfterFilter(q => !q.HasId, out var remain)
                 .Select(q => _mapper.Map<Media>(q with {Id = Guid.NewGuid().ToString()}))
                 .ToList();
 
-            _applicationDb.Media.AddRange(mustBeAdded);
-            _applicationDb.Media.UpdateRange(alreadyExistMedia);
+            var media = remain.Select(q => _mapper.Map<Media>(q)).ToList();
+
+            _applicationDb.Media.UpdateRange(media);
+            _applicationDb.Media.AddRange(newMedia);
+            
             await _applicationDb.SaveChangesAsync(cancellationToken);
+
+            return media.Concat(newMedia).Select(q => q.Id).ToList();
         }
     }
 }

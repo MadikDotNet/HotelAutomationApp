@@ -1,10 +1,10 @@
 using FluentValidation;
 using HotelAutomationApp.Application.Extensions.FluentValidationExtensions;
-using HotelAutomationApp.Application.RoomMedia.UseCases;
+using HotelAutomationApp.Application.RoomMediaFiles.UseCases;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 
-namespace HotelAutomationApp.Application.RoomMedia.Validators;
+namespace HotelAutomationApp.Application.RoomMediaFiles.Validators;
 
 public class UnbindRoomMediaRequestValidator : AbstractValidator<UnbindRoomMediaRequest>
 {

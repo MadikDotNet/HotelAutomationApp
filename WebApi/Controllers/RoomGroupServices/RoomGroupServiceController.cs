@@ -34,7 +34,7 @@ public class RoomGroupServiceController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType((int)HttpStatusCode.OK)]
-    public async Task<IActionResult> Upsert([FromBody]UpsertRoomGroupServicesRequest request)
+    public async Task<IActionResult> Bind([FromBody]BindRoomGroupServicesRequest request)
     {
         var result = await _mediator.Send(request); 
             

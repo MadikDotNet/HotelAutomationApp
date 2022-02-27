@@ -19,9 +19,4 @@
       <ProjectReference Include="..\Persistence.Interfaces\Persistence.Interfaces.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="RoomGroupServices\Mappings" />
-      <Folder Include="RoomGroupServices\Validators" />
-    </ItemGroup>
-
 </Project>
