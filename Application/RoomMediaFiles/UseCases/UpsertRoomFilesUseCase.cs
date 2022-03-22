@@ -5,7 +5,7 @@ using MediatR;
 
 namespace HotelAutomationApp.Application.RoomMediaFiles.UseCases;
 
-public class UpsertRoomFilesUseCase : UseCase<UpsertRoomMediaRequest>
+public class UpsertRoomFilesUseCase : UseCase<UpsertRoomFileRequest>
 {
     private readonly IMediator _mediator;
 
@@ -15,12 +15,12 @@ public class UpsertRoomFilesUseCase : UseCase<UpsertRoomMediaRequest>
     }
 
     protected override async Task HandleRequestAsync(
-        UpsertRoomMediaRequest request,
+        UpsertRoomFileRequest request,
         CancellationToken cancellationToken) => 
         await _mediator.Send(new UpsertRoomFilesCommand(request.RoomId, request.Files), CancellationToken.None);
 }
 
-public class UpsertRoomMediaRequest : IRequest
+public class UpsertRoomFileRequest : IRequest
 {
     public string RoomId { get; set; }
     public ICollection<FileDto> Files { get; set; }

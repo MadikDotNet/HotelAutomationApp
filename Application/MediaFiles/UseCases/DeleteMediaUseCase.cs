@@ -15,11 +15,11 @@ public class DeleteMediaUseCase : UseCase<DeleteMediaRequest>
 
     protected override async Task HandleRequestAsync(DeleteMediaRequest request, CancellationToken cancellationToken)
     {
-        await _mediator.Send(new DeleteMediaCommand(request.MediaId), CancellationToken.None);
+        await _mediator.Send(new DeleteFileCommand(request.FileId), CancellationToken.None);
     }
 }
 
 public class DeleteMediaRequest : IRequest
 {
-    public string MediaId { get; set; }
+    public string FileId { get; set; }
 }

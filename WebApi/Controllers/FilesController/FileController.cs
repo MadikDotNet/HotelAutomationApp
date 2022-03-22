@@ -58,7 +58,7 @@ namespace HotelAutomationApp.WebApi.Controllers.FilesController
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> Delete(string id)
         {
-            var result = await _mediator.Send(new DeleteMediaRequest {MediaId = id});
+            var result = await _mediator.Send(new DeleteMediaRequest {FileId = id});
 
             return Ok(result);
         }

@@ -4,18 +4,18 @@ using Z.EntityFramework.Plus;
 
 namespace HotelAutomationApp.Application.RoomMediaFiles.Commands;
 
-public class UnbindRoomMediaCommand : IRequest
+public class UnbindRoomFileCommand : IRequest
 {
-    public UnbindRoomMediaCommand(string roomId, ICollection<string> mediaIds)
+    public UnbindRoomFileCommand(string roomId, ICollection<string> fileIds)
     {
         RoomId = roomId;
-        MediaIds = mediaIds;
+        FileIds = fileIds;
     }
 
     public string RoomId { get; }
-    public ICollection<string> MediaIds { get;}
+    public ICollection<string> FileIds { get;}
 
-    private class Handler : AsyncRequestHandler<UnbindRoomMediaCommand>
+    private class Handler : AsyncRequestHandler<UnbindRoomFileCommand>
     {
         private readonly IApplicationDbContext _applicationDb;
 
@@ -24,9 +24,9 @@ public class UnbindRoomMediaCommand : IRequest
             _applicationDb = applicationDb;
         }
 
-        protected override async Task Handle(UnbindRoomMediaCommand request, CancellationToken cancellationToken) =>
+        protected override async Task Handle(UnbindRoomFileCommand request, CancellationToken cancellationToken) =>
             await _applicationDb.RoomFiles
-                .Where(q => q.RoomId == request.RoomId && request.MediaIds.Contains(q.FileMetadataId))
+                .Where(q => q.RoomId == request.RoomId && request.FileIds.Contains(q.FileMetadataId))
                 .DeleteAsync(cancellationToken);
     }
 }

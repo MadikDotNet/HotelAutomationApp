@@ -6,10 +6,10 @@ using HotelAutomationApp.Persistence.Interfaces.Context;
 
 namespace HotelAutomationApp.Application.RoomMediaFiles.Validators;
 
-public class UpsertRoomMediaRequestValidator : AbstractValidator<UpsertRoomMediaRequest>
+public class UpsertRoomMediaRequestValidator : AbstractValidator<UpsertRoomFileRequest>
 {
     public UpsertRoomMediaRequestValidator(IApplicationDbContext applicationDb)
     {
-        RuleFor(q => q.RoomId).IsExist<UpsertRoomMediaRequest, Room>(applicationDb);
+        RuleFor(q => q.RoomId).IsExist<UpsertRoomFileRequest, Room>(applicationDb);
     }
 }

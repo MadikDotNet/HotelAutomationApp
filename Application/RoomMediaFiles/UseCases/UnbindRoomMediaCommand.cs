@@ -16,7 +16,7 @@ public class UnbindRoomFilesUseCase : UseCase<UnbindRoomMediaRequest>
     protected override async Task HandleRequestAsync(
         UnbindRoomMediaRequest request,
         CancellationToken cancellationToken) =>
-        await _mediator.Send(new UnbindRoomMediaCommand(request.RoomId, request.MediaIds), CancellationToken.None);
+        await _mediator.Send(new UnbindRoomFileCommand(request.RoomId, request.MediaIds), CancellationToken.None);
 }
 
 public class UnbindRoomMediaRequest : IRequest

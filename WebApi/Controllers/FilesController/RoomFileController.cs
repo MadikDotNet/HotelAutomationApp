@@ -13,11 +13,11 @@ namespace HotelAutomationApp.WebApi.Controllers.FilesController
     [ApiController]
     [Route("api/[controller]/[action]")]
     [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
-    public class RoomMediaController : ControllerBase
+    public class RoomFileController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public RoomMediaController(IMediator mediator)
+        public RoomFileController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -34,7 +34,7 @@ namespace HotelAutomationApp.WebApi.Controllers.FilesController
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Upsert([FromBody]UpsertRoomMediaRequest request)
+        public async Task<IActionResult> Upsert([FromBody]UpsertRoomFileRequest request)
         {
             var result = await _mediator.Send(request); 
             

@@ -5,16 +5,16 @@ using MediatR;
 
 namespace HotelAutomationApp.Application.MediaFiles.Commands;
 
-public class DeleteMediaCommand : IRequest
+public class DeleteFileCommand : IRequest
 {
-    public DeleteMediaCommand(string mediaId)
+    public DeleteFileCommand(string fileId)
     {
-        MediaId = mediaId;
+        FileId = fileId;
     }
 
-    public string MediaId { get; }
+    public string FileId { get; }
 
-    private class Handler : AsyncRequestHandler<DeleteMediaCommand>
+    private class Handler : AsyncRequestHandler<DeleteFileCommand>
     {
         private readonly IApplicationDbContext _applicationDb;
         private readonly IMediaStorage _mediaStorage;
@@ -25,9 +25,9 @@ public class DeleteMediaCommand : IRequest
             _mediaStorage = mediaStorage;
         }
 
-        protected override async Task Handle(DeleteMediaCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(DeleteFileCommand request, CancellationToken cancellationToken)
         {
-            var fileMetadata = new FileMetadata {Id = request.MediaId};
+            var fileMetadata = new FileMetadata {Id = request.FileId};
 
             _applicationDb.FileMetadata.Attach(fileMetadata);
             _applicationDb.FileMetadata.Remove(fileMetadata);

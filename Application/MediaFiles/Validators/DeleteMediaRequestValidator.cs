@@ -8,7 +8,7 @@ public class DeleteMediaRequestValidator : AbstractValidator<DeleteMediaRequest>
 {
     public DeleteMediaRequestValidator(IApplicationDbContext applicationDb)
     {
-        RuleFor(q => q.MediaId)
+        RuleFor(q => q.FileId)
             .MustAsync(async (field, token) => await applicationDb.FileMetadata.FindAsync(field, token) is { })
             .WithMessage("FileMetadata file not found");
     }
