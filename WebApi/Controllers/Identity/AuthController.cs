@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using HotelAutomationApp.Application.Auth.UseCases;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelAutomationApp.WebApi.Controllers.Identity
@@ -29,6 +30,15 @@ namespace HotelAutomationApp.WebApi.Controllers.Identity
         {
             var result = await _mediator.Send(request); 
             
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
+        {
+            var result = await _mediator.Send(request);
+
             return Ok(result);
         }
     }

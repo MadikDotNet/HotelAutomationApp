@@ -6,38 +6,40 @@ using HotelAutomationApp.Domain.Models.Rooms;
 namespace HotelAutomationApp.Domain.Models.RoomMediaFiles
 {
     /// <summary>
-    /// Link table between room and media
+    /// Link table between room and fileMetadata
     /// </summary>
-    public class RoomMedia : BaseEntity
+    public class RoomFile : BaseEntity
     {
-        public RoomMedia()
+        public RoomFile()
         {
         }
 
-        public RoomMedia(string id, string roomId, string mediaId)
+        public RoomFile(string id, string roomId, string fileMetadataId)
         {
             Id = id;
             RoomId = roomId;
-            MediaId = mediaId;
+            FileMetadataId = fileMetadataId;
         }
 
-        public RoomMedia(
+        public RoomFile(
             string id,
             string roomId,
             Room room,
-            string mediaId,
-            Media media)
+            string fileMetadataId,
+            FileMetadata fileMetadata)
         {
             Id = id;
             RoomId = roomId;
             Room = room;
-            MediaId = mediaId;
-            Media = media;
+            FileMetadataId = fileMetadataId;
+            FileMetadata = fileMetadata;
         }
 
-        [ForeignKey(nameof(Room))] public string RoomId { get; set; }
+        [ForeignKey(nameof(Room))] 
+        public string RoomId { get; set; }
         public Room Room { get; set; }
-        [ForeignKey(nameof(Media))] public string MediaId { get; set; }
-        public Media Media { get; set; }
+        [ForeignKey(nameof(FileMetadata))] 
+        public string FileMetadataId { get; set; }
+        public FileMetadata FileMetadata { get; set; }
     }
 }

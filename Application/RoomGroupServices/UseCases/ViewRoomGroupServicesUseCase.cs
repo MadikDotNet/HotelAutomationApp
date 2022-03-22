@@ -1,4 +1,4 @@
-using HotelAutomation.Application.Common;
+using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.RoomGroupServices.Queries;
 using HotelAutomationApp.Application.Services.Models;

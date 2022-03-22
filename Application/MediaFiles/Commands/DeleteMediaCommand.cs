@@ -1,4 +1,5 @@
 using HotelAutomationApp.Domain.Models.MediaFiles;
+using HotelAutomationApp.Infrastructure.Interfaces.MediaFiles;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 
@@ -12,23 +13,27 @@ public class DeleteMediaCommand : IRequest
     }
 
     public string MediaId { get; }
-    
+
     private class Handler : AsyncRequestHandler<DeleteMediaCommand>
     {
         private readonly IApplicationDbContext _applicationDb;
+        private readonly IMediaStorage _mediaStorage;
 
-        public Handler(IApplicationDbContext applicationDb)
+        public Handler(IApplicationDbContext applicationDb, IMediaStorage mediaStorage)
         {
             _applicationDb = applicationDb;
+            _mediaStorage = mediaStorage;
         }
 
         protected override async Task Handle(DeleteMediaCommand request, CancellationToken cancellationToken)
         {
-            var media = new Media {Id = request.MediaId};
+            var fileMetadata = new FileMetadata {Id = request.MediaId};
 
-            _applicationDb.Media.Attach(media);
-            _applicationDb.Media.Remove(media);
+            _applicationDb.FileMetadata.Attach(fileMetadata);
+            _applicationDb.FileMetadata.Remove(fileMetadata);
             await _applicationDb.SaveChangesAsync(CancellationToken.None);
+
+            await _mediaStorage.RemoveAsync(fileMetadata.Id);
         }
     }
 }

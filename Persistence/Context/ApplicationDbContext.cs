@@ -32,13 +32,13 @@ namespace HotelAutomationApp.Persistence.Context
 
         public DbSet<Room> Room { get; set; }
         public DbSet<RoomGroup> RoomGroup { get; set; }
-        public DbSet<RoomMedia> RoomMedia { get; set; }
+        public DbSet<RoomFile> RoomFiles { get; set; }
 
         #endregion
 
         #region MediaFiles
 
-        public DbSet<Media> Media { get; set; }
+        public DbSet<FileMetadata> FileMetadata { get; set; }
 
         #endregion
 

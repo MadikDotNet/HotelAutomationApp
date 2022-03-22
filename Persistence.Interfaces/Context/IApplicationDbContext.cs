@@ -25,13 +25,13 @@ namespace HotelAutomationApp.Persistence.Interfaces.Context
 
         DbSet<Room> Room { get; set; }
         DbSet<RoomGroup> RoomGroup { get; set; }
-        DbSet<RoomMedia> RoomMedia { get; set; }
+        DbSet<RoomFile> RoomFiles { get; set; }
 
         #endregion
 
         #region MediaFiles
 
-        DbSet<Media> Media { get; set; }
+        DbSet<FileMetadata> FileMetadata { get; set; }
 
         #endregion
 

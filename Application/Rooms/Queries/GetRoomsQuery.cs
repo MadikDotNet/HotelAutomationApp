@@ -14,7 +14,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
     public class GetRoomsQuery : IRequest<PageResponse<RoomDto>>
     {
         public GetRoomsQuery(
-            PageRequest pageRequest,
+            PageRequest? pageRequest,
             Distance<int>? maxGuestsCountDistance,
             Distance<double>? capacityDistance,
             Distance<decimal>? priceDistance,
@@ -30,7 +30,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             RoomGroupId = roomGroupId;
         }
 
-        public PageRequest PageRequest;
+        public PageRequest? PageRequest { get; }
         public Distance<int>? MaxGuestsCountDistance { get; }
         public Distance<double>? CapacityDistance { get; }
         public Distance<decimal>? PriceDistance { get; }

@@ -2,6 +2,7 @@ using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.MediaFiles.Models;
 using HotelAutomationApp.Application.RoomMediaFiles.Commands;
 using HotelAutomationApp.Application.Rooms.Commands;
+using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 
@@ -28,9 +29,9 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
 
             await _mediator.Send(updateRoomCommand, CancellationToken.None);
 
-            if (request.Media != null && request.Media.Any())
+            if (request.Files is not null && request.Files.Any())
             {
-                await _mediator.Send(new UpsertRoomMediaCommand(request.Id, request.Media), CancellationToken.None);
+                await _mediator.Send(new UpsertRoomFilesCommand(request.Id, request.Files), CancellationToken.None);
             }
         }
     }
@@ -43,6 +44,6 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         public decimal PricePerNight { get; set; }
         public bool IsAvailable { get; set; }
         public string RoomGroupId { get; set; }
-        public ICollection<MediaDto>? Media { get; set; }
+        public ICollection<FileDto>? Files { get; set; }
     }
 }

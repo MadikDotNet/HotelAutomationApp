@@ -1,14 +1,14 @@
-using HotelAutomation.Application.Common;
+using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.RoomMediaFiles.Commands;
 using MediatR;
 
 namespace HotelAutomationApp.Application.RoomMediaFiles.UseCases;
 
-public class UnbindRoomMediaUseCase : UseCase<UnbindRoomMediaRequest>
+public class UnbindRoomFilesUseCase : UseCase<UnbindRoomMediaRequest>
 {
     private readonly IMediator _mediator;
 
-    public UnbindRoomMediaUseCase(IMediator mediator)
+    public UnbindRoomFilesUseCase(IMediator mediator)
     {
         _mediator = mediator;
     }

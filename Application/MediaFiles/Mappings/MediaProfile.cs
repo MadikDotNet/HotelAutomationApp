@@ -8,7 +8,7 @@ namespace HotelAutomationApp.Application.MediaFiles.Mappings
     {
         public FileProfile()
         {
-            CreateMap<Media, MediaDto>().ReverseMap();
+            CreateMap<FileMetadata, FileMetadataDto>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,4 @@
-using HotelAutomation.Application.Common;
+using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Common.Dictionary.Models.Requests;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.RoomGroups.Models;

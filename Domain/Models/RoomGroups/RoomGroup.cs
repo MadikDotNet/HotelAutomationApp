@@ -27,9 +27,9 @@ namespace HotelAutomationApp.Domain.Models.RoomGroups
         /// </summary>
         public Price MinPrice { get; set; }
 
-        [ForeignKey(nameof(Media))]
-        public string? MediaId { get; set; }
-        public Media? Media { get; set; }
+        [ForeignKey(nameof(FileMetadata))]
+        public string? FileMetadataId { get; set; }
+        public FileMetadata? FileMetadata { get; set; }
 
         /// <summary>
         /// Available service for entire room group

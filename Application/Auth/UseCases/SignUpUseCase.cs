@@ -1,5 +1,6 @@
-using HotelAutomation.Application.Common;
 using HotelAutomationApp.Application.Auth.Commands;
+using HotelAutomationApp.Application.Auth.Models;
+using HotelAutomationApp.Application.Common;
 using MediatR;
 
 namespace HotelAutomationApp.Application.Auth.UseCases
@@ -15,7 +16,11 @@ namespace HotelAutomationApp.Application.Auth.UseCases
 
         protected override async Task HandleRequestAsync(SignUpRequest request, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new CreateUserCommand(request.Login, request.Password, request.Role), cancellationToken);
+            await _mediator.Send(new CreateUserCommand(
+                request.Login,
+                request.Password,
+                request.Email,
+                new[] {Role.User.Key}), cancellationToken);
         }
     }
 
@@ -23,6 +28,6 @@ namespace HotelAutomationApp.Application.Auth.UseCases
     {
         public string Login { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
+        public string Email { get; set; }
     }
 }

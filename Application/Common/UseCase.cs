@@ -1,8 +1,6 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 
-namespace HotelAutomation.Application.Common
+namespace HotelAutomationApp.Application.Common
 {
     /// <summary>
     /// Entry point to application

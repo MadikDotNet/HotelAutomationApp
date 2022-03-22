@@ -29,7 +29,7 @@ public abstract class DictionaryController
 
     [HttpGet]
     [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ViewDictionaryListResponse<>))]
-    public async Task<IActionResult> ViewAsList(
+    public virtual async Task<IActionResult> ViewAsList(
         [FromQuery] ViewDictionaryListRequest request,
         CancellationToken cancellationToken)
     {
@@ -40,14 +40,14 @@ public abstract class DictionaryController
             request.Description,
             request.FullMatching,
             cancellationToken);
-        
+
         return Ok(result);
     }
 
     [HttpPost]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     [ProducesResponseType((int) HttpStatusCode.OK)]
-    public async Task<IActionResult> Upsert(
+    public virtual async Task<IActionResult> Upsert(
         [FromBody] CreateDictionaryItemRequest<TDictionaryDto> request)
     {
         await DictionaryService.Upsert(request.DictionaryDto);
@@ -58,7 +58,7 @@ public abstract class DictionaryController
     [HttpDelete("{id}")]
     [Authorize(Policy = nameof(AuthorizationPolicies.RequireAdminRole))]
     [ProducesResponseType((int) HttpStatusCode.OK)]
-    public async Task<IActionResult> Delete(string id)
+    public virtual async Task<IActionResult> Delete(string id)
     {
         await DictionaryService.Delete(id);
 

@@ -1,4 +1,4 @@
-using HotelAutomation.Application.Common;
+using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Rooms.Commands;
 using MediatR;
 

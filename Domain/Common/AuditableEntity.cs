@@ -1,11 +1,11 @@
-using System;
+using HotelAutomationApp.Domain.Common.Abstractions.Audition;
 
 namespace HotelAutomationApp.Domain.Common
 {
     /// <summary>
     /// Main class for auditable entities
     /// </summary>
-    public class AuditableEntity : BaseEntity
+    public class AuditableEntity : BaseEntity, IAuditable
     {
         public AuditableEntity()
         {
@@ -24,24 +24,9 @@ namespace HotelAutomationApp.Domain.Common
             LastModifiedDate = lastModifiedDate;
         }
         
-        /// <summary>
-        /// Creator identifier 
-        /// </summary>
         public string CreatedBy { get; set; }
-        
-        /// <summary>
-        /// Date of creation
-        /// </summary>
         public DateTime CreationDate { get; set; }
-        
-        /// <summary>
-        /// Modifier identifier
-        /// </summary>
         public string LastModifiedBy { get; set; }
-        
-        /// <summary>
-        /// Date of last modify
-        /// </summary>
         public DateTime LastModifiedDate { get; set; }
 
         /// <summary>

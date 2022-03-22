@@ -25,8 +25,8 @@ public class UnbindRoomMediaCommand : IRequest
         }
 
         protected override async Task Handle(UnbindRoomMediaCommand request, CancellationToken cancellationToken) =>
-            await _applicationDb.RoomMedia
-                .Where(q => q.RoomId == request.RoomId && request.MediaIds.Contains(q.MediaId))
+            await _applicationDb.RoomFiles
+                .Where(q => q.RoomId == request.RoomId && request.MediaIds.Contains(q.FileMetadataId))
                 .DeleteAsync(cancellationToken);
     }
 }

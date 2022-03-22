@@ -50,7 +50,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Rooms
 
             return Ok();
         }
-        
+
         [HttpDelete("{id}")]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteRoom(string id)

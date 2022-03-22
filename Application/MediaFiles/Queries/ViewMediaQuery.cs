@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.MediaFiles.Queries;
 
-public class ViewMediaQuery : IRequest<PageResponse<MediaDto>>
+public class ViewMediaQuery : IRequest<PageResponse<FileMetadataDto>>
 {
     public ViewMediaQuery(PageRequest pageRequest, bool fullMatch, string fileName, string fileType)
     {
@@ -24,7 +24,7 @@ public class ViewMediaQuery : IRequest<PageResponse<MediaDto>>
     public string FileName { get; }
     public string FileType { get; }
 
-    private class Handler : IRequestHandler<ViewMediaQuery, PageResponse<MediaDto>>
+    private class Handler : IRequestHandler<ViewMediaQuery, PageResponse<FileMetadataDto>>
     {
         private readonly IApplicationDbContext _applicationDb;
         private readonly IMapper _mapper;
@@ -35,9 +35,9 @@ public class ViewMediaQuery : IRequest<PageResponse<MediaDto>>
             _mapper = mapper;
         }
 
-        public async Task<PageResponse<MediaDto>> Handle(ViewMediaQuery request, CancellationToken cancellationToken)
+        public async Task<PageResponse<FileMetadataDto>> Handle(ViewMediaQuery request, CancellationToken cancellationToken)
         {
-            var response = _applicationDb.Media.AsQueryable();
+            var response = _applicationDb.FileMetadata.AsQueryable();
 
             if (!string.IsNullOrEmpty(request.FileName))
             {
@@ -54,7 +54,7 @@ public class ViewMediaQuery : IRequest<PageResponse<MediaDto>>
             }
 
             return (await response
-                .ProjectTo<MediaDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<FileMetadataDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken))
                 .AsPageResponse(request.PageRequest);
         }

@@ -1,7 +1,7 @@
-using HotelAutomation.Application.Common;
 using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Application.Auth.Queries;
+using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Exceptions;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;

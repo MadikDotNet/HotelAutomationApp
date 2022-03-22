@@ -6,6 +6,5 @@ namespace HotelAutomationApp.Application.RoomGroups.Models;
 public record RoomGroupDto : BaseDictionaryDto
 {
     public decimal MinPrice { get; set; }
-    public string? MediaId { get; set; }
-    public MediaDto? Media { get; set; }
+    public string? FileId { get; set; }
 }

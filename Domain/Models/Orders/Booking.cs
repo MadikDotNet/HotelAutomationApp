@@ -14,5 +14,4 @@ public class Booking : BaseEntity
     [ForeignKey(nameof(Room))]
     public string RoomId { get; set; }
     public Room Room { get; set; }
-    
 }

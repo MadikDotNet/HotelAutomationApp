@@ -54,8 +54,6 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                 room.RoomGroupId = request.RoomGroupId;
                 room.LastModifiedBy = _securityContext.UserId;
 
-                _applicationDb.Room.Update(room);
-
                 await _applicationDb.SaveChangesAsync(CancellationToken.None);
             }
         }

@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using HotelAutomationApp.Application.Auth.Constants;
+using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Domain.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -24,7 +24,7 @@ public class IdentitySeed
 
     private async Task InitializeRoles()
     {
-        foreach (var role in Roles.All)
+        foreach (var role in Role.Names)
         {
             if (await _roleManager.FindByNameAsync(role) is null)
             {
@@ -44,7 +44,7 @@ public class IdentitySeed
 
             await _userManager.CreateAsync(root, rootPassword);
 
-            await _userManager.AddToRoleAsync(root, Roles.Root);
+            await _userManager.AddToRoleAsync(root, Role.Root.ToString());
         }
 
         var (userUsername, userPassword, userEmail) = ("Happy_Saram", "bota3112", "Zhanbota_bota@mail.ru");
@@ -58,7 +58,7 @@ public class IdentitySeed
             };
 
             await _userManager.CreateAsync(admin, userPassword);
-            await _userManager.AddToRoleAsync(admin, Roles.Admin);
+            await _userManager.AddToRoleAsync(admin, Role.Admin.ToString());
         }
     }
 }

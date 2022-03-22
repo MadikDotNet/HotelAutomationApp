@@ -5,6 +5,8 @@ namespace HotelAutomationApp.Domain.Models.Identity
 {
     public sealed class ApplicationUser : IdentityUser
     {
+        public const string DefaultGuestPassword = "DefaultGuestPassword";
+
         public ApplicationUser()
         {
         }
@@ -27,6 +29,7 @@ namespace HotelAutomationApp.Domain.Models.Identity
         public DateTime CreatedDate { get; set; }
         public DateTime? DeletedDate { get; set; }
         public DateTime? BlockedDate { get; set; }
+        public bool IsGuest { get; set; }
         public bool CanLogin => DeletedDate is null && BlockedDate is null;
 
         public static ApplicationUser New(string? userName)
@@ -36,7 +39,20 @@ namespace HotelAutomationApp.Domain.Models.Identity
             return new ApplicationUser
             {
                 UserName = userName,
-                CreatedDate = DateTime.UtcNow
+                CreatedDate = DateTime.UtcNow,
+                IsGuest = false
+            };
+        }
+
+        public static ApplicationUser NewGuest(string userName)
+        {
+            userName.EnsureIsNotEmpty(nameof(userName));
+
+            return new ApplicationUser
+            {
+                UserName = userName,
+                CreatedDate = DateTime.UtcNow,
+                IsGuest = true
             };
         }
     }

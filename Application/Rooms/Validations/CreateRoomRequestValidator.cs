@@ -13,6 +13,10 @@ namespace HotelAutomationApp.Application.Rooms.Validations
                     !string.IsNullOrEmpty(field) &&
                     await applicationDb.RoomGroup.FindAsync(new object[]{field}, token) is not null)
                 .WithMessage("Room group not found");
+
+            RuleForEach(q => q.Files)
+                .Must(file => file.Id is not null || file.File is not null)
+                .WithMessage("File has invalid format");
         }
     }
 }

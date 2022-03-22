@@ -1,5 +1,6 @@
-using HotelAutomationApp.Application.MediaFiles.Models;
+using HotelAutomationApp.Application.Extensions;
 using HotelAutomationApp.Application.RoomMediaFiles.Commands;
+using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Persistence.Interfaces.Context;
@@ -14,20 +15,20 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerNight,
             string roomGroupId,
-            ICollection<MediaDto>? media)
+            ICollection<FileDto>? files)
         {
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
             PricePerNight = pricePerNight;
             RoomGroupId = roomGroupId;
-            Media = media;
+            Files = files;
         }
 
         public int MaxGuestsCount { get; }
         public double Capacity { get; }
         public decimal PricePerNight { get; }
         public string RoomGroupId { get; }
-        public ICollection<MediaDto>? Media { get; }
+        public ICollection<FileDto>? Files { get; }
 
         private class Handler : AsyncRequestHandler<CreateRoomCommand>
         {
@@ -54,12 +55,15 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                     request.Capacity,
                     request.PricePerNight);
 
-                (room.LastModifiedBy, room.CreatedBy) = (_securityContext.UserId, _securityContext.UserId);
+                room.CreatedBy(_securityContext.UserId);
 
                 _applicationDb.Room.Add(room);
                 await _applicationDb.SaveChangesAsync(CancellationToken.None);
 
-                await _mediator.Send(new UpsertRoomMediaCommand(room.Id, request.Media), CancellationToken.None);
+                if (request.Files is { })
+                {
+                    await _mediator.Send(new UpsertRoomFilesCommand(room.Id, request.Files), CancellationToken.None);
+                }
             }
         }
     }

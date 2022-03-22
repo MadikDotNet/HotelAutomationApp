@@ -50,6 +50,9 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsGuest")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
 
@@ -95,15 +98,24 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.MediaFiles.Media", b =>
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.MediaFiles.FileMetadata", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
 
-                    b.Property<string>("Data")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FileName")
                         .IsRequired()
@@ -113,9 +125,19 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Media");
+                    b.ToTable("FileMetadata");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroups.RoomGroup", b =>
@@ -131,12 +153,12 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("MediaId")
+                    b.Property<string>("FileMetadataId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MediaId");
+                    b.HasIndex("FileMetadataId");
 
                     b.ToTable("RoomGroup");
                 });
@@ -164,13 +186,13 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.ToTable("RoomGroupService");
                 });
 
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomMediaFiles.RoomMedia", b =>
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomMediaFiles.RoomFile", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text");
 
-                    b.Property<string>("MediaId")
+                    b.Property<string>("FileMetadataId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -180,11 +202,11 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MediaId");
+                    b.HasIndex("FileMetadataId");
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("RoomMedia");
+                    b.ToTable("RoomFiles");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.Room", b =>
@@ -391,9 +413,9 @@ namespace HotelAutomationApp.Persistence.Migrations
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroups.RoomGroup", b =>
                 {
-                    b.HasOne("HotelAutomationApp.Domain.Models.MediaFiles.Media", "Media")
+                    b.HasOne("HotelAutomationApp.Domain.Models.MediaFiles.FileMetadata", "FileMetadata")
                         .WithMany()
-                        .HasForeignKey("MediaId");
+                        .HasForeignKey("FileMetadataId");
 
                     b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "MinPrice", b1 =>
                         {
@@ -430,7 +452,7 @@ namespace HotelAutomationApp.Persistence.Migrations
                                 .HasForeignKey("RoomGroupId");
                         });
 
-                    b.Navigation("Media");
+                    b.Navigation("FileMetadata");
 
                     b.Navigation("MinPrice")
                         .IsRequired();
@@ -458,21 +480,21 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomMediaFiles.RoomMedia", b =>
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomMediaFiles.RoomFile", b =>
                 {
-                    b.HasOne("HotelAutomationApp.Domain.Models.MediaFiles.Media", "Media")
+                    b.HasOne("HotelAutomationApp.Domain.Models.MediaFiles.FileMetadata", "FileMetadata")
                         .WithMany()
-                        .HasForeignKey("MediaId")
+                        .HasForeignKey("FileMetadataId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HotelAutomationApp.Domain.Models.Rooms.Room", "Room")
-                        .WithMany("RoomMedia")
+                        .WithMany("RoomFiles")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Media");
+                    b.Navigation("FileMetadata");
 
                     b.Navigation("Room");
                 });
@@ -590,7 +612,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.Room", b =>
                 {
-                    b.Navigation("RoomMedia");
+                    b.Navigation("RoomFiles");
                 });
 #pragma warning restore 612, 618
         }

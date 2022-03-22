@@ -1,4 +1,5 @@
 ﻿using HotelAutomationApp.Application.Auth.Constants;
+using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
@@ -86,12 +87,12 @@ namespace HotelAutomationApp.WebApi.Extensions
                 
                 opts.AddPolicy(AuthorizationPolicies.RequireAdminRole, policy =>
                 {
-                    policy.RequireRole(Roles.Admin, Roles.Root);
+                    policy.RequireRole(Role.Admin.ToString(), Role.Root.ToString());
                 });
                 
                 opts.AddPolicy(AuthorizationPolicies.RequireRootRole, policy =>
                 {
-                    policy.RequireRole(Roles.Root);
+                    policy.RequireRole(Role.Root.ToString());
                 });
             });
 

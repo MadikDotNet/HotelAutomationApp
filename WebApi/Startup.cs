@@ -1,14 +1,16 @@
 using System;
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using HotelAutomation.Application.Common;
 using HotelAutomation.WebApi.Extensions;
 using HotelAutomationApp.Application.ApplicationServices.Dictionary;
 using HotelAutomationApp.Application.Auth.Commands;
+using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Extensions;
+using HotelAutomationApp.Infrastructure.Interfaces.MediaFiles;
 using HotelAutomationApp.Persistence.Extensions;
 using HotelAutomationApp.Shared.Extensions;
 using HotelAutomationApp.WebApi.Extensions;
+using HotelAutomationApp.WebApi.Services.MediaFiles;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +44,8 @@ namespace HotelAutomationApp.WebApi
                     }));
 
             services.AddCors();
+
+            services.AddSingleton<IMediaStorage, InServerMediaStorage>();
 
             services.AddSwaggerGen(setup =>
             {

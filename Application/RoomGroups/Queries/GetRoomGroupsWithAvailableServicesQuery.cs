@@ -13,7 +13,7 @@ namespace HotelAutomationApp.Application.RoomGroups.Queries;
 public class GetRoomGroupsWithAvailableServicesQuery : IRequest<PageResponse<RoomGroupWithAvailableServicesDto>>
 {
     public GetRoomGroupsWithAvailableServicesQuery(
-        PageRequest pageRequest,
+        PageRequest? pageRequest,
         string? code,
         string? name,
         string? description,
@@ -26,7 +26,7 @@ public class GetRoomGroupsWithAvailableServicesQuery : IRequest<PageResponse<Roo
         FullMatching = fullMatching;
     }
 
-    public PageRequest PageRequest { get; set; }
+    public PageRequest? PageRequest { get; set; }
     public string? Code { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }

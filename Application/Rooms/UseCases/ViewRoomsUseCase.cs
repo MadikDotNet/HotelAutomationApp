@@ -1,4 +1,3 @@
-using HotelAutomation.Application.Common;
 using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.Rooms.Models;
@@ -33,7 +32,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
 
     public class ViewRoomsRequest : IRequest<PageResponse<RoomDto>>
     {
-        public PageRequest PageRequest { get; set; }
+        public PageRequest? PageRequest { get; set; }
         public Distance<int>? MaxGuestsCountDistance { get; set; }
         public Distance<double>? CapacityDistance { get; set; }
         public Distance<decimal>? PriceDistance { get; set; }

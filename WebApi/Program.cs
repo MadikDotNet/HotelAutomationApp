@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using HotelAutomationApp.Application.MediaFiles.Commands;
 using HotelAutomationApp.WebApi.Seeds;
-using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

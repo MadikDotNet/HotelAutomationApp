@@ -25,7 +25,7 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
     }
 
     public virtual async Task<PageResponse<TDictionaryDto>> ViewAsList(
-        PageRequest request,
+        PageRequest? request,
         string? code,
         string? name,
         string? description,
