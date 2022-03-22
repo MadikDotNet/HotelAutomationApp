@@ -26,13 +26,14 @@ public class ViewRoomByIdWithIncludedServicesUseCase :
     {
         var room = await _applicationDb.Room.Include(q => q.RoomGroup)
             .ThenInclude(q => q.RoomGroupServices)
+            .ThenInclude(q => q.Service)
             .FirstAsync(q => q.Id == request.RoomId, cancellationToken);
 
         return new ViewRoomByIdWithAvailableServicesResponse
         {
             Room = _mapper.Map<RoomDto>(room),
             IncudedServices = room.RoomGroup.RoomGroupServices
-                .Select(service => _mapper.Map<ServiceDto>(service)).ToArray()
+                .Select(service => _mapper.Map<ServiceDto>(service.Service)).ToArray()
         };
     }
 }
