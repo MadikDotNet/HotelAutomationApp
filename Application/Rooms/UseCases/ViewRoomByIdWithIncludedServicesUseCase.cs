@@ -27,6 +27,8 @@ public class ViewRoomByIdWithIncludedServicesUseCase :
         var room = await _applicationDb.Room.Include(q => q.RoomGroup)
             .ThenInclude(q => q.RoomGroupServices)
             .ThenInclude(q => q.Service)
+            .Include(q => q.RoomFiles)
+            .ThenInclude(q => q.FileMetadata)
             .FirstAsync(q => q.Id == request.RoomId, cancellationToken);
 
         return new ViewRoomByIdWithAvailableServicesResponse
