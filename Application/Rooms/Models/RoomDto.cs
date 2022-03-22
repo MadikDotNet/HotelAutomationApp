@@ -12,6 +12,8 @@ namespace HotelAutomationApp.Application.Rooms.Models
         public bool IsAvailable { get; set; }
         public string RoomGroupId { get; set; }
         public string RoomGroupName { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public ICollection<FileMetadataDto> Images { get; set; }
     }
 }

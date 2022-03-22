@@ -14,11 +14,11 @@ namespace HotelAutomationApp.WebApi.Controllers.Rooms
     [ApiController]
     [Route("api/[controller]/[action]")]
     [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
-    public class RoomsController : ControllerBase
+    public class RoomController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public RoomsController(IMediator mediator)
+        public RoomController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -27,6 +27,18 @@ namespace HotelAutomationApp.WebApi.Controllers.Rooms
         [AllowAnonymous]
         [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(PageResponse<RoomDto>))]
         public async Task<IActionResult> View([FromQuery] ViewRoomsRequest request, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(request, cancellationToken);
+
+            return Ok(response);
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(ViewRoomByIdWithAvailableServicesResponse))]
+        public async Task<IActionResult> ViewRoomByIdWithIncludedServices(
+            [FromQuery] ViewRoomByIdWithIncludedServicesRequest request,
+            CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 

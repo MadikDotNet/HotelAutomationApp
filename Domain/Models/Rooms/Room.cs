@@ -47,6 +47,8 @@ namespace HotelAutomationApp.Domain.Models.Rooms
         [ForeignKey(nameof(RoomGroup))]
         public string RoomGroupId { get; set; }
         public RoomGroup RoomGroup { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
         public ICollection<RoomFile> RoomFiles { get; set; }
 
         public static Room New(
