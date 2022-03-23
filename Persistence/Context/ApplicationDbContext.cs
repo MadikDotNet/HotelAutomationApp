@@ -92,13 +92,13 @@ namespace HotelAutomationApp.Persistence.Context
             {
                 if (entity.State is EntityState.Added)
                 {
-                    entity.Entity.CreationDate = DateTime.Now;
-                    entity.Entity.LastModifiedDate = DateTime.Now;
+                    entity.Entity.CreationDate = DateTime.UtcNow;
+                    entity.Entity.LastModifiedDate = DateTime.UtcNow;
                 }
 
                 if (entity.State is EntityState.Modified)
                 {
-                    entity.Entity.LastModifiedDate = DateTime.Now;
+                    entity.Entity.LastModifiedDate = DateTime.UtcNow;
                 }
             }
         }
