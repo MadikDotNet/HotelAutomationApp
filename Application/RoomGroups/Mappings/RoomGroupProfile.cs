@@ -13,6 +13,9 @@ public class RoomGroupProfile : Profile
             .ForMember(q => q.MinPrice, w => w.MapFrom(q => q.MinPrice.Value))
             .ReverseMap();
 
+        CreateMap<RoomGroupDto, RoomGroup>()
+            .ForMember(q => q.FileMetadataId, w => w.MapFrom(q => q.FileId));
+
         CreateMap<RoomGroup, RoomGroupWithAvailableServicesDto>()
             .IncludeBase<RoomGroup, RoomGroupDto>()
             .ForMember(q => q.AvailableServices, w => w.MapFrom(q => q.RoomGroupServices.Select(e => e.Service)));

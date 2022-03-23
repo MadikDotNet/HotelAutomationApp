@@ -7,7 +7,6 @@ using HotelAutomationApp.Application.MediaFiles.Models;
 using HotelAutomationApp.Application.MediaFiles.UseCases;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelAutomationApp.WebApi.Controllers.FilesController
