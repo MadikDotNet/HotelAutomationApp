@@ -22,10 +22,14 @@ public class UploadMediaUseCase : UseCase<UploadMediaRequest, string>
 
 public class UploadMediaRequest : IRequest<string>
 {
+    public UploadMediaRequest()
+    {
+    }
+
     public UploadMediaRequest(IFormFile formFile)
     {
         FormFile = formFile;
     }
 
-    public IFormFile FormFile { get; }
+    public IFormFile FormFile { get; set; }
 }
