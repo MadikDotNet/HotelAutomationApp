@@ -11,7 +11,7 @@ namespace HotelAutomationApp.Application.MediaFiles.Queries;
 
 public class ViewMediaQuery : IRequest<PageResponse<FileMetadataDto>>
 {
-    public ViewMediaQuery(PageRequest pageRequest, bool fullMatch, string fileName, string fileType)
+    public ViewMediaQuery(PageRequest? pageRequest, bool fullMatch, string fileName, string fileType)
     {
         PageRequest = pageRequest;
         FullMatch = fullMatch;
@@ -19,7 +19,7 @@ public class ViewMediaQuery : IRequest<PageResponse<FileMetadataDto>>
         FileType = fileType;
     }
 
-    public PageRequest PageRequest { get; }
+    public PageRequest? PageRequest { get; }
     public bool FullMatch { get; }
     public string FileName { get; }
     public string FileType { get; }

@@ -23,7 +23,7 @@ public class ViewMediaUseCase : UseCase<ViewMediaRequest, PageResponse<FileMetad
 
 public class ViewMediaRequest : IRequest<PageResponse<FileMetadataDto>>
 {
-    public PageRequest PageRequest { get; set; }
+    public PageRequest? PageRequest { get; set; }
     public bool FullMatch { get; set; }
     public string? FileName { get; set; }
     public string? FileType { get; set; }
