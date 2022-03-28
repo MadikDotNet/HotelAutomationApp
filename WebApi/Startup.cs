@@ -27,6 +27,7 @@ namespace HotelAutomationApp.WebApi
     {
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment WebHostEnvironment { get; }
+        public bool Test { get; } = true;
 
         public Startup(
             IConfiguration configuration,
