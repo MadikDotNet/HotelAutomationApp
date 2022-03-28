@@ -22,7 +22,9 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
                 request.Capacity,
                 request.PricePerNight,
                 request.RoomGroupId,
-                request.Files);
+                request.Files,
+                request.Description,
+                request.Name);
             
             await _mediator.Send(createRoomCommand, cancellationToken);
         }

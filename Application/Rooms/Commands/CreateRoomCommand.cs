@@ -15,13 +15,15 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerNight,
             string roomGroupId,
-            ICollection<FileDto>? files)
+            ICollection<FileDto>? files, string description, string name)
         {
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
             PricePerNight = pricePerNight;
             RoomGroupId = roomGroupId;
             Files = files;
+            Description = description;
+            Name = name;
         }
 
         public int MaxGuestsCount { get; }
@@ -29,6 +31,8 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         public decimal PricePerNight { get; }
         public string RoomGroupId { get; }
         public ICollection<FileDto>? Files { get; }
+        public string Description { get; }
+        public string Name { get; }
 
         private class Handler : AsyncRequestHandler<CreateRoomCommand>
         {
@@ -53,7 +57,9 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                     request.RoomGroupId,
                     request.MaxGuestsCount,
                     request.Capacity,
-                    request.PricePerNight);
+                    request.PricePerNight,
+                    request.Description,
+                    request.Name);
 
                 room.CreatedBy(_securityContext.UserId);
 

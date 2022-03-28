@@ -13,7 +13,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
         private Room()
         {
         }
-        
+
         public Room(
             string id,
             string createdBy,
@@ -24,13 +24,17 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             int maxGuestsCount,
             double capacity,
             Price pricePerNight,
-            bool isAvailable) : base(id, createdBy, creationDate, lastModifiedBy, lastModifiedDate)
+            bool isAvailable,
+            string description,
+            string name) : base(id, createdBy, creationDate, lastModifiedBy, lastModifiedDate)
         {
             RoomGroupId = roomGroupId;
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
             PricePerNight = pricePerNight;
             IsAvailable = isAvailable;
+            Description = description;
+            Name = name;
         }
 
         public int MaxGuestsCount { get; set; }
@@ -43,9 +47,8 @@ namespace HotelAutomationApp.Domain.Models.Rooms
 
         public Price PricePerNight { get; set; }
         public bool IsAvailable { get; set; }
-        
-        [ForeignKey(nameof(RoomGroup))]
-        public string RoomGroupId { get; set; }
+
+        [ForeignKey(nameof(RoomGroup))] public string RoomGroupId { get; set; }
         public RoomGroup RoomGroup { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -56,7 +59,9 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             string roomGroupId,
             int maxQuestsCount,
             double capacity,
-            Price pricePerNight) =>
+            Price pricePerNight,
+            string description,
+            string name) =>
             new Room(
                 Guid.NewGuid().ToString(),
                 creatorId,
@@ -67,6 +72,8 @@ namespace HotelAutomationApp.Domain.Models.Rooms
                 maxQuestsCount,
                 capacity,
                 pricePerNight,
-                true);
+                true,
+                description,
+                name);
     }
 }
