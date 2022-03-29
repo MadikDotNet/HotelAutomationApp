@@ -26,7 +26,10 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
                 request.PriceDistance,
                 request.IsAvailable,
                 request.IsDeleted,
-                request.RoomGroupId), cancellationToken);
+                request.RoomGroupId,
+                request.Name,
+                request.Description,
+                request.FullMatching), cancellationToken);
         }
     }
 
