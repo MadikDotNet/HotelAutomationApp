@@ -15,7 +15,10 @@ namespace HotelAutomationApp.Application.Rooms.Validations
                 .WithMessage("Room group not found");
 
             RuleForEach(q => q.Files)
-                .Must(file => file.Id is not null || file.File is not null)
+                .Must(file => file.Id is not null ||
+                              file.FileType is not null &&
+                              file.FileName is not null && 
+                              file.Content is not null)
                 .WithMessage("File has invalid format");
         }
     }

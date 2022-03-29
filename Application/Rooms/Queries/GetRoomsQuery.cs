@@ -8,6 +8,7 @@ using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HotelAutomationApp.Application.Rooms.Queries
 {
@@ -20,7 +21,10 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             Distance<decimal>? priceDistance,
             bool isAvailable,
             bool isDeleted,
-            string? roomGroupId)
+            string? roomGroupId,
+            string? name,
+            string? description,
+            bool fullMatching)
         {
             PageRequest = pageRequest;
             MaxGuestsCountDistance = maxGuestsCountDistance;
@@ -28,12 +32,18 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             PriceDistance = priceDistance;
             IsAvailable = isAvailable;
             RoomGroupId = roomGroupId;
+            Name = name;
+            Description = description;
+            FullMatching = fullMatching;
         }
 
         public PageRequest? PageRequest { get; }
         public Distance<int>? MaxGuestsCountDistance { get; }
         public Distance<double>? CapacityDistance { get; }
         public Distance<decimal>? PriceDistance { get; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public bool FullMatching { get; set; }
         public bool IsAvailable { get; }
         public bool IsDeleted { get; }
         public string? RoomGroupId { get; }
@@ -78,6 +88,22 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                                              q.Capacity >= request.CapacityDistance.From)
                         .Where(q => request.CapacityDistance.To == default ||
                                     q.Capacity <= request.CapacityDistance.To);
+                }
+
+                if (!string.IsNullOrEmpty(request.Name))
+                {
+                    rooms = rooms.Where(q =>
+                        request.FullMatching ?
+                            q.Name == request.Name :
+                            q.Name.Contains(request.Name));
+                }
+                
+                if (!string.IsNullOrEmpty(request.Description))
+                {
+                    rooms = rooms.Where(q =>
+                        request.FullMatching ?
+                            q.Description == request.Description :
+                            q.Description.Contains(request.Description));
                 }
 
                 return (await rooms.ProjectTo<RoomDto>(_mapper.ConfigurationProvider)

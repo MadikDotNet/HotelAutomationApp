@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace HotelAutomationApp.Application.MediaFiles.UseCases;
 
-public class UploadMediaUseCase : UseCase<UploadMediaRequest, string>
+public class UploadMediaUseCase : UseCase<UploadFileRequest, string>
 {
     private readonly IMediator _mediator;
 
@@ -14,19 +14,19 @@ public class UploadMediaUseCase : UseCase<UploadMediaRequest, string>
         _mediator = mediator;
     }
 
-    protected override async Task<string> HandleAsync(UploadMediaRequest request, CancellationToken cancellationToken)
+    protected override async Task<string> HandleAsync(UploadFileRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(new UploadFileCommand(request.FormFile), CancellationToken.None);
     }
 }
 
-public class UploadMediaRequest : IRequest<string>
+public class UploadFileRequest : IRequest<string>
 {
-    public UploadMediaRequest()
+    public UploadFileRequest()
     {
     }
 
-    public UploadMediaRequest(IFormFile formFile)
+    public UploadFileRequest(IFormFile formFile)
     {
         FormFile = formFile;
     }

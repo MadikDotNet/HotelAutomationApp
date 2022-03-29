@@ -36,6 +36,9 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         public Distance<int>? MaxGuestsCountDistance { get; set; }
         public Distance<double>? CapacityDistance { get; set; }
         public Distance<decimal>? PriceDistance { get; set; }
+        public string? Name { get; set; }
+        public string? Description { get; set; }
+        public bool FullMatching { get; set; }
         public bool IsAvailable { get; set; }
         public bool IsDeleted { get; set; }
         public string? RoomGroupId { get; set; }

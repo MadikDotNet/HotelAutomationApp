@@ -4,6 +4,7 @@ using HotelAutomationApp.Domain.Models.RoomMediaFiles;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace HotelAutomationApp.Application.RoomMediaFiles.Commands;
 
@@ -37,7 +38,7 @@ public class UpsertRoomFilesCommand : IRequest
 
             var newFileIds = newFiles.Any()
                 ? (await Task.WhenAll(newFiles.Select(async file =>
-                    await _mediator.Send(new UploadFileCommand(file.File!), cancellationToken)))).ToList()
+                    await _mediator.Send(new UploadFileFromBase64Command(file), cancellationToken)))).ToList()
                 : new List<string>();
 
             var newRoomFiles = (from fileId in newFileIds.Concat(remain.Select(q => q.Id))

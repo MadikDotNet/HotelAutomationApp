@@ -46,7 +46,7 @@ namespace HotelAutomationApp.WebApi.Controllers.FilesController
 
         [HttpPost]
         [ProducesResponseType((int) HttpStatusCode.OK)]
-        public async Task<IActionResult> Upload([FromForm] UploadMediaRequest request)
+        public async Task<IActionResult> Upload([FromForm] UploadFileRequest request)
         {
             var result = await _mediator.Send(request);
 
