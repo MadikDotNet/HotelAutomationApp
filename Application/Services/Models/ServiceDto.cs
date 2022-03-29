@@ -4,4 +4,5 @@ namespace HotelAutomationApp.Application.Services.Models;
 
 public record ServiceDto : TreeDictionaryDto<ServiceDto>
 {
+    public bool IsAdditional { get; set; }
 }

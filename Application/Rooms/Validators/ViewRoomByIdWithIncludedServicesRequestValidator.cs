@@ -3,7 +3,7 @@ using HotelAutomationApp.Application.Rooms.UseCases;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using HotelAutomationApp.Shared.Common;
 
-namespace HotelAutomationApp.Application.Rooms.Validations;
+namespace HotelAutomationApp.Application.Rooms.Validators;
 
 public class ViewRoomByIdWithIncludedServicesRequestValidator :
     AbstractValidator<ViewRoomByIdWithIncludedServicesRequest>

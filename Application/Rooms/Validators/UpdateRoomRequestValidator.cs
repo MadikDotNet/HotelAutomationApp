@@ -3,7 +3,7 @@ using HotelAutomationApp.Application.Rooms.UseCases;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 
-namespace HotelAutomationApp.Application.Rooms.Validations
+namespace HotelAutomationApp.Application.Rooms.Validators
 {
     public class UpdateRoomRequestValidator : AbstractValidator<UpdateRoomRequest>
     {
