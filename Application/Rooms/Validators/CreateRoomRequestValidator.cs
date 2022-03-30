@@ -14,7 +14,7 @@ namespace HotelAutomationApp.Application.Rooms.Validators
             RuleFor(q => q.RoomGroupId)
                 .MustAsync(async (field, token) =>
                     {
-                        if (!string.IsNullOrEmpty(field))
+                        if (string.IsNullOrEmpty(field))
                         {
                             return false;
                         }

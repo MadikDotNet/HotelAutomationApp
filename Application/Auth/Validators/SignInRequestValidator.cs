@@ -25,7 +25,7 @@ namespace HotelAutomationApp.Application.Auth.Validators
                 })
                 .WithMessage("User not found");
 
-            When(q => _applicationUser is not null, () =>
+            When(_ => _applicationUser is not null, () =>
             {
                 RuleFor(q => q.Password)
                     .MustAsync(async (password, token) =>
