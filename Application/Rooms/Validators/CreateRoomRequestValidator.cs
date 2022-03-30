@@ -28,7 +28,7 @@ namespace HotelAutomationApp.Application.Rooms.Validators
 
             When(_ => _minPrice is { }, () =>
             {
-                RuleFor(q => q.PricePerNight)
+                RuleFor(q => q.PricePerHour)
                     .Must(price => price >= _minPrice!)
                     .WithMessage("Price cannot be less than room's group min price declaration");
 

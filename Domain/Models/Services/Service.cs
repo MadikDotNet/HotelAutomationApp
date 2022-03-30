@@ -8,5 +8,5 @@ public class Service : BaseDictionary, ITreeDictionary
 {
     public string? ParentId { get; set; }
     public bool IsAdditional { get; set; }
-    public Price PricePerNight { get; set; }
+    public Price PricePerHour { get; set; }
 }

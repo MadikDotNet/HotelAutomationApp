@@ -1,5 +1,7 @@
 using System.Data;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.Bookings;
+using HotelAutomationApp.Domain.Models.BookingServices;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Domain.Models.RoomGroups;
@@ -40,6 +42,14 @@ namespace HotelAutomationApp.Persistence.Interfaces.Context
         DbSet<RoomGroupService> RoomGroupService { get; set; }
 
         DbSet<Service> Service { get; set; }
+        
+        public DbSet<BookingService> BookingService { get; set; }
+
+        #endregion
+
+        #region Boogings
+
+        public DbSet<Booking> Booking { get; set; }
 
         #endregion
 

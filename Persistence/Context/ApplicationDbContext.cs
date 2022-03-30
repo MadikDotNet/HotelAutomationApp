@@ -1,5 +1,7 @@
 using System.Data;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Models.Bookings;
+using HotelAutomationApp.Domain.Models.BookingServices;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Domain.Models.RoomGroups;
@@ -48,6 +50,14 @@ namespace HotelAutomationApp.Persistence.Context
 
         public DbSet<Service> Service { get; set; }
 
+        public DbSet<BookingService> BookingService { get; set; }
+        
+        #endregion
+
+        #region Booking
+
+        public DbSet<Booking> Booking { get; set; }
+
         #endregion
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -85,6 +95,7 @@ namespace HotelAutomationApp.Persistence.Context
             builder.ApplyConfiguration(new RoomConfiguration());
             builder.ApplyConfiguration(new RoomGroupConfiguration());
             builder.ApplyConfiguration(new ServiceConfiguration());
+            builder.ApplyConfiguration(new BookingConfiguration());
         }
 
         private void AuditChanges()

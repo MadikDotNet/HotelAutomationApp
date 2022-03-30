@@ -20,7 +20,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
             var createRoomCommand = new CreateRoomCommand(
                 request.MaxGuestsCount,
                 request.Capacity,
-                request.PricePerNight,
+                request.PricePerHour,
                 request.RoomGroupId,
                 request.Files,
                 request.Description,
@@ -34,7 +34,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
     {
         public int MaxGuestsCount { get; set; }
         public double Capacity { get; set; }
-        public decimal PricePerNight { get; set; }
+        public decimal PricePerHour { get; set; }
         public string RoomGroupId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

@@ -10,8 +10,8 @@ namespace HotelAutomationApp.Persistence.Config
         public void Configure(EntityTypeBuilder<Room> builder)
         {
             builder
-                .OwnsOne(q => q.PricePerNight, price => price.Property(q => q.Value).HasColumnName(nameof(Price)).IsRequired())
-                .Navigation(q => q.PricePerNight).IsRequired();
+                .OwnsOne(q => q.PricePerHour, price => price.Property(q => q.Value).HasColumnName(nameof(Price)).IsRequired())
+                .Navigation(q => q.PricePerHour).IsRequired();
         }
     }
 }

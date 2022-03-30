@@ -77,9 +77,9 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                 if (request.PriceDistance is not null)
                 {
                     rooms = rooms.Where(q => request.PriceDistance.From == default ||
-                                             q.PricePerNight.Value >= request.PriceDistance.From)
+                                             q.PricePerHour.Value >= request.PriceDistance.From)
                         .Where(q => request.PriceDistance.To == default ||
-                                    q.PricePerNight.Value <= request.PriceDistance.To);
+                                    q.PricePerHour.Value <= request.PriceDistance.To);
                 }
                 
                 if (request.CapacityDistance is not null)

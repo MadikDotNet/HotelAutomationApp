@@ -12,7 +12,7 @@ public class ServiceConfiguration : IEntityTypeConfiguration<Service>
         builder.OwnsOne(q => q.Name, service => service.Property(q => q.Value).HasColumnName(nameof(Name)))
             .Navigation(q => q.Name);
 
-        builder.OwnsOne(q => q.PricePerNight, service => service.Property(q => q.Value).HasColumnName(nameof(Price)))
-            .Navigation(q => q.PricePerNight);
+        builder.OwnsOne(q => q.PricePerHour, service => service.Property(q => q.Value).HasColumnName(nameof(Price)))
+            .Navigation(q => q.PricePerHour);
     }
 }

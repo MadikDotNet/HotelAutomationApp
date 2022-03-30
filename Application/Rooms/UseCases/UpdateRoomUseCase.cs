@@ -22,7 +22,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
                 request.Id,
                 request.MaxGuestsCount,
                 request.Capacity,
-                request.PricePerNight,
+                request.PricePerHour,
                 request.IsAvailable,
                 request.RoomGroupId);
 
@@ -40,7 +40,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         public string Id { get; set; }
         public int MaxGuestsCount { get; set; }
         public double Capacity { get; set; }
-        public decimal PricePerNight { get; set; }
+        public decimal PricePerHour { get; set; }
         public bool IsAvailable { get; set; }
         public string RoomGroupId { get; set; }
         public string Name { get; set; }

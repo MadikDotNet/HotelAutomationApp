@@ -13,7 +13,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         public CreateRoomCommand(
             int maxGuestsCount,
             double capacity,
-            decimal pricePerNight,
+            decimal pricePerHour,
             string roomGroupId,
             ICollection<FileDto>? files,
             string description,
@@ -21,7 +21,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         {
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
-            PricePerNight = pricePerNight;
+            PricePerHour = pricePerHour;
             RoomGroupId = roomGroupId;
             Files = files;
             Description = description;
@@ -30,7 +30,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
 
         public int MaxGuestsCount { get; }
         public double Capacity { get; }
-        public decimal PricePerNight { get; }
+        public decimal PricePerHour { get; }
         public string RoomGroupId { get; }
         public ICollection<FileDto>? Files { get; }
         public string Description { get; }
@@ -59,7 +59,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                     request.RoomGroupId,
                     request.MaxGuestsCount,
                     request.Capacity,
-                    request.PricePerNight,
+                    request.PricePerHour,
                     request.Description,
                     request.Name);
 

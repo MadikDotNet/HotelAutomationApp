@@ -23,7 +23,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             string roomGroupId,
             int maxGuestsCount,
             double capacity,
-            Price pricePerNight,
+            Price pricePerHour,
             bool isAvailable,
             string description,
             string name) : base(id, createdBy, creationDate, lastModifiedBy, lastModifiedDate)
@@ -31,7 +31,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             RoomGroupId = roomGroupId;
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
-            PricePerNight = pricePerNight;
+            PricePerHour = pricePerHour;
             IsAvailable = isAvailable;
             Description = description;
             Name = name;
@@ -45,7 +45,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             set => _capacity = value <= 0 ? throw new ArgumentException("Capacity cannot be 0 or less than 0") : value;
         }
 
-        public Price PricePerNight { get; set; }
+        public Price PricePerHour { get; set; }
         public bool IsAvailable { get; set; }
 
         [ForeignKey(nameof(RoomGroup))] public string RoomGroupId { get; set; }
@@ -59,7 +59,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             string roomGroupId,
             int maxQuestsCount,
             double capacity,
-            Price pricePerNight,
+            Price pricePerHour,
             string description,
             string name) =>
             new Room(
@@ -71,7 +71,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
                 roomGroupId,
                 maxQuestsCount,
                 capacity,
-                pricePerNight,
+                pricePerHour,
                 true,
                 description,
                 name);

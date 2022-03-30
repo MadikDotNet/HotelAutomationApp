@@ -11,14 +11,14 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             string id,
             int maxGuestsCount,
             double capacity,
-            decimal pricePerNight,
+            decimal pricePerHour,
             bool isAvailable,
             string roomGroupId)
         {
             Id = id;
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
-            PricePerNight = pricePerNight;
+            PricePerHour = pricePerHour;
             IsAvailable = isAvailable;
             RoomGroupId = roomGroupId;
         }
@@ -26,7 +26,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         public string Id { get; }
         public int MaxGuestsCount { get;  }
         public double Capacity { get;  }
-        public decimal PricePerNight { get;  }
+        public decimal PricePerHour { get;  }
         public bool IsAvailable { get;  }
         public string RoomGroupId { get;  }
 
@@ -34,13 +34,11 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         {
             private readonly IApplicationDbContext _applicationDb;
             private readonly ISecurityContext _securityContext;
-            private readonly IMapper _mapper;
 
-            public Handler(IApplicationDbContext applicationDb, ISecurityContext securityContext, IMapper mapper)
+            public Handler(IApplicationDbContext applicationDb, ISecurityContext securityContext)
             {
                 _applicationDb = applicationDb;
                 _securityContext = securityContext;
-                _mapper = mapper;
             }
 
             protected override async Task Handle(UpdateRoomCommand request, CancellationToken cancellationToken)
@@ -49,7 +47,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
 
                 room!.MaxGuestsCount = request.MaxGuestsCount;
                 room.Capacity = request.Capacity;
-                room.PricePerNight = request.PricePerNight;
+                room.PricePerHour = request.PricePerHour;
                 room.IsAvailable = request.IsAvailable;
                 room.RoomGroupId = request.RoomGroupId;
                 room.LastModifiedBy = _securityContext.UserId;

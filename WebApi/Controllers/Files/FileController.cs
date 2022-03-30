@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers.FilesController
+namespace HotelAutomationApp.WebApi.Controllers.Files
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
