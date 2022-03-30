@@ -39,10 +39,10 @@ namespace HotelAutomationApp.Application.Auth.Validators
                     .WithMessage("Invalid login or password");
             });
 
-            When(q => _passwordVerified, () =>
+            When(_ => _passwordVerified, () =>
             {
                 RuleFor(q => q.Login)
-                    .Must(credentials => _applicationUser!.CanLogin)
+                    .Must(_ => _applicationUser!.CanLogin)
                     .WithMessage("Can't login, user is blocked");
             });
         }
