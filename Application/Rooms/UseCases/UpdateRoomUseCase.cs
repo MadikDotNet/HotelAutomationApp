@@ -1,5 +1,4 @@
 using HotelAutomationApp.Application.Common;
-using HotelAutomationApp.Application.MediaFiles.Models;
 using HotelAutomationApp.Application.RoomMediaFiles.Commands;
 using HotelAutomationApp.Application.Rooms.Commands;
 using HotelAutomationApp.Application.Rooms.Models;
@@ -17,7 +16,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
             _mediator = mediator;
         }
 
-        protected override async Task HandleRequestAsync(UpdateRoomRequest request, CancellationToken cancellationToken)
+        protected override async Task HandleAsync(UpdateRoomRequest request, CancellationToken cancellationToken)
         {
             var updateRoomCommand = new UpdateRoomCommand(
                 request.Id,

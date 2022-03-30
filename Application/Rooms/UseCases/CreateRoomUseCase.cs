@@ -15,7 +15,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
             _mediator = mediator;
         }
 
-        protected override async Task HandleRequestAsync(CreateRoomRequest request, CancellationToken cancellationToken)
+        protected override async Task HandleAsync(CreateRoomRequest request, CancellationToken cancellationToken)
         {
             var createRoomCommand = new CreateRoomCommand(
                 request.MaxGuestsCount,
