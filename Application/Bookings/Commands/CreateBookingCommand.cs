@@ -54,6 +54,7 @@ public class CreateBookingCommand : IRequest
                              + totalCostForServices,
                 DateFrom = request.Period.DateFrom,
                 DateTo = request.Period.DateTo,
+                BookingState = BookingState.Ordered
             };
 
             _applicationDb.Booking.Add(newBooking);
