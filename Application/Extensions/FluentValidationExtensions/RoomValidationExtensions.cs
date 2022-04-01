@@ -21,7 +21,7 @@ public static class RoomValidationExtensions
         {
             try
             {
-                MailAddress mailAddress = new MailAddress(email);
+                MailAddress _ = new MailAddress(email);
             }
             catch (Exception)
             {

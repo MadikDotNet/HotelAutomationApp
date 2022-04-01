@@ -32,6 +32,14 @@ namespace HotelAutomationApp.WebApi.Controllers.Identity
             
             return Ok(result);
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> AnonymousSignUp([FromBody]AnonymousSignUpUseCase request)
+        {
+            var result = await _mediator.Send(request); 
+            
+            return Ok(result);
+        }
 
         [HttpPost]
         [Authorize]

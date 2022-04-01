@@ -3,9 +3,11 @@ using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Constants;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
+using HotelAutomationApp.Infrastructure.Interfaces.Security.Services;
 using HotelAutomationApp.Persistence.Context;
 using HotelAutomationApp.WebApi.Seeds;
 using HotelAutomationApp.WebApi.Services.Auth;
+using HotelAutomationApp.WebApi.Services.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -40,6 +42,7 @@ namespace HotelAutomationApp.WebApi.Extensions
             services.Configure<JwtTokenFactoryOptions>(configuration.GetSection("Security:Token"));
             services.AddScoped<ITokenFactory, JwtTokenFactory>();
             services.AddScoped<ISecurityContext, AspNetCoreSecurityContext>();
+            services.AddSingleton<IHashService, BcryptHashService>();
 
             return services;
         }

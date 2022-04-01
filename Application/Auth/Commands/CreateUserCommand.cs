@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HotelAutomationApp.Application.Auth.Commands
 {
-    public class CreateUserCommand : IRequest
+    public class CreateUserCommand : IRequest<string>
     {
-        public CreateUserCommand(string login, string password,string? email, int[] roleIds)
+        public CreateUserCommand(string login, string password, string? email, int[] roleIds)
         {
             Login = login.EnsureIsNotEmpty(nameof(Login));
             Password = password.EnsureIsNotEmpty(nameof(Password));
@@ -21,7 +21,7 @@ namespace HotelAutomationApp.Application.Auth.Commands
         public string? Email { get; set; }
         public Role[] Roles { get; }
 
-        private class Handler : AsyncRequestHandler<CreateUserCommand>
+        private class Handler : IRequestHandler<CreateUserCommand, string>
         {
             private readonly UserManager<ApplicationUser> _userManager;
 
@@ -30,7 +30,7 @@ namespace HotelAutomationApp.Application.Auth.Commands
                 _userManager = userManager;
             }
 
-            protected override async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var user = ApplicationUser.New(request.Login);
                 user.Email = request.Email;
@@ -43,6 +43,8 @@ namespace HotelAutomationApp.Application.Auth.Commands
                 {
                     throw new ArgumentException(string.Join(" ", result.Errors.Select(q => q.Description)));
                 }
+
+                return user.Id;
             }
         }
     }
