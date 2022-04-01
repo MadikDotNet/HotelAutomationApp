@@ -35,6 +35,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Files
 
         [HttpGet]
         [ProducesResponseType((int) HttpStatusCode.OK)]
+        [AllowAnonymous]
         public async Task<IActionResult> Download(
             [FromQuery] DownloadMediaRequest request,
             CancellationToken cancellationToken)
@@ -46,7 +47,6 @@ namespace HotelAutomationApp.WebApi.Controllers.Files
 
         [HttpPost]
         [ProducesResponseType((int) HttpStatusCode.OK)]
-        [AllowAnonymous]
         public async Task<IActionResult> Upload([FromForm] UploadFileRequest request)
         {
             var result = await _mediator.Send(request);
