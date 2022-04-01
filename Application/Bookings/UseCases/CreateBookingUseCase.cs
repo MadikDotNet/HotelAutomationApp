@@ -1,7 +1,6 @@
 using HotelAutomationApp.Application.Bookings.Commands;
 using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Persistence.Interfaces.Context;
-using HotelAutomationApp.Shared.Common.Abstractions;
 using MediatR;
 
 namespace HotelAutomationApp.Application.Bookings.UseCases;
@@ -21,14 +20,14 @@ public class CreateBookingUseCase : TransactionUseCase<CreateBookingRequest>
             request.ClientId,
             request.Roomid,
             request.ServiceIds,
-            request.Period), CancellationToken.None);
+            request.DateFrom,
+            request.DateTo), CancellationToken.None);
     }
 }
 
-public class CreateBookingRequest : IRequest
+public class CreateBookingRequest : Period, IRequest
 {
     public string ClientId { get; set; }
     public string Roomid { get; set; }
     public string[] ServiceIds { get; set; }
-    public IPeriod Period { get; set; }
 }

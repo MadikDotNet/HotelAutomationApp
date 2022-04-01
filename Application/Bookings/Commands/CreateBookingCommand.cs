@@ -9,18 +9,20 @@ namespace HotelAutomationApp.Application.Bookings.Commands;
 
 public class CreateBookingCommand : IRequest
 {
-    public CreateBookingCommand(string clientId, string roomId, string[] serviceIds, IPeriod period)
+    public CreateBookingCommand(string clientId, string roomId, string[] serviceIds, DateTime dateFrom, DateTime dateTo)
     {
         ClientId = clientId;
         RoomId = roomId;
         ServiceIds = serviceIds;
-        Period = period;
+        DateFrom = dateFrom;
+        DateTo = dateTo;
     }
 
     public string ClientId { get; }
     public string RoomId { get; }
     public string[] ServiceIds { get; }
-    public IPeriod Period { get; }
+    public DateTime DateFrom { get; set; }
+    public DateTime DateTo { get; set; }
 
     private class Handler : AsyncRequestHandler<CreateBookingCommand>
     {
@@ -44,16 +46,16 @@ public class CreateBookingCommand : IRequest
             var totalCostForServices = services
                 .Where(service => room.RoomGroup.RoomGroupServices.Any(rgService => rgService.Id == service.Id))
                 .Sum(q => q.PricePerHour.Value *
-                          (decimal) (request.Period.DateTo - request.Period.DateFrom).TotalHours);
+                          (decimal) (request.DateTo - request.DateFrom).TotalHours);
 
             var newBooking = new Booking
             {
                 ClientId = request.ClientId,
                 RoomId = request.RoomId,
-                TotalPrice = room.PricePerHour * (decimal) (request.Period.DateTo - request.Period.DateFrom).TotalHours
+                TotalPrice = room.PricePerHour * (decimal) (request.DateTo - request.DateFrom).TotalHours
                              + totalCostForServices,
-                DateFrom = request.Period.DateFrom,
-                DateTo = request.Period.DateTo,
+                DateFrom = request.DateFrom,
+                DateTo = request.DateTo,
                 BookingState = BookingState.Ordered
             };
 

@@ -23,16 +23,14 @@ public abstract class TransactionUseCase<TRequest> : IRequestHandler<TRequest>
         executionStrategy.Execute(
             async () =>
             {
-                await using var transaction = await ApplicationDb.BeginTransactionAsync();
+                await ApplicationDb.BeginTransactionAsync();
                 try
                 {
                     await HandleAsync(request, cancellationToken);
-
-                    await transaction.CommitAsync(CancellationToken.None);
+                    await ApplicationDb.CommitTransactionAsync();
                 }
                 catch (Exception)
                 {
-                    await transaction.RollbackAsync(CancellationToken.None);
                 }
             });
 
