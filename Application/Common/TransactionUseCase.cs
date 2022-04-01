@@ -1,11 +1,10 @@
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.Common;
 
-public abstract class TransactionUseCase<TRequest> : IRequestHandler<TRequest>
-    where TRequest : IRequest
+public abstract class TransactionUseCase<TRequest, TResponse> : IRequestHandler<TRequest, TResponse>
+    where TRequest : IRequest<TResponse>
 {
     protected readonly IApplicationDbContext ApplicationDb;
 
@@ -14,26 +13,31 @@ public abstract class TransactionUseCase<TRequest> : IRequestHandler<TRequest>
         ApplicationDb = applicationDb;
     }
 
-    protected abstract Task HandleAsync(TRequest request, CancellationToken cancellationToken);
-
-    public Task<Unit> Handle(TRequest request, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken)
     {
-        var executionStrategy = ApplicationDb.CreateExecutionStrategy();
+        await ApplicationDb.BeginTransactionAsync();
+        var response = await HandleAsync(request, cancellationToken);
+        await ApplicationDb.CommitTransactionAsync();
 
-        executionStrategy.Execute(
-            async () =>
-            {
-                await ApplicationDb.BeginTransactionAsync();
-                try
-                {
-                    await HandleAsync(request, cancellationToken);
-                    await ApplicationDb.CommitTransactionAsync();
-                }
-                catch (Exception)
-                {
-                }
-            });
-
-        return Task.FromResult(Unit.Value);
+        return response;
     }
+
+    protected abstract Task<TResponse> HandleAsync(TRequest request, CancellationToken cancellationToken);
+}
+
+public abstract class TransactionUseCase<TRequest> : TransactionUseCase<TRequest, Unit>
+    where TRequest : IRequest
+{
+    protected TransactionUseCase(IApplicationDbContext applicationDb) : base(applicationDb)
+    {
+    }
+    
+    protected override async Task<Unit> HandleAsync(TRequest request, CancellationToken cancellationToken)
+    {
+        await HandleRequestAsync(request, cancellationToken);
+        
+        return Unit.Value;
+    }
+
+    protected abstract Task HandleRequestAsync(TRequest request, CancellationToken cancellationToken);
 }

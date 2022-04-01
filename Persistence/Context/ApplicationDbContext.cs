@@ -85,9 +85,6 @@ namespace HotelAutomationApp.Persistence.Context
         public async Task CommitTransactionAsync() =>
             await Database.CommitTransactionAsync();
 
-        public IExecutionStrategy CreateExecutionStrategy() =>
-            Database.CreateExecutionStrategy();
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

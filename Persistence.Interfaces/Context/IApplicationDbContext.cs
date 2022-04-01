@@ -57,13 +57,7 @@ namespace HotelAutomationApp.Persistence.Interfaces.Context
         DbSet<TEntity> AsDbSet<TEntity>() where TEntity : BaseEntity;
         EntityEntry<TEntity> AsEntry<TEntity>(TEntity entity) where TEntity : BaseEntity;
         public IEnumerable<EntityEntry<TEntity>> AsEntryRange<TEntity>() where TEntity : BaseEntity;
-
-        #region Transaction interface
-
         Task<IDbContextTransaction> BeginTransactionAsync(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
         Task CommitTransactionAsync();
-        IExecutionStrategy CreateExecutionStrategy();
-
-        #endregion
     }
 }

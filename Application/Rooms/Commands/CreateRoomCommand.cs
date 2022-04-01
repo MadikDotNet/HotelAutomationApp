@@ -15,9 +15,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerHour,
             string roomGroupId,
-            ICollection<FileDto>? files,
-            string description,
-            string name)
+            ICollection<FileDto>? files, string description, string name)
         {
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
