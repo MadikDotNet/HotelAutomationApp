@@ -26,7 +26,7 @@ namespace HotelAutomationApp.Application.Rooms.Validators
                 )
                 .WithMessage("Room group not found");
 
-            When(_ => _minPrice is { }, () =>
+            When(_ => _minPrice is not { }, () =>
             {
                 RuleFor(q => q.PricePerHour)
                     .Must(price => price >= _minPrice!)
