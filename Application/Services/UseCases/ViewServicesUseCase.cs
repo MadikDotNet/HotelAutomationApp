@@ -6,16 +6,16 @@ using MediatR;
 
 namespace HotelAutomationApp.Application.Services.UseCases;
 
-public class ViewAdditionalServicesUseCase : UseCase<ViewAdditionalServicesRequest, PageResponse<ServiceDto>>
+public class ViewServicesUseCase : UseCase<ViewServicesRequest, PageResponse<ServiceDto>>
 {
     private readonly IMediator _mediator;
 
-    public ViewAdditionalServicesUseCase(IMediator mediator)
+    public ViewServicesUseCase(IMediator mediator)
     {
         _mediator = mediator;
     }
 
-    protected override async Task<PageResponse<ServiceDto>> HandleAsync(ViewAdditionalServicesRequest request,
+    protected override async Task<PageResponse<ServiceDto>> HandleAsync(ViewServicesRequest request,
         CancellationToken cancellationToken)
     {
         return await _mediator.Send(new ViewAdditionalServicesQuery(
@@ -23,15 +23,17 @@ public class ViewAdditionalServicesUseCase : UseCase<ViewAdditionalServicesReque
             request.Code,
             request.Name,
             request.Description,
-            request.FullMatching), cancellationToken);
+            request.FullMatching,
+            request.IsAdditional), cancellationToken);
     }
 }
 
-public class ViewAdditionalServicesRequest : IRequest<PageResponse<ServiceDto>>
+public class ViewServicesRequest : IRequest<PageResponse<ServiceDto>>
 {
     public PageRequest? PageRequest { get; set; }
     public string? Code { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public bool FullMatching { get; set; }
+    public bool IsAdditional { get; set; }
 }

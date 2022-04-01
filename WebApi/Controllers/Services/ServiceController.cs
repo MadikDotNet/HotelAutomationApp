@@ -1,10 +1,8 @@
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using HotelAutomationApp.Application.ApplicationServices.Dictionary;
-using HotelAutomationApp.Application.Common.Pagination;
+using HotelAutomationApp.Application.Common.Dictionary.Models.Requests;
 using HotelAutomationApp.Application.Services.Models;
-using HotelAutomationApp.Application.Services.UseCases;
 using HotelAutomationApp.Domain.Models.Services;
 using HotelAutomationApp.WebApi.Controllers.Common;
 using MediatR;
@@ -23,10 +21,8 @@ public class ServiceController : TreeDictionaryController
         _mediator = mediator;
     }
 
-    [HttpGet]
-    [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(PageResponse<ServiceDto>))]
-    public async Task<IActionResult> ViewAdditionalServices(
-        [FromQuery] ViewAdditionalServicesRequest request,
+    public override async Task<IActionResult> ViewAsList(
+        ViewDictionaryListRequest request,
         CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(request, cancellationToken);
