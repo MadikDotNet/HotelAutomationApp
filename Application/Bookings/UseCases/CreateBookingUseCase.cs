@@ -14,7 +14,7 @@ public class CreateBookingUseCase : TransactionUseCase<CreateBookingRequest>
         _mediator = mediator;
     }
 
-    protected override async Task HandleAsync(CreateBookingRequest request, CancellationToken cancellationToken)
+    protected override async Task HandleRequestAsync(CreateBookingRequest request, CancellationToken cancellationToken)
     {
         await _mediator.Send(new CreateBookingCommand(
             request.ClientId,
