@@ -1,5 +1,6 @@
 using System.Data;
 using HotelAutomationApp.Domain.Common;
+using HotelAutomationApp.Domain.Common.Abstractions.Audition;
 using HotelAutomationApp.Domain.Models.Bookings;
 using HotelAutomationApp.Domain.Models.BookingServices;
 using HotelAutomationApp.Domain.Models.Identity;
@@ -97,7 +98,7 @@ namespace HotelAutomationApp.Persistence.Context
 
         private void AuditChanges()
         {
-            var entities = ChangeTracker.Entries<AuditableEntity>();
+            var entities = ChangeTracker.Entries<IAuditable>();
 
             foreach (var entity in entities)
             {

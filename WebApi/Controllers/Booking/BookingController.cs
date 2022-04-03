@@ -21,7 +21,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Booking
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(PageResponse<BookingDto>))]
         public async Task<IActionResult> View([FromQuery] ViewBookingsRequest request)
         {
@@ -31,7 +31,7 @@ namespace HotelAutomationApp.WebApi.Controllers.Booking
         }
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> CreateBooking([FromBody] CreateBookingRequest request)
         {

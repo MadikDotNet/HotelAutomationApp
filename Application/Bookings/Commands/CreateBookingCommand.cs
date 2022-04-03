@@ -43,22 +43,30 @@ public class CreateBookingCommand : IRequest
             var services = await _applicationDb.Service.Where(service => request.ServiceIds.Contains(service.Id))
                 .ToListAsync(cancellationToken);
 
-            var totalCostForServices = services
-                .Where(service => room.RoomGroup.RoomGroupServices.Any(rgService => rgService.Id == service.Id))
-                .Sum(q => q.PricePerHour.Value *
-                          (decimal) (request.DateTo - request.DateFrom).TotalHours);
+            var totalPeriod = (decimal) (request.DateTo - request.DateFrom).TotalHours;
 
+            var servicesCost = services
+                .Where(service => room.RoomGroup.RoomGroupServices.All(rgService => rgService.Id != service.Id))
+                .Sum(q => q.PricePerHour.Value * totalPeriod);
+
+            var roomCost = room.PricePerHour.Value * totalPeriod;
+
+            var totalCost = roomCost + servicesCost;
+
+            room.IsAvailable = false;
+            
             var newBooking = new Booking
             {
                 ClientId = request.ClientId,
                 RoomId = request.RoomId,
-                TotalPrice = room.PricePerHour * (decimal) (request.DateTo - request.DateFrom).TotalHours
-                             + totalCostForServices,
+                TotalPrice = totalCost,
                 DateFrom = request.DateFrom,
                 DateTo = request.DateTo,
-                BookingState = BookingState.Ordered
+                BookingState = BookingState.Ordered,
+                CreatedBy = request.ClientId,
+                LastModifiedBy = request.ClientId
             };
-
+            
             _applicationDb.Booking.Add(newBooking);
             await _applicationDb.SaveChangesAsync(CancellationToken.None);
 

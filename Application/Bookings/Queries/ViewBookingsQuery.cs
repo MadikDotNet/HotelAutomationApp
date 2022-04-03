@@ -61,8 +61,8 @@ public class ViewBookingsQuery : IRequest<BookingDto[]>
 
         public async Task<BookingDto[]> Handle(ViewBookingsQuery request, CancellationToken cancellationToken)
         {
-            var bookings = _applicationDb.Booking.Where(q => !request.BookingState.HasValue ||
-                                                             q.BookingState == request.BookingState);
+            var bookings = _applicationDb.Booking.AsNoTracking()
+                .Where(q => !request.BookingState.HasValue || q.BookingState == request.BookingState);
 
             return await (from booking in bookings
                     where request.ClientName == null || booking.Client.UserName.Contains(request.ClientName)

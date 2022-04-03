@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using HotelAutomationApp.Domain.Models.Identity;
 
 namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Services
@@ -10,6 +8,6 @@ namespace HotelAutomationApp.Infrastructure.Interfaces.Auth.Services
         
         string UserId { get; }
 
-        Task<ApplicationUser?> GetCurrentUserAsync(CancellationToken cancellationToken);
+        Task<ApplicationUser?> GetCurrentUserAsync(CancellationToken cancellationToken = default);
     }
 }
