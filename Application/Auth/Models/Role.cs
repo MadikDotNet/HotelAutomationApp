@@ -54,10 +54,20 @@ public abstract class Role : Enumeration<Role>, IEquatable<Role>, IComparable<Ro
     {
         return left.AccessLevel > right.AccessLevel;
     }
+    
+    public static bool operator <=(Role left, Role right)
+    {
+        return left.AccessLevel >= right.AccessLevel;
+    }
 
     public static bool operator >(Role left, Role right)
     {
         return left.AccessLevel < right.AccessLevel;
+    }
+    
+    public static bool operator >=(Role left, Role right)
+    {
+        return left.AccessLevel <= right.AccessLevel;
     }
 
     public static bool operator ==(Role left, Role right)
