@@ -10,6 +10,7 @@ using HotelAutomationApp.Infrastructure.Interfaces.MediaFiles;
 using HotelAutomationApp.Persistence.Extensions;
 using HotelAutomationApp.Shared.Extensions;
 using HotelAutomationApp.WebApi.Extensions;
+using HotelAutomationApp.WebApi.Middlewares;
 using HotelAutomationApp.WebApi.Services.MediaFiles;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -105,6 +106,7 @@ namespace HotelAutomationApp.WebApi
 
             appBuilder.UseRouting();
 
+            appBuilder.UseMiddleware(typeof(ErrorHandlingMiddleware));
             appBuilder.InitializeApplicationDb();
             appBuilder.UseAuthenticationSystem();
 

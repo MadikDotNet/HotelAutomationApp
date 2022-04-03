@@ -25,5 +25,15 @@ public class CreateBookingRequestValidator : AbstractValidator<CreateBookingRequ
             .MustAsync(async (roomId, token) =>
                 await applicationDb.Room.FindAsync(roomId.YieldObjectArray(), token) is {IsAvailable: true})
             .WithMessage("Room is not available at this moment");
+
+        When(request => request.ServiceIds is { } serviceIds && serviceIds.Any(), () =>
+        {
+            RuleFor(request => request.ServiceIds)
+                .MustAsync(async (serviceIds, token) =>
+                    await applicationDb.Service.Where(service => serviceIds.Contains(service.Id)).ToListAsync(token) is
+                        { } list &&
+                    list.Count == serviceIds.Length)
+                .WithMessage("Some services not found");
+        });
     }
 }

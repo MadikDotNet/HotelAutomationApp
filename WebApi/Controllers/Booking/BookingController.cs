@@ -1,5 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
+using HotelAutomationApp.Application.Auth.Constants;
 using HotelAutomationApp.Application.Bookings.Models;
 using HotelAutomationApp.Application.Bookings.UseCases;
 using HotelAutomationApp.Application.Common.Pagination;
@@ -34,6 +35,16 @@ namespace HotelAutomationApp.WebApi.Controllers.Booking
         [Authorize]
         [ProducesResponseType((int) HttpStatusCode.OK)]
         public async Task<IActionResult> CreateBooking([FromBody] CreateBookingRequest request)
+        {
+            var result = await _mediator.Send(request);
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Authorize(Policy = AuthorizationPolicies.RequireAdminRole)]
+        [ProducesResponseType((int) HttpStatusCode.OK)]
+        public async Task<IActionResult> UpdateBookingState([FromBody] UpdateBookingStateRequest request)
         {
             var result = await _mediator.Send(request);
 
