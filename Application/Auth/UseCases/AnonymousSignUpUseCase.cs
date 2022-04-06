@@ -19,7 +19,7 @@ public class AnonymousSignUpUseCase : UseCase<AnonymousSignUpRequest, string>
     {
         var userId = await _mediator.Send(new CreateUserCommand(
             request.Login,
-            request.Email,
+            request.Login,
             request.Email,
             new[] {Role.Guest.Key}), cancellationToken);
 

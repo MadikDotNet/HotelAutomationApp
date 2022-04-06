@@ -3,6 +3,7 @@ using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Shared.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.Auth.Commands
 {
@@ -32,6 +33,14 @@ namespace HotelAutomationApp.Application.Auth.Commands
 
             public async Task<string> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
+                var exist = await _userManager.Users
+                    .FirstOrDefaultAsync(q => q.UserName == request.Login, CancellationToken.None);
+
+                if (exist is { })
+                {
+                    throw new ApplicationException("This login is busy");
+                }
+
                 var user = ApplicationUser.New(request.Login);
                 user.Email = request.Email;
 
