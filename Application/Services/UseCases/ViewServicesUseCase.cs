@@ -1,4 +1,5 @@
 using HotelAutomationApp.Application.Common;
+using HotelAutomationApp.Application.Common.Dictionary.Models.Requests;
 using HotelAutomationApp.Application.Common.Pagination;
 using HotelAutomationApp.Application.Services.Models;
 using HotelAutomationApp.Application.Services.Queries;
@@ -28,12 +29,7 @@ public class ViewServicesUseCase : UseCase<ViewServicesRequest, PageResponse<Ser
     }
 }
 
-public class ViewServicesRequest : IRequest<PageResponse<ServiceDto>>
+public class ViewServicesRequest : ViewDictionaryListRequest, IRequest<PageResponse<ServiceDto>>
 {
-    public PageRequest? PageRequest { get; set; }
-    public string? Code { get; set; }
-    public string? Name { get; set; }
-    public string? Description { get; set; }
-    public bool FullMatching { get; set; }
     public bool IsAdditional { get; set; }
 }

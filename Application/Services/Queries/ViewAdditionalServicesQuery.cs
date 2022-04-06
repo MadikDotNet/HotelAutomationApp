@@ -48,7 +48,8 @@ public class ViewAdditionalServicesQuery : IRequest<PageResponse<ServiceDto>>
         public async Task<PageResponse<ServiceDto>> Handle(ViewAdditionalServicesQuery request,
             CancellationToken cancellationToken)
         {
-            return (await _applicationDb.Service.Where(q => q.IsAdditional == request.IsAdditional)
+            return (await _applicationDb.Service.AsNoTracking()
+                    .Where(q => q.IsAdditional == request.IsAdditional)
                     .Filter(request.Code, request.Name, request.Description, request.FullMatching)
                     .ProjectTo<ServiceDto>(_mapper.ConfigurationProvider)
                     .ToArrayAsync(cancellationToken))
