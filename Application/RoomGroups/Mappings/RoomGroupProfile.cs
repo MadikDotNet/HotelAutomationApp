@@ -10,10 +10,7 @@ public class RoomGroupProfile : Profile
     {
         CreateMap<RoomGroup, RoomGroupDto>()
             .ForMember(q => q.FileId, w => w.MapFrom(q => q.FileMetadataId))
+            .ForMember(q => q.AvailableServices, w => w.MapFrom(q => q.RoomGroupServices.Select(e => e.Service)))
             .ReverseMap();
-
-        CreateMap<RoomGroup, RoomGroupWithAvailableServicesDto>()
-            .IncludeBase<RoomGroup, RoomGroupDto>()
-            .ForMember(q => q.AvailableServices, w => w.MapFrom(q => q.RoomGroupServices.Select(e => e.Service)));
     }
 }

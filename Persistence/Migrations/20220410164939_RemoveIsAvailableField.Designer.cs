@@ -3,6 +3,7 @@ using System;
 using HotelAutomationApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelAutomationApp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410164939_RemoveIsAvailableField")]
+    partial class RemoveIsAvailableField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Booking", (string)null);
+                    b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.BookingServices.BookingService", b =>
@@ -91,7 +93,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("BookingService", (string)null);
+                    b.ToTable("BookingService");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Identity.ApplicationUser", b =>
@@ -209,7 +211,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FileMetadata", (string)null);
+                    b.ToTable("FileMetadata");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroups.RoomGroup", b =>
@@ -239,7 +241,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasIndex("FileMetadataId");
 
-                    b.ToTable("RoomGroup", (string)null);
+                    b.ToTable("RoomGroup");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroupServices.RoomGroupService", b =>
@@ -262,7 +264,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("RoomGroupService", (string)null);
+                    b.ToTable("RoomGroupService");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomMediaFiles.RoomFile", b =>
@@ -285,7 +287,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("RoomFiles", (string)null);
+                    b.ToTable("RoomFiles");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Rooms.Room", b =>
@@ -342,7 +344,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasIndex("RoomGroupId");
 
-                    b.ToTable("Room", (string)null);
+                    b.ToTable("Room");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.ServiceGroups.ServiceGroup", b =>
@@ -367,7 +369,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServiceGroup", (string)null);
+                    b.ToTable("ServiceGroup");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Services.Service", b =>
@@ -398,7 +400,7 @@ namespace HotelAutomationApp.Persistence.Migrations
 
                     b.HasIndex("ServiceGroupId");
 
-                    b.ToTable("Service", (string)null);
+                    b.ToTable("Service");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

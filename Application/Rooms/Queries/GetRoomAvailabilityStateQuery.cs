@@ -26,15 +26,16 @@ public class GetRoomAvailabilityStateQuery : IRequest<bool>
         }
 
         public async Task<bool> Handle(GetRoomAvailabilityStateQuery request, CancellationToken cancellationToken) =>
-            await _applicationDb.Booking.Where(booking => booking.RoomId == request.RoomId)
+            !await _applicationDb.Booking.Where(booking => booking.RoomId == request.RoomId)
                 .Where(booking => request.Period != null &&
-                                  (request.Period.DateFrom < booking.DateFrom &&
-                                   request.Period.DateTo > booking.DateTo ||
-                                   request.Period.DateFrom > booking.DateFrom &&
-                                   request.Period.DateFrom < booking.DateTo ||
-                                   request.Period.DateTo > booking.DateFrom &&
-                                   request.Period.DateTo < booking.DateTo) ||
-                                  DateTime.UtcNow > booking.DateFrom &&
-                                  DateTime.UtcNow < booking.DateTo).AnyAsync(cancellationToken);
+                                  (request.Period.DateFrom <= booking.DateFrom &&
+                                   request.Period.DateTo >= booking.DateTo ||
+                                   request.Period.DateFrom >= booking.DateFrom &&
+                                   request.Period.DateFrom <= booking.DateTo ||
+                                   request.Period.DateTo >= booking.DateFrom &&
+                                   request.Period.DateTo <= booking.DateTo) ||
+                                  request.Period == null &&
+                                  DateTime.UtcNow >= booking.DateFrom &&
+                                  DateTime.UtcNow <= booking.DateTo).AnyAsync(cancellationToken);
     }
 }

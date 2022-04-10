@@ -8,7 +8,9 @@ public class ServiceGroupProfile : Profile
 {
     public ServiceGroupProfile()
     {
-        CreateMap<ServiceGroup, ServiceGroupDto>()
-            .ReverseMap();
+        CreateMap<ServiceGroup, ServiceGroupDto>();
+
+        CreateMap<ServiceGroupDto, ServiceGroup>()
+            .ForMember(q => q.Services, w => w.Ignore());
     }
 }

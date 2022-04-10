@@ -9,8 +9,7 @@ namespace HotelAutomationApp.WebApi.Controllers;
 public class ServiceController : DictionaryController
     <Service, ServiceDto, DictionaryCrudService<Service, ServiceDto>>
 {
-    public ServiceController(DictionaryCrudService<Service, ServiceDto> dictionaryService, IMediator mediator)
-        : base(dictionaryService)
+    public ServiceController(DictionaryCrudService<Service, ServiceDto> dictionaryService) : base(dictionaryService)
     {
     }
 }

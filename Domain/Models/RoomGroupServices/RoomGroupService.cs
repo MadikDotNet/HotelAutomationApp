@@ -30,8 +30,10 @@ public class RoomGroupService : BaseEntity
         Service = service;
     }
 
-    [ForeignKey(nameof(RoomGroup))] public string RoomGroupId { get; set; }
+    [ForeignKey(nameof(RoomGroup))] 
+    public string RoomGroupId { get; set; }
     public RoomGroup RoomGroup { get; set; }
-    [ForeignKey(nameof(Service))] public string ServiceId { get; set; }
+    [ForeignKey(nameof(Service))]
+    public string ServiceId { get; set; }
     public Service Service { get; set; }
 }

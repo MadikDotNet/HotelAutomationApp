@@ -24,4 +24,5 @@ public class Service : BaseDictionary
     [ForeignKey(nameof(ServiceGroup))]
     public string ServiceGroupId { get; set; }
     public ServiceGroup ServiceGroup { get; set; }
+    public bool IsAdditional { get; set; }
 }

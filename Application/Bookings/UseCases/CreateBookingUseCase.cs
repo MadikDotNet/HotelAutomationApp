@@ -31,8 +31,8 @@ public class CreateBookingUseCase : TransactionUseCase<CreateBookingRequest>
     }
 }
 
-public class CreateBookingRequest : Period, IRequest
+public class CreateBookingRequest : UTCPeriod, IRequest
 {
     public string Roomid { get; set; }
-    public string[] ServiceIds { get; set; }
+    public string[]? ServiceIds { get; set; }
 }

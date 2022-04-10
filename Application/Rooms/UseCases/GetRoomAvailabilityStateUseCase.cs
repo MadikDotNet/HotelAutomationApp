@@ -19,7 +19,7 @@ public class GetRoomAvailabilityStateUseCase : UseCase<GetRoomAvailabilityStateR
         await _mediator.Send(new GetRoomAvailabilityStateQuery(request.RoomId, request), cancellationToken);
 }
 
-public class GetRoomAvailabilityStateRequest : Period, IRequest<bool>
+public class GetRoomAvailabilityStateRequest : UTCPeriod, IRequest<bool>
 {
     public string RoomId { get; set; }
 }
