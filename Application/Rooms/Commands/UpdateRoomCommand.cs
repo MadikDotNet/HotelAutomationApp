@@ -1,4 +1,3 @@
-using AutoMapper;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
@@ -48,7 +47,6 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                 room!.MaxGuestsCount = request.MaxGuestsCount;
                 room.Capacity = request.Capacity;
                 room.PricePerHour = request.PricePerHour;
-                room.IsAvailable = request.IsAvailable;
                 room.RoomGroupId = request.RoomGroupId;
                 room.LastModifiedBy = _securityContext.UserId;
 

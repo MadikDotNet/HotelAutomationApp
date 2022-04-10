@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers.Identity
+namespace HotelAutomationApp.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]

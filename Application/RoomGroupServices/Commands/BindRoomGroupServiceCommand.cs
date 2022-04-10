@@ -1,8 +1,6 @@
-using AutoMapper;
 using HotelAutomationApp.Domain.Models.RoomGroupServices;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.RoomGroupServices.Commands;
 
@@ -20,12 +18,10 @@ public class BindRoomGroupServiceCommand : IRequest
     private class Handler : AsyncRequestHandler<BindRoomGroupServiceCommand>
     {
         private readonly IApplicationDbContext _applicationDb;
-        private readonly IMapper _mapper;
 
-        public Handler(IApplicationDbContext applicationDb, IMapper mapper)
+        public Handler(IApplicationDbContext applicationDb)
         {
             _applicationDb = applicationDb;
-            _mapper = mapper;
         }
 
         protected override async Task Handle(BindRoomGroupServiceCommand request, CancellationToken cancellationToken)

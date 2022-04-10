@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.MediaFiles;
 using HotelAutomationApp.Domain.Models.RoomGroupServices;
-using HotelAutomationApp.Domain.Models.ValueObjects;
 
 namespace HotelAutomationApp.Domain.Models.RoomGroups
 {
@@ -12,7 +11,7 @@ namespace HotelAutomationApp.Domain.Models.RoomGroups
             string name,
             string code,
             string description,
-            Price minPrice) : base(name, code, description)
+            decimal minPrice) : base(name, code, description)
         {
             MinPrice = minPrice;
         }
@@ -25,7 +24,7 @@ namespace HotelAutomationApp.Domain.Models.RoomGroups
         /// <summary>
         /// Lower price range for the group
         /// </summary>
-        public Price MinPrice { get; set; }
+        public decimal MinPrice { get; set; }
 
         [ForeignKey(nameof(FileMetadata))]
         public string? FileMetadataId { get; set; }

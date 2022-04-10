@@ -1,5 +1,3 @@
-using HotelAutomationApp.Domain.Models.ValueObjects;
-
 namespace HotelAutomationApp.Domain.Common
 {
     public class BaseDictionary : BaseEntity
@@ -19,7 +17,7 @@ namespace HotelAutomationApp.Domain.Common
             
         }
         
-        public Name Name { get; set; }
+        public string Name { get; set; }
         public string? Code { get; set; }
         public string Description { get; set; }
     }

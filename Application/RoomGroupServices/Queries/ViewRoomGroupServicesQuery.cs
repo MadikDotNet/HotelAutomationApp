@@ -14,14 +14,14 @@ namespace HotelAutomationApp.Application.RoomGroupServices.Queries;
 public class ViewRoomGroupServicesQuery : IRequest<PageResponse<ServiceDto>>
 {
     public ViewRoomGroupServicesQuery(
-        PageRequest pageRequest,
+        PageRequest? pageRequest,
         string roomGroupId)
     {
         PageRequest = pageRequest;
         RoomGroupId = roomGroupId;
     }
 
-    public PageRequest PageRequest { get; }
+    public PageRequest? PageRequest { get; }
     public string RoomGroupId { get; }
 
     private class Handler : IRequestHandler<ViewRoomGroupServicesQuery, PageResponse<ServiceDto>>

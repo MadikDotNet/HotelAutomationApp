@@ -9,7 +9,6 @@ public class BaseDictionaryProfile : Profile
     public BaseDictionaryProfile()
     {
         CreateMap<BaseDictionary, BaseDictionaryDto>()
-            .ForMember(q => q.Name, w => w.MapFrom(q => q.Name.Value))
             .ReverseMap();
     }
 }

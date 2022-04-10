@@ -14,10 +14,8 @@ public record TreeDictionaryDto<TTreeDictionaryDto> : BaseDictionaryDto, IRecurs
         set => _parentId = string.IsNullOrEmpty(value) || !Guid.TryParse(value, out _) ? null : value;
     }
     
-    [JsonIgnore]
     public TTreeDictionaryDto? Parent { get; set; }
     public ICollection<TTreeDictionaryDto>? Children { get; set; }
     
-    [JsonIgnore]
     public bool HasParent => !string.IsNullOrEmpty(ParentId);
 }

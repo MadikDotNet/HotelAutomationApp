@@ -47,14 +47,12 @@ public class CreateBookingCommand : IRequest
 
             var servicesCost = services
                 .Where(service => room.RoomGroup.RoomGroupServices.All(rgService => rgService.Id != service.Id))
-                .Sum(q => q.PricePerHour.Value * totalPeriod);
+                .Sum(q => q.PricePerHour * totalPeriod);
 
-            var roomCost = room.PricePerHour.Value * totalPeriod;
+            var roomCost = room.PricePerHour * totalPeriod;
 
             var totalCost = roomCost + servicesCost;
 
-            room.IsAvailable = false;
-            
             var newBooking = new Booking
             {
                 ClientId = request.ClientId,

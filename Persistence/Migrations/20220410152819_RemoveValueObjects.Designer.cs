@@ -3,6 +3,7 @@ using System;
 using HotelAutomationApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelAutomationApp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410152819_RemoveValueObjects")]
+    partial class RemoveValueObjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -390,7 +392,7 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("PricePerHour")
+                    b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.Property<string>("ServiceGroupId")

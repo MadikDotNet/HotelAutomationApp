@@ -9,8 +9,8 @@ using HotelAutomationApp.Domain.Models.RoomGroups;
 using HotelAutomationApp.Domain.Models.RoomGroupServices;
 using HotelAutomationApp.Domain.Models.RoomMediaFiles;
 using HotelAutomationApp.Domain.Models.Rooms;
+using HotelAutomationApp.Domain.Models.ServiceGroups;
 using HotelAutomationApp.Domain.Models.Services;
-using HotelAutomationApp.Persistence.Config;
 using HotelAutomationApp.Persistence.Interfaces.Context;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +53,8 @@ namespace HotelAutomationApp.Persistence.Context
 
         public DbSet<BookingService> BookingService { get; set; }
         
+        public DbSet<ServiceGroup> ServiceGroup { get; set; }
+
         #endregion
 
         #region Booking
@@ -85,16 +87,6 @@ namespace HotelAutomationApp.Persistence.Context
 
         public async Task CommitTransactionAsync() =>
             await Database.CommitTransactionAsync();
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.ApplyConfiguration(new RoomConfiguration());
-            builder.ApplyConfiguration(new RoomGroupConfiguration());
-            builder.ApplyConfiguration(new ServiceConfiguration());
-            builder.ApplyConfiguration(new BookingConfiguration());
-        }
 
         private void AuditChanges()
         {

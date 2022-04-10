@@ -8,6 +8,7 @@ using HotelAutomationApp.Domain.Models.RoomGroups;
 using HotelAutomationApp.Domain.Models.RoomGroupServices;
 using HotelAutomationApp.Domain.Models.RoomMediaFiles;
 using HotelAutomationApp.Domain.Models.Rooms;
+using HotelAutomationApp.Domain.Models.ServiceGroups;
 using HotelAutomationApp.Domain.Models.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -43,7 +44,9 @@ namespace HotelAutomationApp.Persistence.Interfaces.Context
 
         DbSet<Service> Service { get; set; }
         
-        public DbSet<BookingService> BookingService { get; set; }
+        DbSet<BookingService> BookingService { get; set; }
+        
+        DbSet<ServiceGroup> ServiceGroup { get; set; }
 
         #endregion
 

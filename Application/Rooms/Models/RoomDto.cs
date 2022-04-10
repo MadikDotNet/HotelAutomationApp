@@ -3,7 +3,7 @@ using HotelAutomationApp.Application.MediaFiles.Models;
 
 namespace HotelAutomationApp.Application.Rooms.Models
 {
-    public class RoomDto : AuditableEntityDto
+    public record RoomDto : AuditableEntityDto
     {
         public string Id { get; set; }
         public int MaxGuestsCount { get; set; }

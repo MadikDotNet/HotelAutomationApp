@@ -32,7 +32,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                 var room = await _applicationDb.Room.FindAsync(new object[]{request.RoomId}, cancellationToken);
 
                 room!.DeletedBy = _securityContext.UserId;
-                (room.IsDeleted, room.IsAvailable, room.DeletedDate) = (true, false, DateTime.UtcNow);
+                (room.IsDeleted, room.DeletedDate) = (true,  DateTime.UtcNow);
                 
                 await _applicationDb.SaveChangesAsync(cancellationToken);
             }

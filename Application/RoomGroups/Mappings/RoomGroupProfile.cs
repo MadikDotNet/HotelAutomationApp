@@ -9,8 +9,6 @@ public class RoomGroupProfile : Profile
     public RoomGroupProfile()
     {
         CreateMap<RoomGroup, RoomGroupDto>()
-            .ForMember(q => q.Name, w => w.MapFrom(q => q.Name.Value))
-            .ForMember(q => q.MinPrice, w => w.MapFrom(q => q.MinPrice.Value))
             .ForMember(q => q.FileId, w => w.MapFrom(q => q.FileMetadataId))
             .ReverseMap();
 

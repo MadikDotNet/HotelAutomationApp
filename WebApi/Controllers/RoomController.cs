@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers.Rooms
+namespace HotelAutomationApp.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
@@ -27,6 +27,18 @@ namespace HotelAutomationApp.WebApi.Controllers.Rooms
         [AllowAnonymous]
         [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(PageResponse<RoomDto>))]
         public async Task<IActionResult> View([FromQuery] ViewRoomsRequest request, CancellationToken cancellationToken)
+        {
+            var response = await _mediator.Send(request, cancellationToken);
+
+            return Ok(response);
+        }
+        
+        [HttpGet]
+        [AllowAnonymous]
+        [ProducesResponseType((int) HttpStatusCode.OK, Type = typeof(bool))]
+        public async Task<IActionResult> RoomAvailabilityState(
+            [FromQuery] GetRoomAvailabilityStateRequest request,
+            CancellationToken cancellationToken)
         {
             var response = await _mediator.Send(request, cancellationToken);
 

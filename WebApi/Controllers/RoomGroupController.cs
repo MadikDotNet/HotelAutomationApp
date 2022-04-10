@@ -10,7 +10,7 @@ using HotelAutomationApp.WebApi.Controllers.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelAutomationApp.WebApi.Controllers.RoomGroups
+namespace HotelAutomationApp.WebApi.Controllers
 {
     public class RoomGroupController : DictionaryController
         <RoomGroup, RoomGroupDto, DictionaryCrudService<RoomGroup, RoomGroupDto>>

@@ -1,15 +1,19 @@
 using FluentValidation;
 using HotelAutomationApp.Application.Bookings.UseCases;
+using HotelAutomationApp.Application.Rooms.Queries;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using HotelAutomationApp.Persistence.Interfaces.Context;
-using HotelAutomationApp.Shared.Common;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelAutomationApp.Application.Bookings.Validators;
 
 public class CreateBookingRequestValidator : AbstractValidator<CreateBookingRequest>
 {
-    public CreateBookingRequestValidator(IApplicationDbContext applicationDb, ISecurityContext securityContext)
+    public CreateBookingRequestValidator(
+        IApplicationDbContext applicationDb,
+        ISecurityContext securityContext,
+        IMediator mediator)
     {
         RuleFor(_ => _)
             .MustAsync(async (_, token) =>
@@ -21,9 +25,9 @@ public class CreateBookingRequestValidator : AbstractValidator<CreateBookingRequ
             .MustAsync(async (roomId, token) => await applicationDb.Room.AnyAsync(q => q.Id == roomId, token))
             .WithMessage("Room not found");
 
-        RuleFor(q => q.Roomid)
-            .MustAsync(async (roomId, token) =>
-                await applicationDb.Room.FindAsync(roomId.YieldObjectArray(), token) is {IsAvailable: true})
+        RuleFor(q => q)
+            .MustAsync(async (request, token) =>
+                await mediator.Send(new GetRoomAvailabilityStateQuery(request.Roomid,request ), token))
             .WithMessage("Room is not available at this moment");
 
         When(request => request.ServiceIds is { } serviceIds && serviceIds.Any(), () =>

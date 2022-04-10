@@ -35,6 +35,7 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             Name = name;
             Description = description;
             FullMatching = fullMatching;
+            IsDeleted = isDeleted;
         }
 
         public PageRequest? PageRequest { get; }
@@ -63,13 +64,13 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             {
                 IQueryable<Room> rooms = _applicationDb.Room
                     .AsNoTracking()
-                    .Where(q => q.IsAvailable == request.IsAvailable && q.IsDeleted == request.IsDeleted)
+                    .Where(q => q.IsDeleted == request.IsDeleted)
                     .Where(q => string.IsNullOrEmpty(request.RoomGroupId) || q.RoomGroupId == request.RoomGroupId);
 
                 if (request.MaxGuestsCountDistance is not null)
                 {
                     rooms = rooms.Where(q => request.MaxGuestsCountDistance.From == default ||
-                                                     q.MaxGuestsCount >= request.MaxGuestsCountDistance.From)
+                                             q.MaxGuestsCount >= request.MaxGuestsCountDistance.From)
                         .Where(q => request.MaxGuestsCountDistance.To == default ||
                                     q.MaxGuestsCount <= request.MaxGuestsCountDistance.To);
                 }
@@ -77,11 +78,11 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                 if (request.PriceDistance is not null)
                 {
                     rooms = rooms.Where(q => request.PriceDistance.From == default ||
-                                             q.PricePerHour.Value >= request.PriceDistance.From)
+                                             q.PricePerHour >= request.PriceDistance.From)
                         .Where(q => request.PriceDistance.To == default ||
-                                    q.PricePerHour.Value <= request.PriceDistance.To);
+                                    q.PricePerHour <= request.PriceDistance.To);
                 }
-                
+
                 if (request.CapacityDistance is not null)
                 {
                     rooms = rooms.Where(q => request.CapacityDistance.From == default ||
@@ -93,22 +94,33 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                 if (!string.IsNullOrEmpty(request.Name))
                 {
                     rooms = rooms.Where(q =>
-                        request.FullMatching ?
-                            q.Name == request.Name :
-                            q.Name.Contains(request.Name));
+                        request.FullMatching ? q.Name == request.Name : q.Name.Contains(request.Name));
                 }
-                
+
                 if (!string.IsNullOrEmpty(request.Description))
                 {
                     rooms = rooms.Where(q =>
-                        request.FullMatching ?
-                            q.Description == request.Description :
-                            q.Description.Contains(request.Description));
+                        request.FullMatching
+                            ? q.Description == request.Description
+                            : q.Description.Contains(request.Description));
                 }
 
-                return (await rooms.ProjectTo<RoomDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken))
-                    .AsPageResponse(request.PageRequest);
+                var roomDtos = await rooms.ProjectTo<RoomDto>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
+
+                var now = DateTime.UtcNow;
+
+                var bookings = _applicationDb.Booking.Where(q => q.DateFrom < now && q.DateTo > now);
+
+                var result = (from room in roomDtos
+                    join booking in bookings on room.Id equals booking.RoomId into bookingsGp
+                    from booking in bookingsGp.DefaultIfEmpty()
+                    select room with
+                    {
+                        IsAvailable = booking is null
+                    }).ToList();
+
+                return result.AsPageResponse(request.PageRequest);
             }
         }
     }

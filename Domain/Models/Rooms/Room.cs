@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 using HotelAutomationApp.Domain.Common;
 using HotelAutomationApp.Domain.Models.RoomGroups;
 using HotelAutomationApp.Domain.Models.RoomMediaFiles;
-using HotelAutomationApp.Domain.Models.ValueObjects;
 
 namespace HotelAutomationApp.Domain.Models.Rooms
 {
@@ -23,8 +22,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             string roomGroupId,
             int maxGuestsCount,
             double capacity,
-            Price pricePerHour,
-            bool isAvailable,
+            decimal pricePerHour,
             string description,
             string name) : base(id, createdBy, creationDate, lastModifiedBy, lastModifiedDate)
         {
@@ -32,7 +30,6 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             MaxGuestsCount = maxGuestsCount;
             Capacity = capacity;
             PricePerHour = pricePerHour;
-            IsAvailable = isAvailable;
             Description = description;
             Name = name;
         }
@@ -45,8 +42,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             set => _capacity = value <= 0 ? throw new ArgumentException("Capacity cannot be 0 or less than 0") : value;
         }
 
-        public Price PricePerHour { get; set; }
-        public bool IsAvailable { get; set; }
+        public decimal PricePerHour { get; set; }
 
         [ForeignKey(nameof(RoomGroup))] public string RoomGroupId { get; set; }
         public RoomGroup RoomGroup { get; set; }
@@ -59,7 +55,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
             string roomGroupId,
             int maxQuestsCount,
             double capacity,
-            Price pricePerHour,
+            decimal pricePerHour,
             string description,
             string name) =>
             new Room(
@@ -72,8 +68,7 @@ namespace HotelAutomationApp.Domain.Models.Rooms
                 maxQuestsCount,
                 capacity,
                 pricePerHour,
-                true,
-                description,
+                    description,
                 name);
     }
 }

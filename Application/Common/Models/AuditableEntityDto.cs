@@ -2,7 +2,7 @@ using System;
 
 namespace HotelAutomationApp.Application.Common.Models
 {
-    public class AuditableEntityDto
+    public record AuditableEntityDto
     {
         public string CreatedBy { get; set; }
         

@@ -3,6 +3,7 @@ using System;
 using HotelAutomationApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelAutomationApp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220410150407_AddParentIdToServiceGroup")]
+    partial class AddParentIdToServiceGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +60,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.Property<string>("RoomId")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -228,13 +227,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.Property<string>("FileMetadataId")
                         .HasColumnType("text");
 
-                    b.Property<decimal>("MinPrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FileMetadataId");
@@ -334,9 +326,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("PricePerHour")
-                        .HasColumnType("numeric");
-
                     b.Property<string>("RoomGroupId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -361,10 +350,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("ParentId")
                         .HasColumnType("text");
 
@@ -385,13 +370,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("PricePerHour")
-                        .HasColumnType("numeric");
 
                     b.Property<string>("ServiceGroupId")
                         .IsRequired()
@@ -550,9 +528,29 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "TotalPrice", b1 =>
+                        {
+                            b1.Property<string>("BookingId")
+                                .HasColumnType("text");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
+                                .HasColumnName("TotalPrice");
+
+                            b1.HasKey("BookingId");
+
+                            b1.ToTable("Booking");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BookingId");
+                        });
+
                     b.Navigation("Client");
 
                     b.Navigation("Room");
+
+                    b.Navigation("TotalPrice")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.BookingServices.BookingService", b =>
@@ -580,7 +578,48 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("FileMetadataId");
 
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "MinPrice", b1 =>
+                        {
+                            b1.Property<string>("RoomGroupId")
+                                .HasColumnType("text");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
+                                .HasColumnName("MinPrice");
+
+                            b1.HasKey("RoomGroupId");
+
+                            b1.ToTable("RoomGroup");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoomGroupId");
+                        });
+
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Name", "Name", b1 =>
+                        {
+                            b1.Property<string>("RoomGroupId")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("Name");
+
+                            b1.HasKey("RoomGroupId");
+
+                            b1.ToTable("RoomGroup");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoomGroupId");
+                        });
+
                     b.Navigation("FileMetadata");
+
+                    b.Navigation("MinPrice")
+                        .IsRequired();
+
+                    b.Navigation("Name")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.RoomGroupServices.RoomGroupService", b =>
@@ -629,7 +668,51 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "PricePerHour", b1 =>
+                        {
+                            b1.Property<string>("RoomId")
+                                .HasColumnType("text");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
+                                .HasColumnName("Price");
+
+                            b1.HasKey("RoomId");
+
+                            b1.ToTable("Room");
+
+                            b1.WithOwner()
+                                .HasForeignKey("RoomId");
+                        });
+
+                    b.Navigation("PricePerHour")
+                        .IsRequired();
+
                     b.Navigation("RoomGroup");
+                });
+
+            modelBuilder.Entity("HotelAutomationApp.Domain.Models.ServiceGroups.ServiceGroup", b =>
+                {
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Name", "Name", b1 =>
+                        {
+                            b1.Property<string>("ServiceGroupId")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("Name");
+
+                            b1.HasKey("ServiceGroupId");
+
+                            b1.ToTable("ServiceGroup");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ServiceGroupId");
+                        });
+
+                    b.Navigation("Name")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Services.Service", b =>
@@ -638,6 +721,47 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .WithMany()
                         .HasForeignKey("ServiceGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Name", "Name", b1 =>
+                        {
+                            b1.Property<string>("ServiceId")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("Name");
+
+                            b1.HasKey("ServiceId");
+
+                            b1.ToTable("Service");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ServiceId");
+                        });
+
+                    b.OwnsOne("HotelAutomationApp.Domain.Models.ValueObjects.Price", "PricePerHour", b1 =>
+                        {
+                            b1.Property<string>("ServiceId")
+                                .HasColumnType("text");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("numeric")
+                                .HasColumnName("Price");
+
+                            b1.HasKey("ServiceId");
+
+                            b1.ToTable("Service");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ServiceId");
+                        });
+
+                    b.Navigation("Name")
+                        .IsRequired();
+
+                    b.Navigation("PricePerHour")
                         .IsRequired();
 
                     b.Navigation("ServiceGroup");

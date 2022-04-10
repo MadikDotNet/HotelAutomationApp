@@ -4,8 +4,6 @@ using HotelAutomationApp.Domain.Common.Abstractions.Audition;
 using HotelAutomationApp.Domain.Models.BookingServices;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.Rooms;
-using HotelAutomationApp.Domain.Models.Services;
-using HotelAutomationApp.Domain.Models.ValueObjects;
 using HotelAutomationApp.Shared.Common.Abstractions;
 
 namespace HotelAutomationApp.Domain.Models.Bookings;
@@ -18,7 +16,7 @@ public class Booking : BaseEntity, IPeriod, IAuditable
     public BookingState BookingState { get; set; }
     public DateTime DateFrom { get; set; }
     public DateTime DateTo { get; set; }
-    public Price TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
     [ForeignKey(nameof(Room))]
     public string RoomId { get; set; }
     public Room Room { get; set; }

@@ -25,6 +25,6 @@ public class ViewRoomGroupServicesUseCase : UseCase<ViewRoomGroupServicesRequest
 
 public class ViewRoomGroupServicesRequest : IRequest<PageResponse<ServiceDto>>
 {
-    public PageRequest PageRequest { get; set; }
+    public PageRequest? PageRequest { get; set; }
     public string RoomGroupId { get; set; }
 }

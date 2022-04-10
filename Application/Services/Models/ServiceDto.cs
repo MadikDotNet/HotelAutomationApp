@@ -1,10 +1,9 @@
 using HotelAutomationApp.Application.Common.Dictionary.Models;
-using HotelAutomationApp.Domain.Models.ValueObjects;
 
 namespace HotelAutomationApp.Application.Services.Models;
 
-public record ServiceDto : TreeDictionaryDto<ServiceDto>
+public record ServiceDto : BaseDictionaryDto
 {
-    public bool IsAdditional { get; set; }
-    public Price PricePerHour { get; set; }
+    public decimal PricePerHour { get; set; }
+    public string ServiceGroupId { get; set; }
 }
