@@ -23,6 +23,6 @@ public class Service : BaseDictionary
     public decimal PricePerHour { get; set; }
     [ForeignKey(nameof(ServiceGroup))]
     public string ServiceGroupId { get; set; }
-    public ServiceGroup ServiceGroup { get; set; }
+    public ServiceGroup? ServiceGroup { get; set; }
     public bool IsAdditional { get; set; }
 }

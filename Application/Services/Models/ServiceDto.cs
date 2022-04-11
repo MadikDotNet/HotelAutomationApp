@@ -5,5 +5,6 @@ namespace HotelAutomationApp.Application.Services.Models;
 public record ServiceDto : BaseDictionaryDto
 {
     public decimal PricePerHour { get; set; }
-    public string ServiceGroupId { get; set; }
+    public string? ServiceGroupId { get; set; }
+    public bool IsAdditional { get; set; }
 }
