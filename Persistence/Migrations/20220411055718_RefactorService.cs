@@ -4,30 +4,41 @@
 
 namespace HotelAutomationApp.Persistence.Migrations
 {
-    public partial class ServiceGroup : Migration
+    public partial class RefactorService : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "IsAdditional",
+                name: "ParentId",
                 table: "Service");
 
             migrationBuilder.DropColumn(
-                name: "ParentId",
-                table: "Service");
+                name: "IsAvailable",
+                table: "Room");
+
+            migrationBuilder.RenameColumn(
+                name: "Price",
+                table: "Service",
+                newName: "PricePerHour");
+
+            migrationBuilder.RenameColumn(
+                name: "Price",
+                table: "Room",
+                newName: "PricePerHour");
 
             migrationBuilder.AddColumn<string>(
                 name: "ServiceGroupId",
                 table: "Service",
                 type: "text",
-                nullable: false,
-                defaultValue: "");
+                nullable: true,
+                defaultValue: (string)null);
 
             migrationBuilder.CreateTable(
                 name: "ServiceGroup",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
+                    ParentId = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: false)
@@ -68,18 +79,28 @@ namespace HotelAutomationApp.Persistence.Migrations
                 name: "ServiceGroupId",
                 table: "Service");
 
-            migrationBuilder.AddColumn<bool>(
-                name: "IsAdditional",
+            migrationBuilder.RenameColumn(
+                name: "PricePerHour",
                 table: "Service",
-                type: "boolean",
-                nullable: false,
-                defaultValue: false);
+                newName: "Price");
+
+            migrationBuilder.RenameColumn(
+                name: "PricePerHour",
+                table: "Room",
+                newName: "Price");
 
             migrationBuilder.AddColumn<string>(
                 name: "ParentId",
                 table: "Service",
                 type: "text",
                 nullable: true);
+
+            migrationBuilder.AddColumn<bool>(
+                name: "IsAvailable",
+                table: "Room",
+                type: "boolean",
+                nullable: false,
+                defaultValue: false);
         }
     }
 }
