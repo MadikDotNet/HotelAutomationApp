@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelAutomationApp.Application.Auth.Commands
+namespace HotelAutomationApp.Application.Users.Commands
 {
     public class CreateUserCommand : IRequest<string>
     {

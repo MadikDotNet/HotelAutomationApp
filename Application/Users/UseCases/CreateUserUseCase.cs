@@ -2,12 +2,13 @@ using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Exceptions;
+using HotelAutomationApp.Application.Users.Commands;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Infrastructure.Interfaces.Auth.Services;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace HotelAutomationApp.Application.Auth.UseCases;
+namespace HotelAutomationApp.Application.Users.UseCases;
 
 public class CreateUserUseCase : UseCase<CreateUserRequest>
 {

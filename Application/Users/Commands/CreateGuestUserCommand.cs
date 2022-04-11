@@ -3,7 +3,7 @@ using HotelAutomationApp.Domain.Models.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace HotelAutomationApp.Application.Auth.Commands;
+namespace HotelAutomationApp.Application.Users.Commands;
 
 public class CreateGuestUserCommand : IRequest
 {

@@ -2,8 +2,9 @@ using FluentValidation;
 using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Application.Auth.UseCases;
 using HotelAutomationApp.Application.Extensions.FluentValidationExtensions;
+using HotelAutomationApp.Application.Users.UseCases;
 
-namespace HotelAutomationApp.Application.Auth.Validators;
+namespace HotelAutomationApp.Application.Users.Validators;
 
 public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
 {

@@ -1,6 +1,7 @@
 using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Application.Auth.Models;
 using HotelAutomationApp.Application.Common;
+using HotelAutomationApp.Application.Users.Commands;
 using MediatR;
 
 namespace HotelAutomationApp.Application.Auth.UseCases;

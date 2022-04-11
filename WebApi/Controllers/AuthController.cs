@@ -40,14 +40,5 @@ namespace HotelAutomationApp.WebApi.Controllers
             
             return Ok(result);
         }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
-        {
-            var result = await _mediator.Send(request);
-
-            return Ok(result);
-        }
     }
 }
