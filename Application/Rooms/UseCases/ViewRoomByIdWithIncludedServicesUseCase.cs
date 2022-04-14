@@ -34,7 +34,7 @@ public class ViewRoomByIdWithIncludedServicesUseCase :
         return new ViewRoomByIdWithAvailableServicesResponse
         {
             Room = _mapper.Map<RoomDto>(room),
-            IncudedServices = room.RoomGroup.RoomGroupServices
+            IncludedServices = room.RoomGroup.RoomGroupServices
                 .Select(service => _mapper.Map<ServiceDto>(service.Service)).ToArray()
         };
     }
@@ -48,5 +48,5 @@ public class ViewRoomByIdWithIncludedServicesRequest : IRequest<ViewRoomByIdWith
 public class ViewRoomByIdWithAvailableServicesResponse
 {
     public RoomDto Room { get; set; }
-    public ServiceDto[] IncudedServices { get; set; }
+    public ServiceDto[] IncludedServices { get; set; }
 }
