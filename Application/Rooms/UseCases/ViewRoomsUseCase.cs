@@ -29,7 +29,8 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
                 request.RoomGroupId,
                 request.Name,
                 request.Description,
-                request.FullMatching), cancellationToken);
+                request.FullMatching,
+                request.Period), cancellationToken);
         }
     }
 
@@ -43,6 +44,7 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
         public string? Description { get; set; }
         public bool FullMatching { get; set; }
         public bool IsAvailable { get; set; }
+        public UTCPeriod? Period { get; set; }
         public bool IsDeleted { get; set; }
         public string? RoomGroupId { get; set; }
     }

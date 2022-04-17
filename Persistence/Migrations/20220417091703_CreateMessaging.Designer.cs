@@ -3,6 +3,7 @@ using System;
 using HotelAutomationApp.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotelAutomationApp.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220417091703_CreateMessaging")]
+    partial class CreateMessaging
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,9 +224,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -247,8 +246,6 @@ namespace HotelAutomationApp.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
 
                     b.HasIndex("FeedbackId");
 
@@ -651,17 +648,11 @@ namespace HotelAutomationApp.Persistence.Migrations
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Messaging.Appeals.Appeal", b =>
                 {
-                    b.HasOne("HotelAutomationApp.Domain.Models.Identity.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy");
-
                     b.HasOne("HotelAutomationApp.Domain.Models.Messaging.Feedback", "Feedback")
                         .WithMany()
                         .HasForeignKey("FeedbackId");
 
                     b.Navigation("Feedback");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("HotelAutomationApp.Domain.Models.Messaging.Feedback", b =>

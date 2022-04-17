@@ -6,6 +6,7 @@ using HotelAutomationApp.Application.Extensions;
 using HotelAutomationApp.Application.Rooms.Models;
 using HotelAutomationApp.Domain.Models.Rooms;
 using HotelAutomationApp.Persistence.Interfaces.Context;
+using HotelAutomationApp.Shared.Common.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -24,7 +25,8 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             string? roomGroupId,
             string? name,
             string? description,
-            bool fullMatching)
+            bool fullMatching,
+            IPeriod? period)
         {
             PageRequest = pageRequest;
             MaxGuestsCountDistance = maxGuestsCountDistance;
@@ -36,35 +38,42 @@ namespace HotelAutomationApp.Application.Rooms.Queries
             Description = description;
             FullMatching = fullMatching;
             IsDeleted = isDeleted;
+            Period = period;
         }
 
         public PageRequest? PageRequest { get; }
         public Distance<int>? MaxGuestsCountDistance { get; }
         public Distance<double>? CapacityDistance { get; }
         public Distance<decimal>? PriceDistance { get; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
-        public bool FullMatching { get; set; }
+        public string? Name { get; }
+        public string? Description { get; }
+        public bool FullMatching { get; }
         public bool IsAvailable { get; }
+        public IPeriod? Period { get; }
         public bool IsDeleted { get; }
         public string? RoomGroupId { get; }
 
         private class Handler : IRequestHandler<GetRoomsQuery, PageResponse<RoomDto>>
         {
+            private readonly IMediator _mediator;
             private readonly IApplicationDbContext _applicationDb;
             private readonly IMapper _mapper;
 
-            public Handler(IApplicationDbContext applicationDb, IMapper mapper)
+            public Handler(IApplicationDbContext applicationDb, IMapper mapper, IMediator mediator)
             {
                 _applicationDb = applicationDb;
                 _mapper = mapper;
+                _mediator = mediator;
             }
 
             public async Task<PageResponse<RoomDto>> Handle(GetRoomsQuery request, CancellationToken cancellationToken)
             {
-                IQueryable<Room> rooms = _applicationDb.Room
-                    .AsNoTracking()
-                    .Where(q => q.IsDeleted == request.IsDeleted)
+                var rooms = request.IsAvailable
+                    ? (await _mediator.Send(new GetAvailableRoomsByPeriodQuery(request.Period), cancellationToken))
+                    .AsQueryable()
+                    : _applicationDb.Room.AsQueryable();
+
+                rooms = rooms.Where(q => q.IsDeleted == request.IsDeleted)
                     .Where(q => string.IsNullOrEmpty(request.RoomGroupId) || q.RoomGroupId == request.RoomGroupId);
 
                 if (request.MaxGuestsCountDistance is not null)
@@ -105,22 +114,11 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                             : q.Description.Contains(request.Description));
                 }
 
-                var roomDtos = await rooms.ProjectTo<RoomDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
+                var result = rooms.Select(room => _mapper.Map<RoomDto>(room)).ToList();
 
-                var now = DateTime.UtcNow;
-
-                var bookings = _applicationDb.Booking.Where(q => q.DateFrom < now && q.DateTo > now);
-
-                var result = (from room in roomDtos
-                    join booking in bookings on room.Id equals booking.RoomId into bookingsGp
-                    from booking in bookingsGp.DefaultIfEmpty()
-                    select room with
-                    {
-                        IsAvailable = booking is null
-                    }).ToList();
-
-                return result.AsPageResponse(request.PageRequest);
+                return result
+                    .Localize()
+                    .AsPageResponse(request.PageRequest);
             }
         }
     }

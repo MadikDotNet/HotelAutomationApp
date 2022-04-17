@@ -27,7 +27,7 @@ public class CreateBookingRequestValidator : AbstractValidator<CreateBookingRequ
 
         RuleFor(q => q)
             .MustAsync(async (request, token) =>
-                await mediator.Send(new GetRoomAvailabilityStateQuery(request.Roomid, request), token))
+                (await mediator.Send(new GetAvailableRoomsByPeriodQuery(request, request.Roomid), token)).Any())
             .WithMessage("Room is not available for this time/period");
 
         When(request => request.ServiceIds is { } serviceIds && serviceIds.Any(), () =>

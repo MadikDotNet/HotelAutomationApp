@@ -5,6 +5,8 @@ using HotelAutomationApp.Domain.Models.Bookings;
 using HotelAutomationApp.Domain.Models.BookingServices;
 using HotelAutomationApp.Domain.Models.Identity;
 using HotelAutomationApp.Domain.Models.MediaFiles;
+using HotelAutomationApp.Domain.Models.Messaging;
+using HotelAutomationApp.Domain.Models.Messaging.Appeals;
 using HotelAutomationApp.Domain.Models.RoomGroups;
 using HotelAutomationApp.Domain.Models.RoomGroupServices;
 using HotelAutomationApp.Domain.Models.RoomMediaFiles;
@@ -52,7 +54,7 @@ namespace HotelAutomationApp.Persistence.Context
         public DbSet<Service> Service { get; set; }
 
         public DbSet<BookingService> BookingService { get; set; }
-        
+
         public DbSet<ServiceGroup> ServiceGroup { get; set; }
 
         #endregion
@@ -60,6 +62,14 @@ namespace HotelAutomationApp.Persistence.Context
         #region Booking
 
         public DbSet<Booking> Booking { get; set; }
+
+        #endregion
+
+        #region Messaging
+
+        public DbSet<Appeal> Appeal { get; set; }
+
+        public DbSet<Feedback> Feedback { get; set; }
 
         #endregion
 

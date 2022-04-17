@@ -6,6 +6,9 @@ using HotelAutomationApp.Application.ApplicationServices.Dictionary;
 using HotelAutomationApp.Application.Auth.Commands;
 using HotelAutomationApp.Application.Common;
 using HotelAutomationApp.Application.Extensions;
+using HotelAutomationApp.Infrastructure.EmailServices;
+using HotelAutomationApp.Infrastructure.Interfaces.EmailServices;
+using HotelAutomationApp.Infrastructure.Interfaces.EmailServices.Configuration;
 using HotelAutomationApp.Infrastructure.Interfaces.MediaFiles;
 using HotelAutomationApp.Persistence.Extensions;
 using HotelAutomationApp.Shared.Extensions;
@@ -89,6 +92,10 @@ namespace HotelAutomationApp.WebApi
             services.AddSeed();
             services.AddAuthenticationSystem(Configuration);
             services.AddSecurityServices(Configuration);
+
+            services.AddScoped<ISmtpClient, DefaultSmtpClient>();
+            services.Configure<SmtpConfiguration>(Configuration.GetSection("SMTPSettings"));
+            
             services.RegisterApplicationServices();
         }
 

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using HotelAutomationApp.Infrastructure.Interfaces.EmailServices;
 using HotelAutomationApp.WebApi.Seeds;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

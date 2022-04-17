@@ -16,7 +16,7 @@ public class GetRoomAvailabilityStateUseCase : UseCase<GetRoomAvailabilityStateR
     protected override async Task<bool> HandleAsync(
         GetRoomAvailabilityStateRequest request,
         CancellationToken cancellationToken) =>
-        await _mediator.Send(new GetRoomAvailabilityStateQuery(request.RoomId, request), cancellationToken);
+        (await _mediator.Send(new GetAvailableRoomsByPeriodQuery(request, request.RoomId), cancellationToken)).Any();
 }
 
 public class GetRoomAvailabilityStateRequest : UTCPeriod, IRequest<bool>

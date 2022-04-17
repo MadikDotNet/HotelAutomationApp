@@ -14,17 +14,17 @@ public static class BaseDictionaryExtensions
     {
         if (!string.IsNullOrEmpty(code))
         {
-            source = source.Where(q => fullMatching ? q.Code == code : q.Code.Contains(code));
+            source = source.Where(q => fullMatching ? q.Code == code : q.Code!.Contains(code));
         }
 
         if (!string.IsNullOrEmpty(name))
         {
-            source = source.Where(q => fullMatching ? q.Name == code : q.Code.Contains(name));
+            source = source.Where(q => fullMatching ? q.Name == code : q.Code!.Contains(name));
         }
         
         if (!string.IsNullOrEmpty(description))
         {
-            source = source.Where(q => fullMatching ? q.Name == description : q.Code.Contains(description));
+            source = source.Where(q => fullMatching ? q.Name == description : q.Code!.Contains(description));
         }
 
         return source;

@@ -5,7 +5,7 @@ public interface ICreateAuditor
     /// <summary>
     /// Creator identifier 
     /// </summary>
-    public string CreatedBy { get; set; }
+    public string? CreatedBy { get; set; }
         
     /// <summary>
     /// Date of creation

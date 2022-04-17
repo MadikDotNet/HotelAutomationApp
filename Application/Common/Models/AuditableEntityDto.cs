@@ -1,8 +1,9 @@
 using System;
+using HotelAutomationApp.Domain.Common.Abstractions.Audition;
 
 namespace HotelAutomationApp.Application.Common.Models
 {
-    public record AuditableEntityDto
+    public record AuditableEntityDto : IAuditable
     {
         public string CreatedBy { get; set; }
         
