@@ -26,7 +26,7 @@ namespace HotelAutomationApp.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                        .UseUrls("http://*:80");
+                        .UseUrls("http://*:80808");
                 });
     }
 }
