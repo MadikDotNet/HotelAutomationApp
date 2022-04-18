@@ -25,8 +25,7 @@ namespace HotelAutomationApp.WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>()
-                        .UseUrls("http://*:2020");
+                    webBuilder.UseStartup<Startup>();
                 });
     }
 }
