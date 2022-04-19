@@ -35,7 +35,58 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Black.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-BlackItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Bold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-BoldItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Condensed.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Italic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Light.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-LightItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Medium.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-MediumItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Regular.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-Thin.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\fonts\roboto\Roboto-ThinItalic.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\about-add.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\aboutus.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\apartment.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog-5.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog-6.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\blog-7.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\counter-bg.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\double_room.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\family_room.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\feedback-bg.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-1.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-11.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-12.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-17.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-18.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-bed-grey.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-paypal-grey.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-plan-grey.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-request-grey.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-user-grey.svg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon-wallet-grey.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon1.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon2.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon3.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\icon4.png" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\luxury_room.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\parallax-15.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\parallax-9.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\parallax.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-reserve.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-sq1.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-sq2.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-sq3.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-sq4.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-sq5.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\room-sq6.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\rooms-bg.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\assets\images\small_room.jpg" />
     </ItemGroup>
 
 </Project>
