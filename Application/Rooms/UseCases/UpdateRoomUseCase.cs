@@ -25,7 +25,9 @@ namespace HotelAutomationApp.Application.Rooms.UseCases
                 request.Capacity,
                 request.PricePerHour,
                 request.IsAvailable,
-                request.RoomGroupId);
+                request.RoomGroupId,
+                request.Name,
+                request.Description);
 
             await _mediator.Send(updateRoomCommand, CancellationToken.None);
 

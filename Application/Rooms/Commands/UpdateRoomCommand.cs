@@ -12,7 +12,7 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             double capacity,
             decimal pricePerHour,
             bool isAvailable,
-            string roomGroupId)
+            string roomGroupId, string name, string description)
         {
             Id = id;
             MaxGuestsCount = maxGuestsCount;
@@ -20,6 +20,8 @@ namespace HotelAutomationApp.Application.Rooms.Commands
             PricePerHour = pricePerHour;
             IsAvailable = isAvailable;
             RoomGroupId = roomGroupId;
+            Name = name;
+            Description = description;
         }
 
         public string Id { get; }
@@ -28,6 +30,8 @@ namespace HotelAutomationApp.Application.Rooms.Commands
         public decimal PricePerHour { get;  }
         public bool IsAvailable { get;  }
         public string RoomGroupId { get;  }
+        public string Name { get;  }
+        public string Description { get;  }
 
         private class Handler : AsyncRequestHandler<UpdateRoomCommand>
         {
@@ -49,6 +53,8 @@ namespace HotelAutomationApp.Application.Rooms.Commands
                 room.PricePerHour = request.PricePerHour;
                 room.RoomGroupId = request.RoomGroupId;
                 room.LastModifiedBy = _securityContext.UserId;
+                room.Name = request.Name;
+                room.Description = request.Description;
 
                 await _applicationDb.SaveChangesAsync(CancellationToken.None);
             }

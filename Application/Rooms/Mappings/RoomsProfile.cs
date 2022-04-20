@@ -9,7 +9,8 @@ namespace HotelAutomationApp.Application.Rooms.Mappings
         public RoomsProfile()
         {
             CreateMap<Room, RoomDto>()
-                .ForMember(q => q.Images, w => w.MapFrom(q => q.RoomFiles.Select(roomFile => roomFile.FileMetadata)));
+                .ForMember(q => q.Images, w => w.MapFrom(q => q.RoomFiles.Select(roomFile => roomFile.FileMetadata)))
+                .ForMember(q => q.RoomGroupName, w => w.MapFrom(q => q.RoomGroup.Name));
         }
     }
 }

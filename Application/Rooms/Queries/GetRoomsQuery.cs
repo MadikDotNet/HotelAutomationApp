@@ -114,7 +114,10 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                             : q.Description.Contains(request.Description));
                 }
 
-                var result = rooms.Select(room => _mapper.Map<RoomDto>(room)).ToList();
+                var result = rooms
+                    .Include(q => q.RoomGroup)
+                    .Select(room => _mapper.Map<RoomDto>(room))
+                    .ToList();
 
                 return result
                     .Localize()

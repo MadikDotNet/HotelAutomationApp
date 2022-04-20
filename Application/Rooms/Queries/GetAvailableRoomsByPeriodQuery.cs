@@ -55,7 +55,9 @@ public class GetAvailableRoomsByPeriodQuery : IRequest<List<Room>>
                 join booking in bookings on room.Id equals booking.RoomId into bookingsGp
                 from booking in bookingsGp.DefaultIfEmpty()
                 where booking == null
-                select room).ToListAsync(cancellationToken);
+                select room)
+                .Include(q => q.RoomGroup)
+                .ToListAsync(cancellationToken);
         }
     }
 }
