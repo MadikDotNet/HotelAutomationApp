@@ -25,10 +25,10 @@ public class TreeDictionaryCrudService<TTreeDictionary, TTreeDictionaryDto> :
             .ToListAsync(cancellationToken))
         .AsRecursiveTree(parent => parent.Id, child => child.ParentId).ToList();
 
-    public override async Task Upsert(TTreeDictionaryDto dictionaryDto)
+    public override async Task<string?> Upsert(TTreeDictionaryDto dictionaryDto)
     {
         await EnsureIsValid(dictionaryDto);
-        await base.Upsert(dictionaryDto);
+        return await base.Upsert(dictionaryDto);
     }
 
     private async Task EnsureIsValid(TTreeDictionaryDto dictionaryDto)

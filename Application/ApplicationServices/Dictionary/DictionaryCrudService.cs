@@ -41,7 +41,7 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
             .AsPageResponse(request);
     }
 
-    public virtual async Task Upsert(TDictionaryDto dictionaryDto)
+    public virtual async Task<string?> Upsert(TDictionaryDto dictionaryDto)
     {
         dictionaryDto.Name.EnsureIsNotEmpty(nameof(dictionaryDto.Name));
 
@@ -52,7 +52,7 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
             dbSet.Update(Mapper.Map<TDictionary>(dictionaryDto));
             await ApplicationDb.SaveChangesAsync(CancellationToken.None);
             
-            return;
+            return dictionaryDto.Id;
         }
         
         var record = dictionaryDto with {Id = Guid.NewGuid().ToString()};
@@ -61,6 +61,8 @@ public class DictionaryCrudService<TDictionary, TDictionaryDto>
 
         ApplicationDb.AsDbSet<TDictionary>().Add(newEntity);
         await ApplicationDb.SaveChangesAsync(CancellationToken.None);
+
+        return newEntity.Id;
     }
 
     public virtual async Task Delete(string id)

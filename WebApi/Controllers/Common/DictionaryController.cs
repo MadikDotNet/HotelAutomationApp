@@ -50,9 +50,9 @@ public abstract class DictionaryController
     public virtual async Task<IActionResult> Upsert(
         [FromBody] CreateDictionaryItemRequest<TDictionaryDto> request)
     {
-        await DictionaryService.Upsert(request.DictionaryDto);
+        var id = await DictionaryService.Upsert(request.DictionaryDto);
 
-        return Ok();
+        return Ok(id);
     }
 
     [HttpDelete("{id}")]

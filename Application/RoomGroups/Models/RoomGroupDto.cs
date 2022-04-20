@@ -8,5 +8,5 @@ public record RoomGroupDto : BaseDictionaryDto
 {
     public decimal MinPrice { get; set; }
     public string? FileId { get; set; }
-    public ICollection<ServiceDto> AvailableServices { get; set; }
+    public ICollection<ServiceDto>? AvailableServices { get; set; }
 }
