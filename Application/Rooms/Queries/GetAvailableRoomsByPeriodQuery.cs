@@ -57,6 +57,8 @@ public class GetAvailableRoomsByPeriodQuery : IRequest<List<Room>>
                 where booking == null
                 select room)
                 .Include(q => q.RoomGroup)
+                .Include(q => q.RoomFiles)
+                .ThenInclude(q => q.FileMetadata)
                 .ToListAsync(cancellationToken);
         }
     }
