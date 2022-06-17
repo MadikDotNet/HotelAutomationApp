@@ -74,6 +74,8 @@ namespace HotelAutomationApp.Application.Rooms.Queries
                     : _applicationDb.Room.AsQueryable();
 
                 rooms = rooms.Where(q => q.IsDeleted == request.IsDeleted)
+                    .Include(q => q.RoomFiles)
+                    .ThenInclude(q => q.FileMetadata)
                     .Where(q => string.IsNullOrEmpty(request.RoomGroupId) || q.RoomGroupId == request.RoomGroupId);
 
                 if (request.MaxGuestsCountDistance is not null)
